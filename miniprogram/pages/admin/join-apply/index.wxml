@@ -1,0 +1,23 @@
+<nav-bar title="加入申请" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <view class="admin-section-title">待处理申请</view>
+    <block wx:for="{{applies}}" wx:key="id">
+      <view class="apply-card admin-card">
+        <view class="apply-top">
+          <view class="avatar">{{item.initial}}</view>
+          <view class="row-copy">
+            <text class="row-title">{{item.name}}</text>
+            <text class="row-desc">{{item.role}} · {{item.team}} · {{item.time}}</text>
+          </view>
+          <text class="status-tag {{item.status === '待处理' ? 'tag-amber' : item.status === '已通过' ? 'tag-green' : 'tag-red'}}">{{item.status}}</text>
+        </view>
+        <view wx:if="{{item.status === '待处理'}}" class="apply-actions">
+          <view class="reject" data-id="{{item.id}}" catchtap="reject">拒绝</view>
+          <view class="approve" data-id="{{item.id}}" catchtap="approve">通过</view>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

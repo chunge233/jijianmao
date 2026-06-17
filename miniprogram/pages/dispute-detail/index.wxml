@@ -1,0 +1,56 @@
+<nav-bar title="异议详情" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="dispute-page">
+  <view class="dispute-content">
+    <view class="status-card">
+      <view class="status-icon">
+        <image src="/assets/icons/warning-circle-white.svg" mode="aspectFit"></image>
+      </view>
+      <view class="status-copy">
+        <text>异议处理中</text>
+        <text>管理员将于3个工作日内核实</text>
+      </view>
+    </view>
+
+    <view class="salary-card">
+      <view class="salary-line">
+        <text>异议工资</text>
+        <text>2026年6月</text>
+      </view>
+      <view class="divider"></view>
+      <view class="salary-line">
+        <text>应发工资</text>
+        <text class="salary-amount">¥8,560</text>
+      </view>
+    </view>
+
+    <view class="reason-card">
+      <view class="reason-head">
+        <image src="/assets/icons/chat-circle-text-gray.svg" mode="aspectFit"></image>
+        <text>异议说明</text>
+      </view>
+      <text class="reason-text">6月15日工序XJ-2026-001的计件数量与系统记录不符，实际完成200件，系统记录180件，请核实。</text>
+    </view>
+
+    <view class="timeline-card">
+      <text class="timeline-title">处理进度</text>
+      <block wx:for="{{timeline}}" wx:key="title">
+        <view class="timeline-row">
+          <view class="line-wrap">
+            <view class="timeline-dot {{item.active ? 'is-active' : ''}}"></view>
+            <view wx:if="{{index < timeline.length - 1}}" class="timeline-line"></view>
+          </view>
+          <view class="timeline-copy">
+            <text>{{item.title}}</text>
+            <text>{{item.time}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="contact-button">
+      <image src="/assets/icons/phone-blue.svg" mode="aspectFit"></image>
+      <text>联系管理员</text>
+    </view>
+  </view>
+</view>

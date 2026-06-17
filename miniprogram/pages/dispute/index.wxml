@@ -1,0 +1,85 @@
+<nav-bar title="提交异议" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="dispute-page">
+  <view class="dispute-content">
+    <view class="status-card">
+      <view class="status-icon">
+        <image src="/assets/icons/warning-circle-white.svg" mode="aspectFit"></image>
+      </view>
+      <view class="status-copy">
+        <text>异议处理中</text>
+        <text>管理员将于3个工作日内核实</text>
+      </view>
+    </view>
+
+    <view class="salary-card">
+      <view class="salary-line">
+        <text>异议工资</text>
+        <text>2026年6月</text>
+      </view>
+      <view class="divider"></view>
+      <view class="salary-line">
+        <text>应发工资</text>
+        <text class="salary-amount">¥8,560</text>
+      </view>
+    </view>
+
+    <view class="type-card">
+      <text class="card-title">异议类型</text>
+      <view class="type-grid">
+        <block wx:for="{{types}}" wx:key="id">
+          <view class="type-chip {{selectedType === item.id ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectType">{{item.label}}</view>
+        </block>
+      </view>
+    </view>
+
+    <view class="related-card">
+      <view class="related-head">
+        <text class="card-title">关联报工</text>
+        <text>已选 {{selectedReportCount}} 条</text>
+      </view>
+      <text class="related-hint">可同时关联多条报工，便于管理员一起核对。</text>
+      <block wx:for="{{relatedReports}}" wx:key="id">
+        <view class="related-row" data-id="{{item.id}}" bindtap="toggleReport">
+          <image class="check-icon" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+          <view class="related-info">
+            <text>{{item.title}}</text>
+            <text>{{item.meta}}</text>
+          </view>
+          <text class="related-amount">{{item.amount}}</text>
+        </view>
+      </block>
+    </view>
+
+    <view class="reason-card">
+      <view class="reason-head">
+        <image src="/assets/icons/chat-circle-text-gray.svg" mode="aspectFit"></image>
+        <text>问题描述</text>
+      </view>
+      <text class="reason-text">6月15日工序XJ-2026-001的计件数量与系统记录不符，实际完成200件，系统记录180件，请核实。</text>
+    </view>
+
+    <view class="timeline-card">
+      <text class="timeline-title">处理进度</text>
+      <block wx:for="{{timeline}}" wx:key="title">
+        <view class="timeline-row">
+          <view class="line-wrap">
+            <view class="timeline-dot {{item.active ? 'is-active' : ''}}"></view>
+            <view wx:if="{{index < timeline.length - 1}}" class="timeline-line"></view>
+          </view>
+          <view class="timeline-copy">
+            <text>{{item.title}}</text>
+            <text>{{item.time}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="contact-button">
+      <image src="/assets/icons/phone-blue.svg" mode="aspectFit"></image>
+      <text>联系管理员</text>
+    </view>
+
+    <view class="submit-button" bindtap="submitDispute">提交异议</view>
+  </view>
+</view>

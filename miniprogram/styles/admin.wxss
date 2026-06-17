@@ -1,0 +1,164 @@
+@import "./replica.wxss";
+
+.admin-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.admin-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 24rpx 24rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 24rpx 24rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.admin-card {
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.admin-section-title {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.admin-section-title::before {
+  width: 5rpx;
+  height: 28rpx;
+  border-radius: 3rpx;
+  background: #1A56DB;
+  content: "";
+}
+
+.admin-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 22rpx 24rpx;
+}
+
+.admin-row + .admin-row {
+  border-top: 1px solid #F3F4F6;
+}
+
+.row-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.row-title {
+  color: #111827;
+  font-size: 25rpx;
+  font-weight: 700;
+  line-height: 34rpx;
+}
+
+.row-desc {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.row-meta {
+  color: #9CA3AF;
+  font-size: 20rpx;
+}
+
+.amount-text {
+  color: #D97706;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.fixed-bottom {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 50;
+  padding: 20rpx 28rpx calc(20rpx + constant(safe-area-inset-bottom));
+  padding: 20rpx 28rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #FFFFFF;
+}
+
+.primary-action {
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14rpx;
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.sheet-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 80;
+  display: flex;
+  align-items: flex-end;
+  padding: 28rpx 28rpx calc(28rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(28rpx + env(safe-area-inset-bottom));
+  background: rgba(17, 24, 39, 0.42);
+}
+
+.sheet-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 30rpx 28rpx;
+  border-radius: 24rpx;
+  background: #FFFFFF;
+}
+
+.sheet-title {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.sheet-desc {
+  color: #6B7280;
+  font-size: 24rpx;
+  line-height: 38rpx;
+}
+
+.sheet-actions {
+  display: flex;
+  gap: 18rpx;
+}
+
+.sheet-action {
+  flex: 1;
+  height: 78rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14rpx;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.sheet-action.outline {
+  border: 1px solid #D1D5DB;
+  color: #374151;
+}
+
+.sheet-action.primary {
+  background: #1A56DB;
+  color: #FFFFFF;
+}

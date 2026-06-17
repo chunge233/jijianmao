@@ -1,0 +1,87 @@
+<nav-bar title="计件猫"></nav-bar>
+<guide-tour visible="{{showGuide}}" steps="{{guideSteps}}" storage-key="guide_home_v1" bind:close="closeGuide" bind:never="neverGuide"></guide-tour>
+
+<view class="home-page">
+  <view class="home-content">
+    <view class="salary-card" bindtap="openSalary">
+      <view class="salary-copy">
+        <text class="salary-label">本月工资</text>
+        <text class="salary-value">¥2,580.00</text>
+      </view>
+      <image class="salary-arrow" src="/assets/icons/caret-right-white.svg" mode="aspectFit"></image>
+      <view class="salary-bubble salary-bubble-large"></view>
+      <view class="salary-bubble salary-bubble-small"></view>
+    </view>
+
+    <view class="review-card" bindtap="openMessageDetail">
+      <view class="review-left">
+        <image class="review-icon" src="/assets/icons/bell-ringing-blue.svg" mode="aspectFit"></image>
+        <text class="review-text">产品质检 30件 已通过</text>
+        <view class="review-tag">通过</view>
+      </view>
+      <view class="more-link">
+        <text>更多</text>
+        <image class="more-icon" src="/assets/icons/caret-right-blue.svg" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view class="calendar-section">
+      <view class="section-title-row">
+        <view class="section-title-left">
+          <view class="section-title-bar"></view>
+          <text class="section-title">最近报工日历</text>
+        </view>
+        <view class="more-link" bindtap="openRecords">
+          <text>更多</text>
+          <image class="more-icon" src="/assets/icons/caret-right-blue.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+
+      <view class="calendar-week">
+        <image class="week-arrow" src="/assets/icons/caret-left-gray.svg" mode="aspectFit"></image>
+        <block wx:for="{{calendarDays}}" wx:key="day">
+          <view class="calendar-day {{item.active ? 'is-active' : ''}}">
+            <text class="weekday">{{item.week}}</text>
+            <view wx:if="{{item.active}}" class="day-badge">
+              <text>{{item.day}}</text>
+            </view>
+            <text wx:else class="day-number">{{item.day}}</text>
+            <view wx:if="{{item.dots}}" class="dot-row">
+              <view wx:if="{{item.dots >= 1}}" class="day-dot"></view>
+              <view wx:if="{{item.dots >= 2}}" class="day-dot"></view>
+              <text wx:if="{{item.more}}" class="day-more">{{item.more}}</text>
+            </view>
+            <view wx:else class="dot-placeholder"></view>
+          </view>
+        </block>
+        <image class="week-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <view class="report-section">
+      <view class="section-title-row report-title-row">
+        <view class="section-title-left">
+          <view class="section-title-bar"></view>
+          <text class="section-title">2026年6月17日 3条报工记录</text>
+        </view>
+      </view>
+
+      <block wx:for="{{reports}}" wx:key="amount">
+        <view class="report-card" data-path="{{item.path}}" bindtap="openReport">
+          <view class="report-top">
+            <view class="report-tag report-tag-{{item.typeClass}}">{{item.type}}</view>
+            <text class="report-amount">{{item.amount}}</text>
+          </view>
+          <text wx:if="{{item.title}}" class="report-name">{{item.title}}</text>
+          <view wx:else class="report-steps">
+            <block wx:for="{{item.steps}}" wx:for-item="step" wx:key="*this">
+              <text class="step-name">{{step}}</text>
+              <text wx:if="{{index < item.steps.length - 1}}" class="step-arrow">→</text>
+            </block>
+          </view>
+          <text class="report-meta">{{item.meta}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,106 @@
+@import "../../styles/replica.wxss";
+
+.login-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.login-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 44rpx;
+  padding: 44rpx 24rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 44rpx 24rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.logo-area {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.logo-box {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18rpx;
+  background: #1A56DB;
+}
+
+.logo-box image {
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.app-name {
+  color: #111827;
+  font-size: 31rpx;
+  font-weight: 700;
+}
+
+.slogan {
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.form-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 28rpx;
+  border-radius: 21rpx;
+  background: #FFFFFF;
+}
+
+.code-row {
+  display: flex;
+  gap: 14rpx;
+}
+
+.code-input {
+  flex: 1;
+}
+
+.code-button {
+  width: 164rpx;
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.agreement-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6rpx;
+  color: #9CA3AF;
+  font-size: 20rpx;
+}
+
+.agree-circle {
+  width: 20rpx;
+  height: 20rpx;
+  border: 1px solid #D1D5DB;
+  border-radius: 10rpx;
+}
+
+.link {
+  color: #1A56DB;
+}
+
+.bottom-hint {
+  color: #9CA3AF;
+  font-size: 22rpx;
+}

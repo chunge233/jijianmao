@@ -1,0 +1,72 @@
+<nav-bar title="工资报表" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827" right-icon="/assets/icons/export-blue.svg" bind:righttap="exportReport"></nav-bar>
+
+<view class="salary-report-page">
+  <view class="salary-content">
+    <view class="month-selector">
+      <image class="month-arrow" src="/assets/icons/caret-left-gray.svg" mode="aspectFit"></image>
+      <text>2026年6月 · 全厂</text>
+      <image class="month-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+    </view>
+
+    <view class="salary-card">
+      <view class="salary-copy">
+        <text class="salary-label">本月全厂工资</text>
+        <text class="salary-value">¥28,560.00</text>
+      </view>
+      <view class="salary-bubble salary-bubble-large"></view>
+      <view class="salary-bubble salary-bubble-small"></view>
+    </view>
+
+    <view class="salary-stats">
+      <block wx:for="{{stats}}" wx:key="label">
+        <view class="stat-card">
+          <text class="stat-value stat-{{item.tone}}">{{item.value}}</text>
+          <view class="stat-label-row">
+            <text>{{item.label}}</text>
+            <text wx:if="{{item.unit}}" class="stat-unit">{{item.unit}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="section-title">
+      <view class="section-title-bar"></view>
+      <text>工资单确认</text>
+    </view>
+
+    <view class="current-record">
+      <view class="record-top">
+        <text class="record-month">2026年6月</text>
+        <view class="record-amount">
+          <text>¥28,560.00</text>
+          <image src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+      <view class="record-status">
+        <view class="dot amber"></view>
+        <text>待确认 · 请核对工资后确认</text>
+      </view>
+      <view class="record-divider"></view>
+      <view class="action-row">
+        <view class="action primary">确认无误</view>
+        <view class="action outline">提出异议</view>
+      </view>
+    </view>
+
+    <block wx:for="{{history}}" wx:key="month">
+      <view class="history-card">
+        <view class="history-left">
+          <text class="history-month">{{item.month}}</text>
+          <view class="history-status history-{{item.tone}}">
+            <view class="dot {{item.tone}}"></view>
+            <text>{{item.status}}</text>
+          </view>
+        </view>
+        <view class="history-right">
+          <text>{{item.amount}}</text>
+          <image src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

@@ -1,0 +1,159 @@
+@import "../../styles/replica.wxss";
+
+.audit-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+.audit-tabs {
+  height: 86rpx;
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #F3F4F6;
+  background: #FFFFFF;
+}
+
+.audit-tab {
+  position: relative;
+  flex: 1;
+  height: 86rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  font-size: 26rpx;
+}
+
+.audit-tab.active {
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.indicator {
+  position: absolute;
+  bottom: 0;
+  width: 70rpx;
+  height: 5rpx;
+  border-radius: 3rpx;
+  background: #1A56DB;
+}
+
+.search-wrap {
+  padding: 12rpx 28rpx;
+  background: #FFFFFF;
+}
+
+.search-box {
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 0 22rpx;
+  border-radius: 16rpx;
+  background: #F9FAFB;
+  color: #9CA3AF;
+  font-size: 24rpx;
+}
+
+.search-box image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.audit-list {
+  padding-bottom: calc(72rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.audit-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 20rpx 28rpx;
+  background: #FFFFFF;
+}
+
+.audit-top,
+.title-line,
+.action-row {
+  display: flex;
+  align-items: center;
+}
+
+.audit-top {
+  gap: 18rpx;
+}
+
+.avatar {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 56rpx;
+  border-radius: 28rpx;
+  color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.audit-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.name {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.code {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.meta {
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.time {
+  color: #9CA3AF;
+  font-size: 20rpx;
+}
+
+.action-row {
+  gap: 14rpx;
+}
+
+.reject,
+.approve {
+  flex: 1;
+  height: 58rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.reject {
+  border: 1px solid #EF4444;
+  color: #EF4444;
+}
+
+.approve {
+  background: #1A56DB;
+  color: #FFFFFF;
+}
+
+.divider {
+  height: 1px;
+  background: #F3F4F6;
+}

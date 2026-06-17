@@ -1,0 +1,295 @@
+@import "../../styles/replica.wxss";
+
+.salary-report-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.salary-content {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 22rpx 21rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 22rpx 21rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.month-selector {
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 7rpx;
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.month-arrow {
+  width: 31rpx;
+  height: 31rpx;
+}
+
+.salary-card {
+  position: relative;
+  min-height: 197rpx;
+  overflow: hidden;
+  padding: 42rpx 35rpx;
+  border-radius: 21rpx;
+  background: linear-gradient(135deg, #1A56DB 0%, #1E3A8A 100%);
+}
+
+.salary-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.salary-label {
+  color: #DBEAFE;
+  font-size: 24rpx;
+  line-height: 35rpx;
+}
+
+.salary-value {
+  color: #FFFFFF;
+  font-size: 54rpx;
+  font-weight: 700;
+  line-height: 68rpx;
+}
+
+.salary-bubble {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.salary-bubble-large {
+  top: -70rpx;
+  right: -35rpx;
+  width: 209rpx;
+  height: 209rpx;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.salary-bubble-small {
+  top: 35rpx;
+  right: 35rpx;
+  width: 140rpx;
+  height: 140rpx;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.salary-stats {
+  display: flex;
+  gap: 17rpx;
+}
+
+.stat-card {
+  flex: 1;
+  min-height: 112rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7rpx;
+  padding: 16rpx 10rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.stat-value {
+  font-size: 32rpx;
+  font-weight: 700;
+  line-height: 40rpx;
+}
+
+.stat-blue {
+  color: #1A56DB;
+}
+
+.stat-green {
+  color: #059669;
+}
+
+.stat-amber {
+  color: #D97706;
+}
+
+.stat-label-row {
+  display: flex;
+  align-items: center;
+  gap: 5rpx;
+  color: #6B7280;
+  font-size: 19rpx;
+  line-height: 28rpx;
+}
+
+.stat-unit {
+  color: #9CA3AF;
+  font-size: 17rpx;
+}
+
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  min-height: 38rpx;
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.section-title-bar {
+  width: 5rpx;
+  height: 28rpx;
+  border-radius: 3rpx;
+  background: #1A56DB;
+}
+
+.current-record {
+  height: 262rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 21rpx;
+  padding: 24rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.record-top,
+.record-amount,
+.record-status,
+.action-row,
+.history-card,
+.history-status,
+.history-right {
+  display: flex;
+  align-items: center;
+}
+
+.record-top,
+.history-card {
+  justify-content: space-between;
+}
+
+.record-month {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 600;
+}
+
+.record-amount {
+  gap: 7rpx;
+  color: #1A56DB;
+  font-size: 35rpx;
+  font-weight: 700;
+}
+
+.record-amount image {
+  width: 26rpx;
+  height: 26rpx;
+}
+
+.record-status,
+.history-status {
+  gap: 10rpx;
+  font-size: 23rpx;
+}
+
+.record-status {
+  color: #D97706;
+}
+
+.dot {
+  width: 10rpx;
+  height: 10rpx;
+  flex: 0 0 10rpx;
+  border-radius: 50%;
+}
+
+.dot.amber {
+  background: #D97706;
+}
+
+.dot.green {
+  background: #059669;
+}
+
+.dot.red {
+  background: #DC2626;
+}
+
+.record-divider {
+  height: 1px;
+  background: #F3F4F6;
+}
+
+.action-row {
+  gap: 21rpx;
+}
+
+.action {
+  flex: 1;
+  height: 63rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14rpx;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.action.primary {
+  background: #1A56DB;
+  color: #FFFFFF;
+}
+
+.action.outline {
+  border: 1px solid #D97706;
+  background: #FFFFFF;
+  color: #D97706;
+}
+
+.history-card {
+  min-height: 124rpx;
+  gap: 21rpx;
+  padding: 24rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.history-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7rpx;
+}
+
+.history-month {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 38rpx;
+}
+
+.history-green {
+  color: #059669;
+}
+
+.history-red {
+  color: #DC2626;
+}
+
+.history-right {
+  gap: 10rpx;
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.history-right image {
+  width: 24rpx;
+  height: 24rpx;
+}

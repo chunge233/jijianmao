@@ -1,0 +1,28 @@
+<nav-bar title="审核详情" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="audit-detail-page">
+  <view class="detail-content">
+    <view class="worker-card">
+      <view class="avatar">张</view>
+      <view class="worker-info">
+        <text class="worker-name">张伟</text>
+        <text class="worker-role">裁剪组</text>
+      </view>
+    </view>
+
+    <view class="info-card">
+      <block wx:for="{{rows}}" wx:key="label">
+        <view class="info-row">
+          <text>{{item.label}}</text>
+          <text class="{{item.highlight ? 'highlight' : ''}}">{{item.value}}</text>
+        </view>
+        <view wx:if="{{index < rows.length - 1}}" class="divider"></view>
+      </block>
+    </view>
+
+    <view class="action-row">
+      <view class="reject">驳回</view>
+      <view class="approve">通过</view>
+    </view>
+  </view>
+</view>

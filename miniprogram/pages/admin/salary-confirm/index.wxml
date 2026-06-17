@@ -1,0 +1,35 @@
+<nav-bar title="工资确认管理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <view class="progress-card admin-card">
+      <text class="month">2026年6月</text>
+      <view class="progress-head">
+        <text>确认进度</text>
+        <text>68%</text>
+      </view>
+      <view class="progress-track"><view class="progress-fill"></view></view>
+      <text class="row-desc">21人中 14 人已确认，2 人异议中</text>
+    </view>
+
+    <view class="tabs">
+      <block wx:for="{{tabs}}" wx:key="label">
+        <view class="tab {{item.active ? 'active' : ''}}">{{item.label}}</view>
+      </block>
+    </view>
+
+    <view class="admin-card">
+      <block wx:for="{{employees}}" wx:key="name">
+        <view class="admin-row">
+          <view class="row-copy">
+            <text class="row-title">{{item.name}}</text>
+            <text class="row-desc">{{item.team}} · {{item.amount}}</text>
+          </view>
+          <text class="status-tag tag-{{item.tone}}">{{item.status}}</text>
+        </view>
+      </block>
+    </view>
+
+    <view class="primary-action" bindtap="remind">一键催确认</view>
+  </view>
+</view>

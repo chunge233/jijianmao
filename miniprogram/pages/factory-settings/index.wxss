@@ -1,0 +1,52 @@
+@import "../../styles/replica.wxss";
+
+.factory-settings-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+.settings-list {
+  padding: 42rpx 0 calc(72rpx + constant(safe-area-inset-bottom)) 0;
+  padding: 42rpx 0 calc(72rpx + env(safe-area-inset-bottom)) 0;
+}
+
+.settings-row {
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 0 36rpx;
+  background: #FFFFFF;
+}
+
+.row-icon {
+  width: 38rpx;
+  height: 38rpx;
+  flex: 0 0 38rpx;
+}
+
+.row-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.row-title {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 36rpx;
+}
+
+.row-desc {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.arrow {
+  width: 30rpx;
+  height: 30rpx;
+}

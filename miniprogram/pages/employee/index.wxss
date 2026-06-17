@@ -1,0 +1,146 @@
+@import "../../styles/replica.wxss";
+
+.employee-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+.top-tabs {
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 88rpx;
+  background: #FFFFFF;
+}
+
+.top-tab {
+  position: relative;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  color: #6B7280;
+  font-size: 24rpx;
+}
+
+.top-tab.active {
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.top-tab.active::after {
+  position: absolute;
+  right: 8rpx;
+  bottom: 0;
+  left: 8rpx;
+  height: 4rpx;
+  border-radius: 2rpx;
+  background: #1A56DB;
+  content: "";
+}
+
+.search-wrap {
+  padding: 8rpx 28rpx;
+}
+
+.search-box {
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 22rpx;
+  border-radius: 14rpx;
+  background: #F9FAFB;
+  color: #9CA3AF;
+  font-size: 24rpx;
+}
+
+.search-box image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.role-tabs {
+  display: flex;
+  gap: 34rpx;
+  padding: 18rpx 28rpx 8rpx;
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.role-tabs .active {
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.employee-list {
+  padding-bottom: calc(72rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.employee-row {
+  height: 92rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 0 28rpx;
+}
+
+.avatar {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 56rpx;
+  border-radius: 28rpx;
+  color: #FFFFFF;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.employee-info {
+  flex: 1;
+  min-width: 0;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 10rpx;
+  row-gap: 4rpx;
+}
+
+.employee-name {
+  color: #111827;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.employee-role {
+  grid-column: 1;
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.employee-info .status-tag {
+  grid-column: 2;
+  display: inline-flex;
+  width: auto;
+  padding: 2rpx 8rpx;
+  font-size: 17rpx;
+}
+
+.phone {
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.arrow {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.divider {
+  height: 1px;
+  margin-left: 102rpx;
+  background: #F3F4F6;
+}

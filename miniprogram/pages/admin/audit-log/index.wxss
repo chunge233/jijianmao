@@ -1,0 +1,56 @@
+@import "../../../styles/admin.wxss";
+
+.chip-row {
+  display: flex;
+  gap: 14rpx;
+  overflow: hidden;
+}
+
+.chip {
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 22rpx;
+  border-radius: 27rpx;
+  background: #FFFFFF;
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.chip.active {
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-weight: 700;
+}
+
+.log-card {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 24rpx;
+}
+
+.log-dot {
+  width: 16rpx;
+  height: 16rpx;
+  flex: 0 0 16rpx;
+  border-radius: 8rpx;
+}
+
+.dot-blue {
+  background: #1A56DB;
+}
+
+.dot-green {
+  background: #059669;
+}
+
+.dot-amber {
+  background: #D97706;
+}
+
+.arrow {
+  width: 28rpx;
+  height: 28rpx;
+}

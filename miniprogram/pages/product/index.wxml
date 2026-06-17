@@ -1,0 +1,28 @@
+<nav-bar title="产品管理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="product-page">
+  <view class="search-bar">
+    <view class="mini-add"><image src="/assets/icons/plus-white.svg" mode="aspectFit"></image></view>
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索产品名称...</text>
+    </view>
+  </view>
+  <text class="count-text">共 6 款产品</text>
+
+  <view class="product-list">
+    <block wx:for="{{products}}" wx:key="code">
+      <view class="product-row">
+        <view class="thumb">{{item.initial}}</view>
+        <view class="product-info">
+          <text class="product-name">{{item.name}}</text>
+          <text class="product-meta">{{item.code}} · {{item.category}}</text>
+        </view>
+        <text class="price">{{item.price}}</text>
+        <image class="row-icon" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+      </view>
+      <view wx:if="{{index < products.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

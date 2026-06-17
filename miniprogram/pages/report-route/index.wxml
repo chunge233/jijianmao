@@ -1,0 +1,85 @@
+<nav-bar title="立即报工-工艺路线" show-back="{{true}}"></nav-bar>
+
+<view class="route-page">
+  <view class="route-content">
+    <view class="mode-card">
+      <view class="mode-row">
+        <view class="mode-item">
+          <image class="mode-icon" src="/assets/icons/circle-gray.svg" mode="aspectFit"></image>
+          <text>选择工序</text>
+        </view>
+        <view class="mode-item is-active">
+          <image class="mode-icon" src="/assets/icons/circle-fill-blue.svg" mode="aspectFit"></image>
+          <text>选择工艺路线</text>
+        </view>
+      </view>
+      <view class="select-trigger">
+        <text>请选择工艺路线</text>
+        <image class="trigger-icon" src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <block wx:for="{{routes}}" wx:key="title">
+      <view class="route-card">
+        <view class="route-title-row">
+          <view class="route-title-left">
+            <view class="route-mark"></view>
+            <text>{{item.title}}</text>
+          </view>
+          <image class="fold-icon" src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+        </view>
+        <view class="route-grid table-head">
+          <text>工序</text>
+          <text>单价</text>
+          <text class="center">数量</text>
+          <text class="right">小计</text>
+        </view>
+        <block wx:for="{{item.steps}}" wx:for-item="step" wx:key="name">
+          <view class="route-grid route-row">
+            <view class="name-cell">
+              <text>{{step.name}}</text>
+              <text wx:if="{{step.terminal}}" class="terminal-tag">末端</text>
+            </view>
+            <text class="price-cell">{{step.price}}</text>
+            <view class="stepper">
+              <view class="stepper-btn minus">−</view>
+              <text class="stepper-value">{{step.quantity}}</text>
+              <view class="stepper-btn plus">+</view>
+            </view>
+            <text class="subtotal-cell">{{step.subtotal}}</text>
+          </view>
+        </block>
+        <view class="route-total">
+          <text>合计</text>
+          <text>{{item.total}}</text>
+        </view>
+      </view>
+    </block>
+
+    <view class="form-card">
+      <text class="form-label">表单备注</text>
+      <view class="remark-box">请输入备注信息（选填）</view>
+    </view>
+
+    <view class="form-card">
+      <view class="photo-title">
+        <text class="form-label">现场图片</text>
+        <text class="photo-hint">最多9张</text>
+      </view>
+      <view class="photo-uploader">
+        <image class="photo-plus" src="/assets/icons/plus-gray.svg" mode="aspectFit"></image>
+        <text>上传图片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-safe">
+    <view class="submit-button" bindtap="goSuccess">
+      <text class="submit-amount">¥ 95.00</text>
+      <view class="submit-action">
+        <image class="submit-icon" src="/assets/icons/paper-plane-white.svg" mode="aspectFit"></image>
+        <text>提交报工</text>
+      </view>
+    </view>
+  </view>
+</view>

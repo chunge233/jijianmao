@@ -1,0 +1,22 @@
+<nav-bar title="提交报工" show-back="{{true}}" back-text="首页" back-icon="/assets/icons/house-blue.svg" home-back="{{true}}"></nav-bar>
+
+<view class="success-page">
+  <view class="success-content">
+    <view class="check-circle">
+      <image class="check-icon" src="/assets/icons/check-green.svg" mode="aspectFit"></image>
+    </view>
+    <text class="success-title">报工提交成功</text>
+
+    <view class="summary-card">
+      <block wx:for="{{summary}}" wx:key="label">
+        <view class="summary-row">
+          <text>{{item.label}}</text>
+          <text class="{{item.tone === 'amount' ? 'amount' : ''}}">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+
+    <view class="primary-button wide-button" bindtap="goRecords">查看报工记录</view>
+    <view class="ghost-button" bindtap="goReport">继续报工</view>
+  </view>
+</view>

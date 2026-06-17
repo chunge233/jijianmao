@@ -1,0 +1,63 @@
+@import "../../../styles/admin.wxss";
+
+.price-content {
+  padding-bottom: calc(150rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(150rpx + env(safe-area-inset-bottom));
+}
+
+.tip-card {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 22rpx 24rpx;
+  color: #92400E;
+  font-size: 23rpx;
+  line-height: 34rpx;
+  background: #FFF7ED;
+}
+
+.tip-card image {
+  width: 34rpx;
+  height: 34rpx;
+}
+
+.price-row {
+  min-height: 100rpx;
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 18rpx 20rpx;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.price-row:last-child {
+  border-bottom: 0;
+}
+
+.check-icon {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.arrow-text {
+  color: #9CA3AF;
+}
+
+.price-input {
+  width: 132rpx;
+  height: 58rpx;
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  padding: 0 14rpx;
+  border-radius: 10rpx;
+  background: #F3F4F6;
+  color: #111827;
+  font-size: 23rpx;
+}
+
+.price-input input {
+  flex: 1;
+  min-width: 0;
+  font-size: 23rpx;
+}

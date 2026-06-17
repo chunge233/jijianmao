@@ -1,0 +1,37 @@
+<nav-bar title="员工管理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="employee-page">
+  <view class="top-tabs">
+    <view class="top-tab active">在线 12</view>
+    <view class="top-tab">离职 3</view>
+  </view>
+
+  <view class="search-wrap">
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索员工姓名...</text>
+    </view>
+  </view>
+
+  <view class="role-tabs">
+    <block wx:for="{{roles}}" wx:key="*this">
+      <text class="{{index === 0 ? 'active' : ''}}">{{item}}</text>
+    </block>
+  </view>
+
+  <view class="employee-list">
+    <block wx:for="{{employees}}" wx:key="phone">
+      <view class="employee-row">
+        <view class="avatar" style="background: {{item.color}};">{{item.initial}}</view>
+        <view class="employee-info">
+          <text class="employee-name">{{item.name}}</text>
+          <text class="employee-role">{{item.role}}</text>
+          <text class="status-tag {{item.tag === '离职' ? 'tag-red' : 'tag-blue'}}">{{item.tag}}</text>
+        </view>
+        <text class="phone">{{item.phone}}</text>
+        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+      <view wx:if="{{index < employees.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

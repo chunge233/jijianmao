@@ -1,0 +1,20 @@
+<nav-bar title="工厂通知设置" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <view class="tip admin-card">这里设置工厂级通知模板；个人声音、震动、免打扰请到“我的-设置”里调整。</view>
+    <view class="admin-card">
+      <block wx:for="{{rows}}" wx:key="title">
+        <view class="admin-row">
+          <view class="row-copy">
+            <text class="row-title">{{item.title}}</text>
+            <text class="row-desc">{{item.desc}}</text>
+          </view>
+          <view class="switch {{item.enabled ? 'on' : ''}}" data-index="{{index}}" bindtap="toggle">
+            <view></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

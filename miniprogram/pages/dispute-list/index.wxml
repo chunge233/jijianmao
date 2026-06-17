@@ -1,0 +1,39 @@
+<nav-bar title="异议处理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="dispute-page">
+  <view class="dispute-tabs">
+    <block wx:for="{{tabs}}" wx:key="label">
+      <view class="dispute-tab {{item.active ? 'active' : ''}}" data-index="{{index}}" bindtap="switchTab">
+        <text>{{item.label}} {{item.count}}</text>
+        <view wx:if="{{item.active}}" class="indicator"></view>
+      </view>
+    </block>
+  </view>
+
+  <view class="search-wrap">
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索员工姓名...</text>
+    </view>
+  </view>
+
+  <view class="dispute-list">
+    <block wx:for="{{disputes}}" wx:key="id">
+      <view class="dispute-card" data-id="{{item.id}}" bindtap="openDispute">
+        <view class="card-top">
+          <view class="avatar">{{item.initial}}</view>
+          <view class="card-info">
+            <text class="name">{{item.name}}</text>
+            <text class="reason">{{item.reason}}</text>
+          </view>
+          <text class="status-tag tag-{{item.tone}}">{{item.status}}</text>
+        </view>
+        <view class="card-bottom">
+          <text>{{item.time}}</text>
+          <image src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+      <view wx:if="{{index < disputes.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

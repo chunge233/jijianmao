@@ -1,0 +1,282 @@
+@import "../../styles/replica.wxss";
+
+.dispute-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+.dispute-content {
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+  padding: 20rpx 20rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 20rpx 20rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.status-card,
+.salary-card,
+.reason-card,
+.type-card,
+.related-card {
+  border-radius: 18rpx;
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 24rpx;
+  background: #FFF7ED;
+}
+
+.status-icon {
+  width: 56rpx;
+  height: 56rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 28rpx;
+  background: #F59E0B;
+}
+
+.status-icon image {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.status-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.status-copy text:first-child {
+  color: #D97706;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.status-copy text:last-child {
+  color: #92400E;
+  font-size: 21rpx;
+}
+
+.salary-card,
+.reason-card,
+.type-card,
+.related-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding: 24rpx;
+  background: #F3F4F6;
+}
+
+.salary-line,
+.reason-head,
+.contact-button,
+.submit-button,
+.related-head,
+.related-row {
+  display: flex;
+  align-items: center;
+}
+
+.salary-line {
+  justify-content: space-between;
+  color: #6B7280;
+  font-size: 23rpx;
+}
+
+.salary-line text:last-child {
+  color: #111827;
+  font-weight: 700;
+}
+
+.salary-amount {
+  font-size: 32rpx;
+}
+
+.divider {
+  height: 1px;
+  background: #E5E7EB;
+}
+
+.card-title {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.type-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14rpx;
+}
+
+.type-chip {
+  height: 62rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #E5E7EB;
+  border-radius: 12rpx;
+  background: #FFFFFF;
+  color: #6B7280;
+  font-size: 23rpx;
+}
+
+.type-chip.is-selected {
+  border-color: #1A56DB;
+  background: #E8F0FE;
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.related-head {
+  justify-content: space-between;
+}
+
+.related-head text:last-child,
+.related-hint {
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.related-row {
+  gap: 14rpx;
+  min-height: 82rpx;
+  padding: 14rpx 0;
+  border-top: 1px solid #E5E7EB;
+}
+
+.check-icon {
+  width: 30rpx;
+  height: 30rpx;
+  flex: 0 0 30rpx;
+}
+
+.related-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.related-info text:first-child {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.related-info text:last-child {
+  color: #6B7280;
+  font-size: 20rpx;
+}
+
+.related-amount {
+  color: #F59E0B;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.reason-head {
+  gap: 10rpx;
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.reason-head image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.reason-text {
+  color: #111827;
+  font-size: 24rpx;
+  line-height: 38rpx;
+}
+
+.timeline-card {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.timeline-title {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.timeline-row {
+  display: flex;
+  gap: 18rpx;
+}
+
+.line-wrap {
+  position: relative;
+  width: 24rpx;
+  display: flex;
+  justify-content: center;
+}
+
+.timeline-dot {
+  width: 14rpx;
+  height: 14rpx;
+  margin-top: 8rpx;
+  border-radius: 7rpx;
+  background: #D1D5DB;
+}
+
+.timeline-dot.is-active {
+  background: #1A56DB;
+}
+
+.timeline-line {
+  position: absolute;
+  top: 24rpx;
+  bottom: -18rpx;
+  width: 2rpx;
+  background: #D1D5DB;
+}
+
+.timeline-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+  color: #111827;
+  font-size: 23rpx;
+  font-weight: 600;
+}
+
+.timeline-copy text:last-child {
+  color: #6B7280;
+  font-size: 20rpx;
+  font-weight: 400;
+}
+
+.contact-button,
+.submit-button {
+  height: 74rpx;
+  justify-content: center;
+  gap: 10rpx;
+  border: 2rpx solid #1A56DB;
+  border-radius: 12rpx;
+  color: #1A56DB;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.contact-button image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.submit-button {
+  border: 0;
+  background: #1A56DB;
+  color: #FFFFFF;
+}

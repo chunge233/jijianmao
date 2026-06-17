@@ -1,0 +1,24 @@
+<view wx:if="{{!hidden}}" class="tabbar-shell">
+  <view class="tabbar-panel">
+    <block wx:for="{{list}}" wx:key="pagePath">
+      <view
+        class="tabbar-item {{selected === index ? 'is-active' : ''}} {{item.center ? 'is-center' : ''}}"
+        data-index="{{index}}"
+        data-path="{{item.pagePath}}"
+        bindtap="switchTab"
+      >
+        <view wx:if="{{item.center}}" class="tabbar-center-button">
+          <image class="tabbar-icon tabbar-center-icon" src="{{item.iconPath}}" mode="aspectFit"></image>
+        </view>
+        <view wx:if="{{item.center}}" class="tabbar-center-placeholder"></view>
+        <image
+          wx:else
+          class="tabbar-icon"
+          src="{{selected === index ? item.selectedIconPath : item.iconPath}}"
+          mode="aspectFit"
+        ></image>
+        <text class="tabbar-label">{{item.text}}</text>
+      </view>
+    </block>
+  </view>
+</view>

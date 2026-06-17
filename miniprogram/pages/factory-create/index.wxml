@@ -1,0 +1,55 @@
+<nav-bar title="创建工厂" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="factory-create-page">
+  <view class="factory-create-content">
+    <view class="logo-section">
+      <view class="factory-logo">
+        <image src="/assets/icons/camera-blue.svg" mode="aspectFit"></image>
+        <text>上传Logo</text>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">工厂名称</text>
+      <view class="native-input">请输入工厂名称</view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">工厂类型</text>
+      <view class="type-grid">
+        <block wx:for="{{types}}" wx:key="*this">
+          <view class="type-chip">{{item}}</view>
+        </block>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">所在地区</text>
+      <view class="area-row">
+        <view class="area-select">省<image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image></view>
+        <view class="area-select">市<image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image></view>
+        <view class="area-select">区<image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image></view>
+      </view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">详情地址</text>
+      <view class="native-input">请输入详细地址，如xx路xx号</view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">联系人</text>
+      <view class="native-input">请输入联系人姓名</view>
+    </view>
+
+    <view class="field">
+      <text class="field-label">联系电话</text>
+      <view class="native-input">请输入联系电话</view>
+    </view>
+  </view>
+
+  <view class="bottom-area">
+    <view class="primary-button">创建工厂</view>
+    <text>创建后即可开始使用计件猫管理工厂</text>
+  </view>
+</view>

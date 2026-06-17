@@ -1,0 +1,84 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/message/index",
+    "pages/report/index",
+    "pages/salary/index",
+    "pages/profile/index",
+    "pages/manage/index",
+    "pages/audit/index",
+    "pages/audit-detail/index",
+    "pages/dispute-list/index",
+    "pages/announcement/index",
+    "pages/permission/index",
+    "pages/employee/index",
+    "pages/process/index",
+    "pages/dashboard/index",
+    "pages/product/index",
+    "pages/route-manage/index",
+    "pages/report-manage/index",
+    "pages/salary-report/index",
+    "pages/factory-settings/index",
+    "pages/admin/factory-info/index",
+    "pages/admin/join-apply/index",
+    "pages/admin/batch-price/index",
+    "pages/admin/salary-confirm/index",
+    "pages/admin/export-records/index",
+    "pages/admin/audit-log/index",
+    "pages/admin/audit-log-detail/index",
+    "pages/admin/backup/index",
+    "pages/admin/notification/index",
+    "pages/report-route/index",
+    "pages/submit-success/index",
+    "pages/report-records/index",
+    "pages/report-detail-single/index",
+    "pages/report-detail-route/index",
+    "pages/salary-detail/index",
+    "pages/salary-breakdown/index",
+    "pages/message-detail/index",
+    "pages/login/index",
+    "pages/factory-select/index",
+    "pages/factory-create/index",
+    "pages/factory-join/index",
+    "pages/dispute/index",
+    "pages/profile-edit/index",
+    "pages/settings/index"
+  ],
+  "window": {
+    "navigationStyle": "custom",
+    "backgroundColor": "#F3F4F6",
+    "backgroundTextStyle": "dark",
+    "enablePullDownRefresh": false
+  },
+  "usingComponents": {
+    "nav-bar": "/components/nav-bar/index"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#9CA3AF",
+    "selectedColor": "#1A56DB",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/message/index",
+        "text": "消息"
+      },
+      {
+        "pagePath": "pages/manage/index",
+        "text": "管理"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "sitemapLocation": "sitemap.json"
+}

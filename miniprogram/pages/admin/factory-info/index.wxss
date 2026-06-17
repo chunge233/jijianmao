@@ -1,0 +1,92 @@
+@import "../../../styles/admin.wxss";
+
+.factory-head {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 28rpx;
+}
+
+.factory-logo {
+  width: 86rpx;
+  height: 86rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 86rpx;
+  border-radius: 18rpx;
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-size: 34rpx;
+  font-weight: 700;
+}
+
+.factory-copy {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.factory-copy text:first-child {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.factory-copy text:last-child {
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14rpx;
+}
+
+.stat-card {
+  min-height: 104rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6rpx;
+}
+
+.stat-card text:first-child {
+  color: #1A56DB;
+  font-size: 32rpx;
+  font-weight: 700;
+}
+
+.stat-card text:last-child {
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.info-row {
+  min-height: 86rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22rpx;
+  padding: 0 24rpx;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.info-row:last-child {
+  border-bottom: 0;
+}
+
+.info-row text:first-child {
+  color: #6B7280;
+  font-size: 23rpx;
+}
+
+.info-row text:last-child {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 600;
+}

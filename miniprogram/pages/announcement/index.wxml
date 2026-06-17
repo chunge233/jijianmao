@@ -1,0 +1,32 @@
+<nav-bar title="公告管理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="announcement-page">
+  <view class="search-bar">
+    <view class="mini-add" bindtap="createAnnouncement">
+      <image src="/assets/icons/plus-white.svg" mode="aspectFit"></image>
+    </view>
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索公告标题...</text>
+    </view>
+  </view>
+
+  <text class="count-text">共 {{announcements.length}} 条公告</text>
+
+  <view class="announcement-list">
+    <block wx:for="{{announcements}}" wx:key="id">
+      <view class="announcement-row">
+        <view class="icon-box">
+          <image src="/assets/icons/megaphone-red.svg" mode="aspectFit"></image>
+        </view>
+        <view class="announcement-info">
+          <text class="announcement-title">{{item.title}}</text>
+          <text class="announcement-date">{{item.date}}</text>
+        </view>
+        <image class="row-icon" data-title="{{item.title}}" bindtap="editAnnouncement" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-id="{{item.id}}" bindtap="deleteAnnouncement" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+      </view>
+      <view wx:if="{{index < announcements.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

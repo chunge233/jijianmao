@@ -1,0 +1,43 @@
+<nav-bar title="报工审核" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="audit-page">
+  <view class="audit-tabs">
+    <view class="audit-tab active">
+      <text>待审核 5</text>
+      <view class="indicator"></view>
+    </view>
+    <view class="audit-tab">
+      <text>已审核 12</text>
+    </view>
+  </view>
+
+  <view class="search-wrap">
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索员工姓名...</text>
+    </view>
+  </view>
+
+  <view class="audit-list">
+    <block wx:for="{{audits}}" wx:key="code">
+      <view class="audit-card" bindtap="openDetail">
+        <view class="audit-top">
+          <view class="avatar" style="background: {{item.color}};">{{item.initial}}</view>
+          <view class="audit-info">
+            <view class="title-line">
+              <text class="name">{{item.name}}</text>
+              <text class="code">· {{item.code}}</text>
+            </view>
+            <text class="meta">{{item.process}} · {{item.count}}</text>
+          </view>
+          <text class="time">{{item.time}}</text>
+        </view>
+        <view class="action-row">
+          <view class="reject">驳回</view>
+          <view class="approve">通过</view>
+        </view>
+      </view>
+      <view wx:if="{{index < audits.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

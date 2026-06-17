@@ -1,0 +1,32 @@
+<nav-bar title="设置" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="settings-page">
+  <view class="settings-content">
+    <block wx:for="{{firstRows}}" wx:key="title">
+      <view class="settings-row">
+        <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
+        <view class="row-copy">
+          <text>{{item.title}}</text>
+          <text>{{item.desc}}</text>
+        </view>
+        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+    </block>
+
+    <view class="section-gap"></view>
+
+    <block wx:for="{{secondRows}}" wx:key="title">
+      <view class="settings-row">
+        <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
+        <view class="row-copy">
+          <text>{{item.title}}</text>
+          <text>{{item.desc}}</text>
+        </view>
+        <text wx:if="{{item.value}}" class="cache-value">{{item.value}}</text>
+        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+    </block>
+
+    <view class="logout-row">退出登录</view>
+  </view>
+</view>

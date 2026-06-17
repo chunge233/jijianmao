@@ -1,0 +1,20 @@
+<nav-bar title="导出记录" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <text class="row-desc">近30天导出记录</text>
+    <view class="admin-card">
+      <block wx:for="{{records}}" wx:key="name">
+        <view class="admin-row">
+          <image class="file-icon" src="/assets/icons/export-blue.svg" mode="aspectFit"></image>
+          <view class="row-copy">
+            <text class="row-title">{{item.name}}</text>
+            <text class="row-desc">{{item.scope}}</text>
+            <text class="row-meta">{{item.time}}</text>
+          </view>
+          <view class="download" data-name="{{item.name}}" bindtap="download">下载</view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

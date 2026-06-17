@@ -1,0 +1,69 @@
+@import "../../styles/replica.wxss";
+
+.manage-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.manage-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+  padding: 28rpx 28rpx calc(220rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(220rpx + env(safe-area-inset-bottom));
+}
+
+.manage-section {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.section-bar {
+  width: 6rpx;
+  height: 31rpx;
+  border-radius: 4rpx;
+  background: #1A56DB;
+}
+
+.manage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 18rpx;
+}
+
+.manage-card {
+  height: 136rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+  color: #111827;
+  font-size: 20rpx;
+  font-weight: 500;
+}
+
+.icon-box {
+  width: 48rpx;
+  height: 48rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-box image {
+  width: 40rpx;
+  height: 40rpx;
+}

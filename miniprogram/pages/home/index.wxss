@@ -1,0 +1,336 @@
+.home-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+  padding: 28rpx 28rpx calc(220rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(220rpx + env(safe-area-inset-bottom));
+}
+
+.salary-card {
+  position: relative;
+  min-height: 197rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  padding: 42rpx 35rpx;
+  border-radius: 21rpx;
+  background: linear-gradient(135deg, #1A56DB 0%, #1E3A8A 100%);
+}
+
+.salary-copy {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+}
+
+.salary-label {
+  color: #DBEAFE;
+  font-size: 24rpx;
+  line-height: 35rpx;
+}
+
+.salary-value {
+  color: #FFFFFF;
+  font-size: 56rpx;
+  font-weight: 700;
+  line-height: 68rpx;
+}
+
+.salary-arrow {
+  position: relative;
+  z-index: 2;
+  width: 42rpx;
+  height: 42rpx;
+}
+
+.salary-bubble {
+  position: absolute;
+  z-index: 1;
+  border-radius: 50%;
+}
+
+.salary-bubble-large {
+  top: -70rpx;
+  right: -35rpx;
+  width: 209rpx;
+  height: 209rpx;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.salary-bubble-small {
+  top: 35rpx;
+  right: 35rpx;
+  width: 140rpx;
+  height: 140rpx;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.review-card {
+  min-height: 82rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14rpx;
+  padding: 24rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.review-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 14rpx;
+}
+
+.review-icon {
+  width: 28rpx;
+  height: 28rpx;
+  flex: 0 0 28rpx;
+}
+
+.review-text {
+  overflow: hidden;
+  color: #111827;
+  font-size: 23rpx;
+  line-height: 33rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.review-tag {
+  flex: 0 0 auto;
+  padding: 3rpx 10rpx;
+  border-radius: 7rpx;
+  background: #D1FAE5;
+  color: #059669;
+  font-size: 17rpx;
+  font-weight: 500;
+  line-height: 24rpx;
+}
+
+.more-link {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  gap: 3rpx;
+  color: #1A56DB;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.more-icon {
+  width: 21rpx;
+  height: 21rpx;
+}
+
+.calendar-section,
+.report-section {
+  display: flex;
+  flex-direction: column;
+  gap: 21rpx;
+}
+
+.section-title-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 38rpx;
+}
+
+.section-title-left {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 10rpx;
+}
+
+.section-title-bar {
+  width: 5rpx;
+  height: 28rpx;
+  border-radius: 3rpx;
+  background: #1A56DB;
+}
+
+.section-title {
+  overflow: hidden;
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 600;
+  line-height: 38rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.calendar-week {
+  min-height: 143rpx;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 17rpx 21rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.week-arrow {
+  width: 28rpx;
+  height: 28rpx;
+  flex: 0 0 28rpx;
+}
+
+.calendar-day {
+  flex: 1;
+  min-width: 0;
+  height: 108rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+}
+
+.weekday {
+  color: #6B7280;
+  font-size: 17rpx;
+  line-height: 24rpx;
+}
+
+.day-number {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 500;
+  line-height: 30rpx;
+}
+
+.day-badge {
+  width: 42rpx;
+  height: 42rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 21rpx;
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-size: 23rpx;
+  font-weight: 700;
+  line-height: 28rpx;
+}
+
+.dot-row {
+  height: 19rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3rpx;
+}
+
+.day-dot {
+  width: 7rpx;
+  height: 7rpx;
+  border-radius: 50%;
+  background: #10B981;
+}
+
+.calendar-day.is-active .day-dot {
+  background: #FFFFFF;
+}
+
+.day-more {
+  color: #6B7280;
+  font-size: 16rpx;
+  line-height: 19rpx;
+}
+
+.calendar-day.is-active .day-more {
+  color: #DBEAFE;
+}
+
+.dot-placeholder {
+  width: 7rpx;
+  height: 19rpx;
+}
+
+.report-section {
+  gap: 14rpx;
+}
+
+.report-title-row {
+  margin-bottom: 0;
+}
+
+.report-card {
+  min-height: 174rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+  padding: 24rpx;
+  border-radius: 14rpx;
+  background: #FFFFFF;
+}
+
+.report-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14rpx;
+}
+
+.report-tag {
+  padding: 3rpx 10rpx;
+  border-radius: 7rpx;
+  font-size: 17rpx;
+  line-height: 24rpx;
+}
+
+.report-tag-blue {
+  background: #DBEAFE;
+  color: #1A56DB;
+}
+
+.report-tag-amber {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.report-amount {
+  color: #F59E0B;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 33rpx;
+}
+
+.report-name {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 500;
+  line-height: 35rpx;
+}
+
+.report-steps {
+  display: flex;
+  align-items: center;
+  min-width: 0;
+  gap: 10rpx;
+  color: #111827;
+  font-size: 23rpx;
+  line-height: 33rpx;
+}
+
+.step-arrow {
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.report-meta {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}

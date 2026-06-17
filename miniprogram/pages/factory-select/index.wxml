@@ -1,0 +1,37 @@
+<nav-bar show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="factory-select-page">
+  <view class="factory-select-content">
+    <view class="hero-icon">
+      <image src="/assets/icons/buildings-blue.svg" mode="aspectFit"></image>
+    </view>
+    <text class="title">欢迎使用计件猫</text>
+    <text class="subtitle">请选择加入已有工厂或创建新工厂</text>
+
+    <view class="option-list">
+      <view class="option-card join" bindtap="goJoin">
+        <view class="option-icon muted">
+          <image src="/assets/icons/users-three-blue.svg" mode="aspectFit"></image>
+        </view>
+        <view class="option-copy">
+          <text class="option-title">加入工厂</text>
+          <text class="option-desc">通过邀请码加入管理员创建的工厂</text>
+        </view>
+        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+
+      <view class="option-card create" bindtap="goCreate">
+        <view class="option-icon white">
+          <image src="/assets/icons/plus-circle-white.svg" mode="aspectFit"></image>
+        </view>
+        <view class="option-copy">
+          <text class="option-title">创建工厂</text>
+          <text class="option-desc">创建全新的工厂并管理计件工资</text>
+        </view>
+        <image class="arrow" src="/assets/icons/caret-right-white.svg" mode="aspectFit"></image>
+      </view>
+    </view>
+
+    <text class="footer-hint">已有工厂？请联系管理员获取邀请码</text>
+  </view>
+</view>

@@ -1,0 +1,57 @@
+<nav-bar title="报工详情-单工序" show-back="{{true}}"></nav-bar>
+
+<view class="detail-page">
+  <view class="detail-content">
+    <view class="head-card">
+      <view class="head-top">
+        <text class="head-title">产品质检</text>
+        <text class="status-tag tag-green">已通过</text>
+      </view>
+      <view class="head-meta">
+        <text class="type-tag">单工序</text>
+        <text>2026-06-17 14:30</text>
+      </view>
+    </view>
+
+    <view class="table-card">
+      <view class="single-grid table-head">
+        <text>工序</text>
+        <text>单价</text>
+        <text>数量</text>
+        <text>小计</text>
+      </view>
+      <view class="single-grid table-row">
+        <text class="strong">产品质检</text>
+        <text>¥0.35</text>
+        <text>30</text>
+        <text class="amber-text strong">¥10.50</text>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">现场图片</text>
+      <view class="photo-row">
+        <block wx:for="{{photos}}" wx:key="*this">
+          <view class="detail-photo">
+            <image src="/assets/icons/image-square-gray.svg" mode="aspectFit"></image>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">表单备注</text>
+      <text class="paragraph">产品表面无明显划痕，包装完好，符合出厂标准。已完成全部质检流程，提交审核。</text>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">审核信息</text>
+      <block wx:for="{{audit}}" wx:key="label">
+        <view class="info-row">
+          <text>{{item.label}}</text>
+          <text class="{{item.tone === 'green' ? 'green-text strong' : ''}}">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

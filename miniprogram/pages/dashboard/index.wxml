@@ -1,0 +1,52 @@
+<nav-bar title="数据看板" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="dashboard-page">
+  <view class="dashboard-content">
+    <view class="month-row">
+      <image src="/assets/icons/caret-left-black.svg" mode="aspectFit"></image>
+      <text>2026年6月</text>
+      <image class="right-arrow" src="/assets/icons/caret-left-black.svg" mode="aspectFit"></image>
+    </view>
+
+    <view class="metric-grid">
+      <block wx:for="{{metrics}}" wx:key="label">
+        <view class="metric-card">
+          <view class="metric-icon metric-{{item.tone}}">
+            <image src="{{item.icon}}" mode="aspectFit"></image>
+          </view>
+          <view class="metric-copy">
+            <text>{{item.label}}</text>
+            <text>{{item.value}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="panel">
+      <text class="panel-title">工人产出排名</text>
+      <block wx:for="{{ranks}}" wx:key="name">
+        <view class="rank-row">
+          <view class="rank-badge {{index < 3 ? 'top' : ''}}">{{item.rank}}</view>
+          <view class="rank-avatar" style="background: {{item.color}};">{{item.initial}}</view>
+          <text class="rank-name">{{item.name}}</text>
+          <text class="rank-quantity">{{item.quantity}}</text>
+        </view>
+      </block>
+    </view>
+
+    <view class="panel">
+      <text class="panel-title">工序占比</text>
+      <block wx:for="{{bars}}" wx:key="label">
+        <view class="bar-item">
+          <view class="bar-label-row">
+            <text>{{item.label}}</text>
+            <text>{{item.value}}</text>
+          </view>
+          <view class="bar-track">
+            <view class="bar-fill" style="width: {{item.width}}; background: {{item.color}};"></view>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

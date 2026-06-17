@@ -1,0 +1,35 @@
+@import "../../../styles/admin.wxss";
+
+.tip {
+  padding: 24rpx;
+  color: #6B7280;
+  font-size: 23rpx;
+  line-height: 36rpx;
+}
+
+.switch {
+  width: 88rpx;
+  height: 50rpx;
+  display: flex;
+  align-items: center;
+  padding: 4rpx;
+  border-radius: 25rpx;
+  background: #D1D5DB;
+  transition: background 0.18s ease;
+}
+
+.switch view {
+  width: 42rpx;
+  height: 42rpx;
+  border-radius: 21rpx;
+  background: #FFFFFF;
+  transition: transform 0.18s ease;
+}
+
+.switch.on {
+  background: #1A56DB;
+}
+
+.switch.on view {
+  transform: translateX(38rpx);
+}

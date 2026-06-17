@@ -1,0 +1,81 @@
+<nav-bar title="报工详情-工艺路线" show-back="{{true}}"></nav-bar>
+
+<view class="route-detail-page">
+  <view class="route-detail-content">
+    <view class="head-card">
+      <view class="head-top">
+        <text class="head-title">零件装配路线</text>
+        <text class="status-tag tag-amber">待审核</text>
+      </view>
+      <view class="head-meta">
+        <text class="type-tag route-type">工艺路线</text>
+        <text>2026-06-17 10:15</text>
+      </view>
+      <view class="summary-row">
+        <view>
+          <text class="summary-value">3</text>
+          <text>工序数</text>
+        </view>
+        <view>
+          <text class="summary-value">50</text>
+          <text>总件数</text>
+        </view>
+        <view>
+          <text class="summary-value amount">¥15.00</text>
+          <text>合计金额</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">工艺路线明细</text>
+      <view class="route-grid table-head">
+        <text>工序</text>
+        <text>单价</text>
+        <text>数量</text>
+        <text>小计</text>
+      </view>
+      <block wx:for="{{steps}}" wx:key="name">
+        <view class="route-grid table-row">
+          <view class="name-cell">
+            <text>{{item.name}}</text>
+            <text wx:if="{{item.terminal}}" class="terminal-tag">末端</text>
+          </view>
+          <text>{{item.price}}</text>
+          <text>{{item.count}}</text>
+          <text class="amber-text strong">{{item.amount}}</text>
+        </view>
+      </block>
+      <view class="route-total">
+        <text>合计</text>
+        <text>¥15.00</text>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">现场图片</text>
+      <view class="photo-row">
+        <block wx:for="{{photos}}" wx:key="*this">
+          <view class="detail-photo">
+            <image src="/assets/icons/image-square-gray.svg" mode="aspectFit"></image>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">表单备注</text>
+      <text class="paragraph">零件装配路线，共3道工序，请审核长确认计件加工加工。现在已按指定工序完成拍摄。</text>
+    </view>
+
+    <view class="section-card">
+      <text class="section-title">审核信息</text>
+      <block wx:for="{{audit}}" wx:key="label">
+        <view class="info-row">
+          <text>{{item.label}}</text>
+          <text class="{{item.tone === 'amber' ? 'amber-text strong' : ''}}">{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

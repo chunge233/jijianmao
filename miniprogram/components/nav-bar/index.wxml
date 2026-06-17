@@ -1,0 +1,14 @@
+<view class="nav-bar" style="height: {{navBarHeight}}px;">
+  <view class="nav-status" style="height: {{statusBarHeight}}px;"></view>
+  <view class="nav-content" style="height: {{contentHeight}}px;">
+    <view wx:if="{{showBack}}" class="nav-back {{backText ? '' : 'is-icon-only'}}" style="color: {{backColor}};" bindtap="handleBack">
+      <image class="nav-back-icon" src="{{backIcon}}" mode="aspectFit"></image>
+      <text wx:if="{{backText}}">{{backText}}</text>
+    </view>
+    <text class="nav-title">{{title}}</text>
+    <view wx:if="{{rightIcon}}" class="nav-right" bindtap="handleRightTap">
+      <image class="nav-right-icon" src="{{rightIcon}}" mode="aspectFit"></image>
+    </view>
+    <view wx:if="{{showBack && !rightIcon}}" class="nav-spacer"></view>
+  </view>
+</view>

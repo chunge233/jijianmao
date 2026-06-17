@@ -1,0 +1,24 @@
+<nav-bar title="日志详情" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <view class="admin-card detail-head">
+      <text>调整工序单价</text>
+      <text>陈经理 · 今天 11:20</text>
+      <text>来源：批量调价</text>
+    </view>
+    <view class="admin-section-title">变更前后</view>
+    <view class="admin-card">
+      <block wx:for="{{changes}}" wx:key="label">
+        <view class="change-row">
+          <text>{{item.label}}</text>
+          <view class="change-values">
+            <text>{{item.before}}</text>
+            <text>→</text>
+            <text>{{item.after}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>

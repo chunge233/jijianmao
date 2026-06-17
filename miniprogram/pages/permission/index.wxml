@@ -1,0 +1,36 @@
+<nav-bar title="权限管理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="permission-page">
+  <view class="search-row">
+    <view class="mini-add" bindtap="addRole">
+      <image src="/assets/icons/plus-white.svg" mode="aspectFit"></image>
+    </view>
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索角色名称...</text>
+    </view>
+  </view>
+
+  <view class="role-filters">
+    <block wx:for="{{filters}}" wx:key="*this">
+      <text class="{{index === 0 ? 'active' : ''}}">{{item}}</text>
+    </block>
+  </view>
+
+  <view class="role-list">
+    <block wx:for="{{roles}}" wx:key="name">
+      <view class="role-row" data-name="{{item.name}}" bindtap="openRole">
+        <view class="indicator" style="background: {{item.color}};"></view>
+        <view class="role-info">
+          <view class="role-name-row">
+            <text class="role-name">{{item.name}}</text>
+            <text class="role-count">{{item.count}}</text>
+          </view>
+          <text class="role-summary">{{item.summary}}</text>
+        </view>
+        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+      <view wx:if="{{index < roles.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

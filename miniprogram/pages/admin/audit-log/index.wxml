@@ -1,0 +1,22 @@
+<nav-bar title="操作日志" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <view class="chip-row">
+      <block wx:for="{{chips}}" wx:key="*this">
+        <view class="chip {{index === 0 ? 'active' : ''}}">{{item}}</view>
+      </block>
+    </view>
+    <block wx:for="{{logs}}" wx:key="id">
+      <view class="log-card admin-card" data-id="{{item.id}}" bindtap="openDetail">
+        <view class="log-dot dot-{{item.tone}}"></view>
+        <view class="row-copy">
+          <text class="row-title">{{item.action}}</text>
+          <text class="row-desc">{{item.user}} · {{item.detail}}</text>
+          <text class="row-meta">{{item.time}}</text>
+        </view>
+        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+      </view>
+    </block>
+  </view>
+</view>

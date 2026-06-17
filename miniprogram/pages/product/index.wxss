@@ -1,0 +1,115 @@
+@import "../../styles/replica.wxss";
+
+.product-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+  padding-bottom: calc(72rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.search-bar {
+  height: 76rpx;
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+  padding: 0 28rpx;
+}
+
+.mini-add {
+  width: 58rpx;
+  height: 58rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 58rpx;
+  border-radius: 12rpx;
+  background: #1A56DB;
+}
+
+.mini-add image {
+  width: 32rpx;
+  height: 32rpx;
+}
+
+.search-box {
+  flex: 1;
+  height: 58rpx;
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 20rpx;
+  border-radius: 12rpx;
+  background: #F3F4F6;
+  color: #9CA3AF;
+  font-size: 23rpx;
+}
+
+.search-box image {
+  width: 26rpx;
+  height: 26rpx;
+}
+
+.count-text {
+  display: block;
+  padding: 10rpx 28rpx 16rpx;
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.product-row {
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  padding: 0 28rpx;
+}
+
+.thumb {
+  width: 70rpx;
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 70rpx;
+  border-radius: 10rpx;
+  background: #F3F4F6;
+  color: #6B7280;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.product-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.product-name {
+  color: #111827;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.product-meta {
+  color: #6B7280;
+  font-size: 20rpx;
+}
+
+.price {
+  color: #1A56DB;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.row-icon {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.divider {
+  height: 1px;
+  margin-left: 28rpx;
+  background: #F3F4F6;
+}

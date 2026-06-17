@@ -1,0 +1,25 @@
+<nav-bar title="管理"></nav-bar>
+<guide-tour visible="{{showGuide}}" steps="{{guideSteps}}" storage-key="guide_manage_v1" bind:close="closeGuide" bind:never="neverGuide"></guide-tour>
+
+<view class="manage-page">
+  <view class="manage-content">
+    <block wx:for="{{sections}}" wx:key="title">
+      <view class="manage-section">
+        <view class="section-title-row">
+          <view class="section-bar"></view>
+          <text>{{item.title}}</text>
+        </view>
+        <view class="manage-grid">
+          <block wx:for="{{item.items}}" wx:for-item="entry" wx:key="label">
+            <view class="manage-card" data-path="{{entry.path}}" bindtap="openItem">
+              <view class="icon-box">
+                <image src="{{entry.icon}}" mode="aspectFit"></image>
+              </view>
+              <text>{{entry.label}}</text>
+            </view>
+          </block>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

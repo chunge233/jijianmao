@@ -1,0 +1,105 @@
+<nav-bar title="立即报工-单工序" show-back="{{true}}"></nav-bar>
+<guide-tour visible="{{showGuide}}" steps="{{guideSteps}}" storage-key="guide_report_v1" bind:close="closeGuide" bind:never="neverGuide"></guide-tour>
+
+<view class="report-page">
+  <view class="report-scroll">
+    <view class="select-card">
+      <view class="mode-row">
+        <view class="mode-item" bindtap="selectProcessMode">
+          <image class="mode-icon" src="{{selectedMode === 'process' ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+          <text class="{{selectedMode === 'process' ? 'mode-active' : ''}}">选择工序</text>
+        </view>
+        <view class="mode-item" bindtap="selectRouteMode">
+          <image class="mode-icon" src="{{selectedMode === 'route' ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+          <text class="{{selectedMode === 'route' ? 'mode-active' : ''}}">选择工艺路线</text>
+        </view>
+      </view>
+      <view class="select-trigger {{showProcessPicker ? 'is-open' : ''}}" bindtap="toggleProcessPicker">
+        <text class="{{selectedProcessId ? 'selected-text' : ''}}">{{selectedProcessName}}</text>
+        <image class="trigger-icon {{showProcessPicker ? 'is-open' : ''}}" src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+      </view>
+      <view wx:if="{{showProcessPicker}}" class="process-picker">
+        <block wx:for="{{processOptions}}" wx:key="id">
+          <view class="picker-option {{item.selected ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectProcess">
+            <view class="option-left">
+              <image class="option-radio" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+              <text>{{item.name}}</text>
+            </view>
+            <text class="option-price">{{item.price}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="process-card">
+      <view class="process-header process-grid">
+        <text>工序</text>
+        <text>单价</text>
+        <text class="center">数量</text>
+        <text class="right">小计</text>
+      </view>
+      <block wx:if="{{processes.length > 0}}">
+        <block wx:for="{{processes}}" wx:key="id">
+          <view class="process-row process-grid">
+            <text class="process-name">{{item.name}}</text>
+            <text class="process-price">{{item.price}}</text>
+            <view class="stepper">
+              <view class="stepper-btn minus {{item.quantity <= 1 ? 'is-disabled' : ''}}" data-index="{{index}}" catchtap="decreaseQuantity">−</view>
+              <text class="stepper-value">{{item.quantity}}</text>
+              <view class="stepper-btn plus" data-index="{{index}}" catchtap="increaseQuantity">+</view>
+            </view>
+            <text class="process-subtotal">{{item.subtotal}}</text>
+            <image class="remove-icon" data-index="{{index}}" catchtap="removeProcess" src="/assets/icons/x-circle-red.svg" mode="aspectFit"></image>
+          </view>
+          <view wx:if="{{index < processes.length - 1}}" class="process-divider"></view>
+        </block>
+      </block>
+      <view wx:else class="empty-process">
+        <text>暂无工序</text>
+        <text>点击上方选择计件工序添加</text>
+      </view>
+    </view>
+
+    <view class="form-card">
+      <text class="form-label">表单备注</text>
+      <view class="remark-box">
+        <text>请输入备注信息（选填）</text>
+      </view>
+    </view>
+
+    <view class="form-card">
+      <view class="photo-title">
+        <text class="form-label">现场图片</text>
+        <text class="photo-hint">最多9张</text>
+      </view>
+      <view class="photo-uploader">
+        <image class="photo-plus" src="/assets/icons/plus-gray.svg" mode="aspectFit"></image>
+        <text>上传图片</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="submit-bar">
+    <view class="submit-button" bindtap="goSuccess">
+      <text class="submit-amount">{{totalAmount}}</text>
+      <view class="submit-action">
+        <image class="submit-icon" src="/assets/icons/paper-plane-white.svg" mode="aspectFit"></image>
+        <text>提交报工</text>
+      </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showQuantityWarning}}" class="dialog-mask">
+    <view class="warning-dialog">
+      <view class="warning-icon">
+        <image src="/assets/icons/warning-circle-white.svg" mode="aspectFit"></image>
+      </view>
+      <text class="warning-title">数量明显高于历史平均</text>
+      <text class="warning-desc">本次报工中有工序数量超过 120 件，可能需要管理员重点核对。确认无误后可继续提交。</text>
+      <view class="warning-actions">
+        <view class="warning-action outline" bindtap="cancelAbnormalSubmit">返回修改</view>
+        <view class="warning-action primary" bindtap="confirmAbnormalSubmit">继续提交</view>
+      </view>
+    </view>
+  </view>
+</view>

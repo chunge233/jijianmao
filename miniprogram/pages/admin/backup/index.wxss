@@ -1,0 +1,54 @@
+@import "../../../styles/admin.wxss";
+
+.backup-content {
+  padding-bottom: calc(150rpx + constant(safe-area-inset-bottom));
+  padding-bottom: calc(150rpx + env(safe-area-inset-bottom));
+}
+
+.status-card {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 28rpx;
+}
+
+.status-card image {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.two-actions {
+  display: flex;
+  gap: 18rpx;
+}
+
+.two-actions .primary-action,
+.outline-action {
+  flex: 1;
+}
+
+.outline-action {
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #D1D5DB;
+  border-radius: 14rpx;
+  color: #374151;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.restore-bar {
+  height: 16rpx;
+  overflow: hidden;
+  border-radius: 8rpx;
+  background: #E5E7EB;
+}
+
+.restore-fill {
+  width: 72%;
+  height: 16rpx;
+  border-radius: 8rpx;
+  background: #1A56DB;
+}

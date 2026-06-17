@@ -1,0 +1,15 @@
+<view wx:if="{{visible && steps.length}}" class="guide-mask" catchtouchmove="noop">
+  <view class="guide-spot" style="{{currentStep.spotStyle}}"></view>
+  <view class="guide-panel {{currentStep.panelClass || 'panel-bottom'}}" catchtouchmove="noop">
+    <view class="panel-top">
+      <text class="step-count">{{displayIndex}} / {{steps.length}}</text>
+      <text class="close-text" bindtap="closeGuide">跳过</text>
+    </view>
+    <text class="guide-title">{{currentStep.title}}</text>
+    <text class="guide-desc">{{currentStep.desc}}</text>
+    <view class="guide-actions">
+      <view class="never-button" bindtap="neverShow">不再提示</view>
+      <view class="next-button" bindtap="nextStep">{{currentIndex === steps.length - 1 ? '完成' : '下一步'}}</view>
+    </view>
+  </view>
+</view>

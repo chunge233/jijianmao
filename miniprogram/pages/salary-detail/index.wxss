@@ -1,0 +1,187 @@
+@import "../../styles/replica.wxss";
+
+.salary-detail-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.salary-detail-content {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 20rpx 20rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 20rpx 20rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.salary-head-card,
+.detail-card,
+.action-card {
+  border-radius: 21rpx;
+  background: #FFFFFF;
+}
+
+.salary-head-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding: 34rpx;
+}
+
+.salary-head-top,
+.salary-stat-row,
+.detail-row,
+.row-left,
+.total-row,
+.detail-link,
+.action-row {
+  display: flex;
+  align-items: center;
+}
+
+.salary-head-top,
+.detail-row,
+.total-row {
+  justify-content: space-between;
+}
+
+.salary-head-top {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.salary-big {
+  color: #1A56DB;
+  font-size: 72rpx;
+  font-weight: 700;
+  line-height: 86rpx;
+}
+
+.salary-stat-row {
+  justify-content: space-between;
+}
+
+.salary-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 5rpx;
+  color: #6B7280;
+  font-size: 20rpx;
+}
+
+.stat-value {
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.stat-value.blue {
+  color: #1A56DB;
+}
+
+.stat-value.green {
+  color: #059669;
+}
+
+.stat-value.amber {
+  color: #D97706;
+}
+
+.detail-card,
+.action-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 28rpx;
+}
+
+.card-title {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.row-left {
+  gap: 12rpx;
+}
+
+.dot {
+  width: 10rpx;
+  height: 10rpx;
+  flex: 0 0 10rpx;
+  border-radius: 5rpx;
+}
+
+.detail-name {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.detail-meta {
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.detail-amount,
+.total-row text:last-child {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.divider {
+  height: 1px;
+  background: #F3F4F6;
+}
+
+.total-row {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.detail-link {
+  justify-content: center;
+  gap: 8rpx;
+  color: #1A56DB;
+  font-size: 22rpx;
+  font-weight: 600;
+}
+
+.detail-link image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.action-hint {
+  color: #6B7280;
+  font-size: 23rpx;
+  line-height: 34rpx;
+}
+
+.action-row {
+  gap: 18rpx;
+}
+
+.confirm-button,
+.dispute-button {
+  flex: 1;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.confirm-button {
+  background: #1A56DB;
+  color: #FFFFFF;
+}
+
+.dispute-button {
+  border: 1px solid #D97706;
+  background: #FFFFFF;
+  color: #D97706;
+}

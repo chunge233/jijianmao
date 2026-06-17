@@ -1,0 +1,19 @@
+@import "../../../styles/admin.wxss";
+
+.file-icon {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.download {
+  height: 52rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20rpx;
+  border-radius: 10rpx;
+  background: #E8F0FE;
+  color: #1A56DB;
+  font-size: 22rpx;
+  font-weight: 700;
+}

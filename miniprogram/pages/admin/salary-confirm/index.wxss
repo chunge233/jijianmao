@@ -1,0 +1,68 @@
+@import "../../../styles/admin.wxss";
+
+.progress-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16rpx;
+  padding: 28rpx;
+}
+
+.month {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.progress-head,
+.tabs {
+  display: flex;
+  align-items: center;
+}
+
+.progress-head {
+  justify-content: space-between;
+  color: #6B7280;
+  font-size: 23rpx;
+}
+
+.progress-head text:last-child {
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.progress-track {
+  height: 14rpx;
+  overflow: hidden;
+  border-radius: 7rpx;
+  background: #E5E7EB;
+}
+
+.progress-fill {
+  width: 68%;
+  height: 14rpx;
+  border-radius: 7rpx;
+  background: #1A56DB;
+}
+
+.tabs {
+  height: 68rpx;
+  gap: 18rpx;
+}
+
+.tab {
+  flex: 1;
+  height: 58rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 29rpx;
+  background: #FFFFFF;
+  color: #6B7280;
+  font-size: 23rpx;
+}
+
+.tab.active {
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-weight: 700;
+}

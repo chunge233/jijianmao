@@ -1,0 +1,58 @@
+@import "../../../styles/admin.wxss";
+
+.apply-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 24rpx;
+}
+
+.apply-top,
+.apply-actions {
+  display: flex;
+  align-items: center;
+}
+
+.apply-top {
+  gap: 18rpx;
+}
+
+.avatar {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 64rpx;
+  border-radius: 32rpx;
+  background: #DBEAFE;
+  color: #1A56DB;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.apply-actions {
+  gap: 18rpx;
+}
+
+.reject,
+.approve {
+  flex: 1;
+  height: 68rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  font-size: 25rpx;
+  font-weight: 700;
+}
+
+.reject {
+  border: 1px solid #EF4444;
+  color: #EF4444;
+}
+
+.approve {
+  background: #1A56DB;
+  color: #FFFFFF;
+}

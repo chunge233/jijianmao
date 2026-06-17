@@ -1,0 +1,68 @@
+@import "../../styles/replica.wxss";
+
+.profile-edit-page {
+  min-height: 100vh;
+  background: #FFFFFF;
+}
+
+.profile-edit-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30rpx;
+  padding: 28rpx 24rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 24rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.avatar-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10rpx;
+  margin-bottom: 8rpx;
+}
+
+.avatar {
+  width: 104rpx;
+  height: 104rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 52rpx;
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-size: 42rpx;
+  font-weight: 700;
+}
+
+.edit-avatar {
+  display: flex;
+  align-items: center;
+  gap: 6rpx;
+  color: #1A56DB;
+  font-size: 20rpx;
+}
+
+.edit-avatar image {
+  width: 22rpx;
+  height: 22rpx;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.field-label {
+  color: #6B7280;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.native-input.value {
+  color: #111827;
+}
+
+.save-button {
+  margin-top: 4rpx;
+}

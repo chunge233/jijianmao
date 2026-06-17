@@ -1,0 +1,285 @@
+.profile-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.profile-content {
+  display: flex;
+  flex-direction: column;
+  gap: 21rpx;
+  padding: 28rpx 28rpx calc(220rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(220rpx + env(safe-area-inset-bottom));
+}
+
+.profile-card,
+.factory-card,
+.stats-card,
+.menu-card,
+.logout-button {
+  border-radius: 21rpx;
+  background: #FFFFFF;
+}
+
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 35rpx;
+}
+
+.avatar {
+  position: relative;
+  width: 98rpx;
+  height: 98rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  flex: 0 0 98rpx;
+  border-radius: 49rpx;
+  background: #1A56DB;
+  color: #FFFFFF;
+  font-size: 38rpx;
+  font-weight: 700;
+}
+
+.avatar-upload {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 31rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.40);
+}
+
+.avatar-camera {
+  width: 21rpx;
+  height: 21rpx;
+}
+
+.profile-info {
+  min-width: 0;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 7rpx;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 14rpx;
+}
+
+.profile-name {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 600;
+  line-height: 40rpx;
+}
+
+.role-badge {
+  padding: 3rpx 14rpx;
+  border-radius: 7rpx;
+  background: #DBEAFE;
+  color: #1A56DB;
+  font-size: 19rpx;
+  line-height: 24rpx;
+}
+
+.phone-row {
+  display: flex;
+  align-items: center;
+  gap: 7rpx;
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.phone-icon {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.card-arrow {
+  width: 31rpx;
+  height: 31rpx;
+}
+
+.factory-card {
+  min-height: 115rpx;
+  display: flex;
+  align-items: center;
+  gap: 21rpx;
+  padding: 24rpx 28rpx;
+}
+
+.factory-icon {
+  width: 31rpx;
+  height: 31rpx;
+}
+
+.factory-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 3rpx;
+}
+
+.factory-label {
+  color: #6B7280;
+  font-size: 19rpx;
+}
+
+.factory-name {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 500;
+}
+
+.small-arrow {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.stats-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding: 28rpx 31rpx;
+}
+
+.stats-title-row,
+.stats-title-left,
+.more-link,
+.stats-row {
+  display: flex;
+  align-items: center;
+}
+
+.stats-title-row {
+  justify-content: space-between;
+}
+
+.stats-title-left {
+  gap: 10rpx;
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 600;
+}
+
+.section-title-bar {
+  width: 5rpx;
+  height: 24rpx;
+  border-radius: 3rpx;
+  background: #1A56DB;
+}
+
+.more-link {
+  gap: 3rpx;
+  color: #1A56DB;
+  font-size: 21rpx;
+}
+
+.more-icon {
+  width: 21rpx;
+  height: 21rpx;
+}
+
+.stats-row {
+  gap: 14rpx;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  padding: 0 21rpx;
+}
+
+.stat-icon-box {
+  width: 63rpx;
+  height: 63rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 32rpx;
+}
+
+.stat-icon-blue {
+  background: #DBEAFE;
+}
+
+.stat-icon-green {
+  background: #D1FAE5;
+}
+
+.stat-icon-amber {
+  background: #FEF3C7;
+}
+
+.stat-icon {
+  width: 31rpx;
+  height: 31rpx;
+}
+
+.stat-value {
+  color: #111827;
+  font-size: 31rpx;
+  font-weight: 700;
+  line-height: 38rpx;
+}
+
+.stat-label {
+  color: #6B7280;
+  font-size: 19rpx;
+  line-height: 28rpx;
+}
+
+.menu-card {
+  overflow: hidden;
+}
+
+.menu-row {
+  min-height: 94rpx;
+  display: flex;
+  align-items: center;
+  gap: 21rpx;
+  padding: 0 28rpx;
+}
+
+.menu-icon {
+  width: 35rpx;
+  height: 35rpx;
+}
+
+.menu-label {
+  flex: 1;
+  color: #111827;
+  font-size: 26rpx;
+}
+
+.menu-arrow {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.menu-divider {
+  height: 1px;
+  margin-left: 63rpx;
+  background: #F3F4F6;
+}
+
+.logout-button {
+  height: 94rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EF4444;
+  font-size: 26rpx;
+}

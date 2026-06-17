@@ -1,0 +1,43 @@
+<nav-bar title="批量调价" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page price-page">
+  <view class="admin-content price-content">
+    <view class="tip-card admin-card">
+      <image src="/assets/icons/warning-circle-amber.svg" mode="aspectFit"></image>
+      <text>调价会影响后续报工金额，已审核历史报工不自动改价。</text>
+    </view>
+
+    <view class="admin-section-title">工序多选</view>
+    <view class="admin-card">
+      <block wx:for="{{processes}}" wx:key="id">
+        <view class="price-row">
+          <image class="check-icon" data-id="{{item.id}}" catchtap="toggleProcess" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+          <view class="row-copy">
+            <text class="row-title">{{item.name}}</text>
+            <text class="row-desc">原价 {{item.oldPrice}}</text>
+          </view>
+          <text class="arrow-text">→</text>
+          <view class="price-input">
+            <text>¥</text>
+            <input data-id="{{item.id}}" bindinput="changePrice" value="{{item.newPrice}}" type="digit" placeholder="新价" />
+          </view>
+        </view>
+      </block>
+    </view>
+  </view>
+
+  <view class="fixed-bottom">
+    <view class="primary-action" bindtap="openConfirm">确认调价 · 已选 {{selectedCount}} 项</view>
+  </view>
+
+  <view wx:if="{{showConfirm}}" class="sheet-mask">
+    <view class="sheet-card">
+      <text class="sheet-title">确认批量调价</text>
+      <text class="sheet-desc">将对 {{selectedCount}} 个工序启用新价格，生效范围为后续新提交报工。确认后请通知相关员工。</text>
+      <view class="sheet-actions">
+        <view class="sheet-action outline" bindtap="closeConfirm">取消</view>
+        <view class="sheet-action primary" bindtap="confirmAdjust">确认生效</view>
+      </view>
+    </view>
+  </view>
+</view>

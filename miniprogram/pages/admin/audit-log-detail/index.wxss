@@ -1,0 +1,52 @@
+@import "../../../styles/admin.wxss";
+
+.detail-head {
+  display: flex;
+  flex-direction: column;
+  gap: 10rpx;
+  padding: 28rpx;
+}
+
+.detail-head text:first-child {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 700;
+}
+
+.detail-head text:not(:first-child) {
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.change-row {
+  min-height: 86rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 0 24rpx;
+  border-bottom: 1px solid #F3F4F6;
+}
+
+.change-row:last-child {
+  border-bottom: 0;
+}
+
+.change-row > text {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 700;
+}
+
+.change-values {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.change-values text:last-child {
+  color: #059669;
+  font-weight: 700;
+}

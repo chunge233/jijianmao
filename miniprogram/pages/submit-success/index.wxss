@@ -1,0 +1,83 @@
+@import "../../styles/replica.wxss";
+
+.success-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.success-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 96rpx 28rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 96rpx 28rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.check-circle {
+  width: 112rpx;
+  height: 112rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 56rpx;
+  background: #D1FAE5;
+}
+
+.check-icon {
+  width: 52rpx;
+  height: 52rpx;
+}
+
+.success-title {
+  margin-top: 28rpx;
+  color: #111827;
+  font-size: 33rpx;
+  font-weight: 700;
+  line-height: 48rpx;
+}
+
+.summary-card {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  margin-top: 36rpx;
+  padding: 28rpx;
+  border-radius: 18rpx;
+  background: #FFFFFF;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #6B7280;
+  font-size: 24rpx;
+}
+
+.summary-row text:last-child {
+  color: #111827;
+  font-weight: 600;
+}
+
+.summary-row .amount {
+  color: #D97706;
+}
+
+.wide-button,
+.ghost-button {
+  width: 100%;
+  margin-top: 28rpx;
+}
+
+.ghost-button {
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 14rpx;
+  background: #FFFFFF;
+  color: #1A56DB;
+  font-size: 28rpx;
+  font-weight: 600;
+}

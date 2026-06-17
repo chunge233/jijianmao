@@ -1,0 +1,32 @@
+<nav-bar title="工艺路线" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+<guide-tour visible="{{showGuide}}" steps="{{guideSteps}}" storage-key="guide_route_v1" bind:close="closeGuide" bind:never="neverGuide"></guide-tour>
+
+<view class="route-page">
+  <view class="search-bar">
+    <view class="mini-add"><image src="/assets/icons/plus-white.svg" mode="aspectFit"></image></view>
+    <view class="search-box">
+      <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
+      <text>搜索产品名称...</text>
+    </view>
+  </view>
+  <text class="count-text">共 5 条路线</text>
+
+  <view class="route-list">
+    <block wx:for="{{routes}}" wx:key="name">
+      <view class="route-row">
+        <view class="route-top">
+          <view class="route-title">
+            <text>{{item.name}}</text>
+            <text>{{item.count}}</text>
+          </view>
+          <view class="route-actions">
+            <image src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+            <image src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+          </view>
+        </view>
+        <text class="route-steps">{{item.steps}}</text>
+      </view>
+      <view wx:if="{{index < routes.length - 1}}" class="divider"></view>
+    </block>
+  </view>
+</view>

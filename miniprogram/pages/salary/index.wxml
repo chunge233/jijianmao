@@ -1,0 +1,74 @@
+<nav-bar title="我的工资"></nav-bar>
+<guide-tour visible="{{showGuide}}" steps="{{guideSteps}}" storage-key="guide_salary_v1" bind:close="closeGuide" bind:never="neverGuide"></guide-tour>
+
+<view class="salary-page">
+  <view class="salary-content">
+    <view class="month-selector">
+      <image class="month-arrow" src="/assets/icons/caret-left-gray.svg" mode="aspectFit"></image>
+      <text>2026年6月</text>
+      <image class="month-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+    </view>
+
+    <view class="salary-card" bindtap="openDetail">
+      <view class="salary-copy">
+        <text class="salary-label">本月工资</text>
+        <text class="salary-value">¥2,580.00</text>
+      </view>
+      <image class="salary-arrow" src="/assets/icons/caret-right-white.svg" mode="aspectFit"></image>
+      <view class="salary-bubble salary-bubble-large"></view>
+      <view class="salary-bubble salary-bubble-small"></view>
+    </view>
+
+    <view class="salary-stats">
+      <block wx:for="{{stats}}" wx:key="label">
+        <view class="stat-card">
+          <text class="stat-value stat-{{item.tone}}">{{item.value}}</text>
+          <view class="stat-label-row">
+            <text>{{item.label}}</text>
+            <text class="stat-unit">{{item.unit}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="salary-section-title">
+      <view class="section-title-bar"></view>
+      <text>工资单确认</text>
+    </view>
+
+    <view class="confirm-card">
+      <view class="confirm-top" bindtap="openDetail">
+        <text class="confirm-month">2026年6月</text>
+        <view class="confirm-amount-row">
+          <text>¥2,580.00</text>
+          <image class="confirm-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+      <view class="confirm-status">
+        <view class="status-dot status-amber"></view>
+        <text>待确认 · 请核对工资后确认</text>
+      </view>
+      <view class="confirm-divider"></view>
+      <view class="confirm-actions">
+        <view class="confirm-button primary" catchtap="openBreakdown">确认无误</view>
+        <view class="confirm-button outline" catchtap="openDispute">提出异议</view>
+      </view>
+    </view>
+
+    <block wx:for="{{history}}" wx:key="month">
+      <view class="history-card" bindtap="openDetail">
+        <view class="history-left">
+          <text class="history-month">{{item.month}}</text>
+          <view class="history-status history-status-{{item.tone}}">
+            <view class="status-dot status-{{item.tone}}"></view>
+            <text>{{item.status}}</text>
+          </view>
+        </view>
+        <view class="history-right">
+          <text>{{item.amount}}</text>
+          <image class="history-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

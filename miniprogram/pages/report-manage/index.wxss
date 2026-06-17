@@ -1,0 +1,191 @@
+@import "../../styles/replica.wxss";
+
+.report-manage-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.status-tabs {
+  height: 78rpx;
+  display: flex;
+  align-items: center;
+  gap: 42rpx;
+  padding: 0 28rpx;
+  background: #FFFFFF;
+}
+
+.tab-item {
+  position: relative;
+  height: 78rpx;
+  display: flex;
+  align-items: center;
+  color: #6B7280;
+  font-size: 24rpx;
+}
+
+.tab-item.is-active {
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.tab-item.is-active::after {
+  position: absolute;
+  right: 4rpx;
+  bottom: 0;
+  left: 4rpx;
+  height: 4rpx;
+  border-radius: 2rpx;
+  background: #1A56DB;
+  content: "";
+}
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 14rpx 28rpx 18rpx;
+  background: #FFFFFF;
+}
+
+.month-filter {
+  height: 54rpx;
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+  padding: 0 18rpx;
+  border-radius: 12rpx;
+  background: #F3F4F6;
+  color: #6B7280;
+  font-size: 22rpx;
+}
+
+.month-filter image {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+.chip-row {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 14rpx;
+}
+
+.chip {
+  height: 46rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.chip.is-active {
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.records-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 0 28rpx calc(72rpx + constant(safe-area-inset-bottom));
+  padding: 0 28rpx calc(72rpx + env(safe-area-inset-bottom));
+}
+
+.record-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+  padding: 24rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+}
+
+.record-top,
+.record-meta-line,
+.record-body,
+.record-bottom,
+.people {
+  display: flex;
+  align-items: center;
+}
+
+.record-top,
+.record-bottom {
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.record-title {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.record-meta-line {
+  gap: 18rpx;
+  color: #6B7280;
+  font-size: 23rpx;
+}
+
+.type-tag {
+  border-radius: 7rpx;
+  padding: 4rpx 10rpx;
+  font-size: 18rpx;
+}
+
+.type-blue {
+  background: #DBEAFE;
+  color: #1A56DB;
+}
+
+.type-amber {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.record-amount {
+  color: #F59E0B;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.record-body {
+  align-items: flex-start;
+  gap: 16rpx;
+}
+
+.record-photo {
+  width: 84rpx;
+  height: 84rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 84rpx;
+  border-radius: 10rpx;
+  background: #D1D5DB;
+}
+
+.record-photo image {
+  width: 34rpx;
+  height: 34rpx;
+}
+
+.record-note {
+  flex: 1;
+  min-width: 0;
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 32rpx;
+}
+
+.record-bottom {
+  color: #9CA3AF;
+  font-size: 21rpx;
+}
+
+.people {
+  gap: 22rpx;
+  color: #6B7280;
+}

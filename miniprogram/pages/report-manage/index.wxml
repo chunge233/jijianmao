@@ -1,0 +1,52 @@
+<nav-bar title="报工管理" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="report-manage-page">
+  <view class="status-tabs">
+    <block wx:for="{{tabs}}" wx:key="label">
+      <view class="tab-item {{item.active ? 'is-active' : ''}}" data-label="{{item.label}}" bindtap="switchTab">
+        <text>{{item.label}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view class="filter-row">
+    <view class="month-filter">
+      <text>2026年6月</text>
+      <image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+    </view>
+    <view class="chip-row">
+      <block wx:for="{{chips}}" wx:key="*this">
+        <view class="chip {{index === 0 ? 'is-active' : ''}}">{{item}}</view>
+      </block>
+    </view>
+  </view>
+
+  <view class="records-list">
+    <block wx:for="{{records}}" wx:key="id">
+      <view class="record-card" data-id="{{item.id}}" bindtap="openRecord">
+        <view class="record-top">
+          <text class="record-title">{{item.title}}</text>
+          <text class="status-tag tag-{{item.tone}}">{{item.status}}</text>
+        </view>
+        <view class="record-meta-line">
+          <text class="type-tag type-{{item.typeTone}}">{{item.type}}</text>
+          <text>{{item.count}}</text>
+          <text class="record-amount">{{item.amount}}</text>
+        </view>
+        <view wx:if="{{item.photo || item.note}}" class="record-body">
+          <view wx:if="{{item.photo}}" class="record-photo">
+            <image src="/assets/icons/image-square-gray.svg" mode="aspectFit"></image>
+          </view>
+          <text wx:if="{{item.note}}" class="record-note">{{item.note}}</text>
+        </view>
+        <view class="record-bottom">
+          <view class="people">
+            <text>{{item.worker}}</text>
+            <text>{{item.reviewer}}</text>
+          </view>
+          <text>{{item.time}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+</view>

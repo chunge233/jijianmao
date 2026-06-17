@@ -1,0 +1,33 @@
+<nav-bar title="工厂信息" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="admin-page">
+  <view class="admin-content">
+    <view class="factory-head admin-card">
+      <view class="factory-logo">宏</view>
+      <view class="factory-copy">
+        <text>宏达服装厂</text>
+        <text>工厂编码 HD202606</text>
+      </view>
+      <text class="status-tag tag-green">正常</text>
+    </view>
+
+    <view class="stat-grid">
+      <block wx:for="{{stats}}" wx:key="label">
+        <view class="stat-card admin-card">
+          <text>{{item.value}}</text>
+          <text>{{item.label}}</text>
+        </view>
+      </block>
+    </view>
+
+    <view class="admin-section-title">基础资料</view>
+    <view class="admin-card">
+      <block wx:for="{{rows}}" wx:key="label">
+        <view class="info-row">
+          <text>{{item.label}}</text>
+          <text>{{item.value}}</text>
+        </view>
+      </block>
+    </view>
+  </view>
+</view>
