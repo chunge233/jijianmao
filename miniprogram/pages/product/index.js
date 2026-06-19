@@ -8,5 +8,23 @@ Page({
       { name: 'T恤-E款', code: 'SP-005', category: '上衣类', price: '¥35.00', initial: 'T' },
       { name: '短裤-F款', code: 'SP-006', category: '裤装类', price: '¥55.00', initial: '短' }
     ]
+  },
+
+  goNewProduct() {
+    wx.navigateTo({
+      url: '/pages/product-new/index'
+    })
+  },
+
+  openProductDetail() {
+    wx.navigateTo({
+      url: '/pages/product-new/index'
+    })
+  },
+
+  openDeleteConfirm() {
+    wx.navigateTo({
+      url: '/pages/delete-confirm/index'
+    })
   }
 })

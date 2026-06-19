@@ -10,8 +10,9 @@ Page({
     menus: [
       { icon: '/assets/icons/clipboard-gray.svg', label: '我的报工', path: '/pages/report-records/index' },
       { icon: '/assets/icons/money-gray.svg', label: '我的工资', path: '/pages/salary-detail/index' },
-      { icon: '/assets/icons/phone-call-gray.svg', label: '联系我们', path: '/pages/factory-join/index' },
-      { icon: '/assets/icons/info-gray.svg', label: '关于计件猫', path: '/pages/settings/index' }
+      { icon: '/assets/icons/phone-call-gray.svg', label: '帮助与反馈', path: '/pages/help-feedback/index' },
+      { icon: '/assets/icons/gear-gray.svg', label: '设置', path: '/pages/settings/index' },
+      { icon: '/assets/icons/info-gray.svg', label: '关于计件猫', path: '/pages/about/index' }
     ]
   },
 

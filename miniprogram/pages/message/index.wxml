@@ -8,7 +8,7 @@
     </view>
 
     <block wx:for="{{messages}}" wx:key="title">
-      <view class="message-card" bindtap="openDetail">
+      <view class="message-card" data-path="{{item.path}}" bindtap="openDetail">
         <view class="message-icon-box message-icon-{{item.tone}}">
           <image class="message-icon" src="{{item.icon}}" mode="aspectFit"></image>
         </view>

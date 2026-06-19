@@ -3,7 +3,7 @@
 <view class="factory-settings-page">
   <view class="settings-list">
     <block wx:for="{{rows}}" wx:key="title">
-      <view class="settings-row" data-title="{{item.title}}" bindtap="openSetting">
+      <view class="settings-row" data-title="{{item.title}}" data-path="{{item.path}}" bindtap="openSetting">
         <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
         <view class="row-copy">
           <text class="row-title">{{item.title}}</text>

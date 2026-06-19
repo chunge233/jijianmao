@@ -21,7 +21,7 @@
 
   <view class="employee-list">
     <block wx:for="{{employees}}" wx:key="phone">
-      <view class="employee-row">
+      <view class="employee-row" bindtap="openEmployeeDetail">
         <view class="avatar" style="background: {{item.color}};">{{item.initial}}</view>
         <view class="employee-info">
           <text class="employee-name">{{item.name}}</text>

@@ -1,0 +1,229 @@
+<view class="pen-screen {{screen.theme === 'white' ? 'is-white' : ''}} {{screen.theme === 'dark' ? 'is-dark' : ''}}">
+  <nav-bar
+    title="{{screen.title}}"
+    show-back="{{screen.showBack !== false}}"
+    back-text=""
+    back-icon="/assets/icons/caret-left-black.svg"
+    back-color="{{screen.theme === 'dark' ? '#FFFFFF' : '#111827'}}"
+    right-icon="{{screen.rightIcon}}"
+  ></nav-bar>
+
+  <view class="pen-body {{screen.bottomActions ? 'has-bottom-actions' : ''}}">
+    <view wx:if="{{screen.hero}}" class="pen-hero pen-hero-{{screen.hero.tone || 'blue'}}">
+      <view class="pen-hero-copy">
+        <text class="pen-hero-kicker">{{screen.hero.kicker}}</text>
+        <text class="pen-hero-title">{{screen.hero.title}}</text>
+        <text wx:if="{{screen.hero.desc}}" class="pen-hero-desc">{{screen.hero.desc}}</text>
+      </view>
+      <view wx:if="{{screen.hero.badge}}" class="pen-hero-badge">{{screen.hero.badge}}</view>
+    </view>
+
+    <block wx:for="{{screen.sections}}" wx:key="id">
+      <view class="pen-section pen-section-{{item.type}}">
+        <view wx:if="{{item.title || item.more}}" class="pen-section-head">
+          <view wx:if="{{item.title}}" class="pen-section-title">
+            <view class="pen-title-bar"></view>
+            <text>{{item.title}}</text>
+          </view>
+          <view wx:if="{{item.more}}" class="pen-link" data-path="{{item.morePath}}" data-title="{{item.more}}" bindtap="emitAction">
+            <text>{{item.more}}</text>
+            <image src="/assets/icons/caret-right-blue.svg" mode="aspectFit"></image>
+          </view>
+        </view>
+
+        <view wx:if="{{item.type == 'notice'}}" class="pen-notice pen-notice-{{item.tone || 'blue'}}">
+          <image wx:if="{{item.icon}}" src="{{item.icon}}" mode="aspectFit"></image>
+          <view>
+            <text>{{item.heading}}</text>
+            <text>{{item.desc}}</text>
+          </view>
+        </view>
+
+        <view wx:if="{{item.type == 'metrics'}}" class="pen-metrics columns-{{item.columns || 2}}">
+          <block wx:for="{{item.items}}" wx:for-item="metric" wx:key="label">
+            <view class="pen-metric">
+              <view class="pen-icon-circle tone-{{metric.tone || 'blue'}}">
+                <image wx:if="{{metric.icon}}" src="{{metric.icon}}" mode="aspectFit"></image>
+                <text wx:else>{{metric.short}}</text>
+              </view>
+              <view class="pen-metric-copy">
+                <text>{{metric.label}}</text>
+                <text>{{metric.value}}</text>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'menuGrid'}}" class="pen-grid columns-{{item.columns || 2}}">
+          <block wx:for="{{item.items}}" wx:for-item="entry" wx:key="title">
+            <view class="pen-grid-card" data-path="{{entry.path}}" data-action="{{entry.action}}" data-title="{{entry.title}}" bindtap="emitAction">
+              <view class="pen-icon-circle tone-{{entry.tone || 'blue'}}">
+                <image wx:if="{{entry.icon}}" src="{{entry.icon}}" mode="aspectFit"></image>
+                <text wx:else>{{entry.short}}</text>
+              </view>
+              <text>{{entry.title}}</text>
+              <text wx:if="{{entry.desc}}">{{entry.desc}}</text>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'list'}}" class="pen-list">
+          <block wx:for="{{item.items}}" wx:for-item="row" wx:key="title">
+            <view class="pen-list-row" data-path="{{row.path}}" data-action="{{row.action}}" data-title="{{row.title}}" bindtap="emitAction">
+              <view wx:if="{{row.icon || row.short}}" class="pen-row-icon tone-{{row.tone || 'gray'}}">
+                <image wx:if="{{row.icon}}" src="{{row.icon}}" mode="aspectFit"></image>
+                <text wx:else>{{row.short}}</text>
+              </view>
+              <view class="pen-row-copy">
+                <view class="pen-row-main">
+                  <text>{{row.title}}</text>
+                  <view wx:if="{{row.tag}}" class="pen-tag tag-{{row.tagTone || 'gray'}}">{{row.tag}}</view>
+                </view>
+                <text wx:if="{{row.desc}}">{{row.desc}}</text>
+              </view>
+              <text wx:if="{{row.value}}" class="pen-row-value">{{row.value}}</text>
+              <image wx:if="{{row.path || row.action}}" class="pen-row-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'cards'}}" class="pen-cards">
+          <block wx:for="{{item.items}}" wx:for-item="card" wx:key="title">
+            <view class="pen-card" data-path="{{card.path}}" data-action="{{card.action}}" data-title="{{card.title}}" bindtap="emitAction">
+              <view class="pen-card-top">
+                <view>
+                  <text>{{card.title}}</text>
+                  <text wx:if="{{card.desc}}">{{card.desc}}</text>
+                </view>
+                <view wx:if="{{card.tag}}" class="pen-tag tag-{{card.tagTone || 'gray'}}">{{card.tag}}</view>
+              </view>
+              <view wx:if="{{card.meta}}" class="pen-card-meta">
+                <block wx:for="{{card.meta}}" wx:for-item="meta" wx:key="label">
+                  <view>
+                    <text>{{meta.label}}</text>
+                    <text>{{meta.value}}</text>
+                  </view>
+                </block>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'form'}}" class="pen-form">
+          <block wx:for="{{item.fields}}" wx:for-item="field" wx:key="label">
+            <view class="pen-field {{field.multiline ? 'is-multiline' : ''}}">
+              <text>{{field.label}}</text>
+              <view class="pen-input {{field.placeholder ? 'is-placeholder' : ''}}">
+                <text>{{field.value || field.placeholder}}</text>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'summary'}}" class="pen-summary">
+          <block wx:for="{{item.items}}" wx:for-item="summary" wx:key="label">
+            <view>
+              <text>{{summary.label}}</text>
+              <text>{{summary.value}}</text>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'steps'}}" class="pen-steps">
+          <block wx:for="{{item.items}}" wx:for-item="step" wx:key="title">
+            <view class="pen-step">
+              <view class="pen-step-dot {{index == item.items.length - 1 ? 'is-last' : ''}}">{{index + 1}}</view>
+              <view>
+                <text>{{step.title}}</text>
+                <text>{{step.desc}}</text>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'timeline'}}" class="pen-timeline">
+          <block wx:for="{{item.items}}" wx:for-item="event" wx:key="title">
+            <view class="pen-time-row">
+              <view class="pen-time-dot tone-{{event.tone || 'blue'}}"></view>
+              <view>
+                <view>
+                  <text>{{event.title}}</text>
+                  <text>{{event.time}}</text>
+                </view>
+                <text>{{event.desc}}</text>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'progress'}}" class="pen-progress-list">
+          <block wx:for="{{item.items}}" wx:for-item="bar" wx:key="label">
+            <view class="pen-progress-item">
+              <view>
+                <text>{{bar.label}}</text>
+                <text>{{bar.value}}</text>
+              </view>
+              <view class="pen-progress-track">
+                <view class="pen-progress-fill" style="width: {{bar.width}}; background: {{bar.color}};"></view>
+              </view>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'ranking'}}" class="pen-ranking">
+          <block wx:for="{{item.items}}" wx:for-item="rank" wx:key="name">
+            <view class="pen-rank-row">
+              <view class="pen-rank-no {{index < 3 ? 'is-top' : ''}}">{{rank.rank}}</view>
+              <view class="pen-avatar" style="background: {{rank.color}};">{{rank.short}}</view>
+              <text>{{rank.name}}</text>
+              <text>{{rank.value}}</text>
+            </view>
+          </block>
+        </view>
+
+        <view wx:if="{{item.type == 'empty'}}" class="pen-empty">
+          <image wx:if="{{item.icon}}" src="{{item.icon}}" mode="aspectFit"></image>
+          <text>{{item.title}}</text>
+          <text>{{item.desc}}</text>
+        </view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{screen.bottomActions}}" class="pen-bottom">
+    <text wx:if="{{screen.bottomHint}}" class="pen-bottom-hint">{{screen.bottomHint}}</text>
+    <view class="pen-bottom-actions">
+      <block wx:for="{{screen.bottomActions}}" wx:key="title">
+        <view
+          class="pen-button {{item.type == 'secondary' ? 'is-secondary' : ''}} {{item.type == 'danger' ? 'is-danger' : ''}}"
+          data-path="{{item.path}}"
+          data-action="{{item.action}}"
+          data-title="{{item.title}}"
+          bindtap="emitAction"
+        >{{item.title}}</view>
+      </block>
+    </view>
+  </view>
+
+  <view wx:if="{{screen.modal}}" class="pen-mask">
+    <view class="pen-dialog">
+      <view class="pen-dialog-icon tone-{{screen.modal.tone || 'blue'}}">
+        <image wx:if="{{screen.modal.icon}}" src="{{screen.modal.icon}}" mode="aspectFit"></image>
+        <text wx:else>{{screen.modal.short}}</text>
+      </view>
+      <text>{{screen.modal.title}}</text>
+      <text>{{screen.modal.desc}}</text>
+      <view class="pen-dialog-actions">
+        <block wx:for="{{screen.modal.actions}}" wx:key="title">
+          <view
+            class="pen-dialog-button {{item.type == 'primary' ? 'is-primary' : ''}} {{item.type == 'danger' ? 'is-danger' : ''}}"
+            data-path="{{item.path}}"
+            data-action="{{item.action}}"
+            data-title="{{item.title}}"
+            bindtap="emitAction"
+          >{{item.title}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+</view>

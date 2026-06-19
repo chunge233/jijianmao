@@ -32,7 +32,9 @@ Page({
       return
     }
 
-    this.setData({ showConfirm: true })
+    wx.navigateTo({
+      url: '/pages/batch-price-confirm/index'
+    })
   },
 
   closeConfirm() {
@@ -41,6 +43,8 @@ Page({
 
   confirmAdjust() {
     this.setData({ showConfirm: false })
-    wx.showToast({ title: '调价已生效', icon: 'success' })
+    wx.navigateTo({
+      url: '/pages/batch-price-confirm/index'
+    })
   }
 })

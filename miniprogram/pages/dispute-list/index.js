@@ -40,11 +40,8 @@ Page({
   },
 
   openDispute(event) {
-    const { id } = event.currentTarget.dataset
-
-    wx.showToast({
-      title: `异议 ${id}`,
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/dispute-detail/index'
     })
   }
 })

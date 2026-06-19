@@ -3,7 +3,7 @@
 <view class="settings-page">
   <view class="settings-content">
     <block wx:for="{{firstRows}}" wx:key="title">
-      <view class="settings-row">
+      <view class="settings-row" data-path="{{item.path}}" bindtap="openRow">
         <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
         <view class="row-copy">
           <text>{{item.title}}</text>
@@ -16,7 +16,7 @@
     <view class="section-gap"></view>
 
     <block wx:for="{{secondRows}}" wx:key="title">
-      <view class="settings-row">
+      <view class="settings-row" data-path="{{item.path}}" bindtap="openRow">
         <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
         <view class="row-copy">
           <text>{{item.title}}</text>

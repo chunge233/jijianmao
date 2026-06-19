@@ -55,5 +55,23 @@ Page({
       showGuide: false,
       guideShownOnce: true
     })
+  },
+
+  goRouteEdit() {
+    wx.navigateTo({
+      url: '/pages/route-edit/index'
+    })
+  },
+
+  openRouteDetail() {
+    wx.navigateTo({
+      url: '/pages/route-detail/index'
+    })
+  },
+
+  openDeleteConfirm() {
+    wx.navigateTo({
+      url: '/pages/delete-confirm/index'
+    })
   }
 })

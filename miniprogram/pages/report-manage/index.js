@@ -47,9 +47,14 @@ Page({
   openRecord(event) {
     const { id } = event.currentTarget.dataset
 
-    wx.showToast({
-      title: `报工 ${id}`,
-      icon: 'none'
+    wx.navigateTo({
+      url: id === 'R002' || id === 'R005' ? '/pages/report-detail-route/index' : '/pages/report-detail-single/index'
+    })
+  },
+
+  openFilter() {
+    wx.navigateTo({
+      url: '/pages/report-filter/index'
     })
   }
 })

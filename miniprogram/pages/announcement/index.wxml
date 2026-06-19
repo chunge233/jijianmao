@@ -15,7 +15,7 @@
 
   <view class="announcement-list">
     <block wx:for="{{announcements}}" wx:key="id">
-      <view class="announcement-row">
+      <view class="announcement-row" bindtap="openAnnouncementDetail">
         <view class="icon-box">
           <image src="/assets/icons/megaphone-red.svg" mode="aspectFit"></image>
         </view>
@@ -23,8 +23,8 @@
           <text class="announcement-title">{{item.title}}</text>
           <text class="announcement-date">{{item.date}}</text>
         </view>
-        <image class="row-icon" data-title="{{item.title}}" bindtap="editAnnouncement" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
-        <image class="row-icon" data-id="{{item.id}}" bindtap="deleteAnnouncement" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-title="{{item.title}}" catchtap="editAnnouncement" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-id="{{item.id}}" catchtap="deleteAnnouncement" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
       </view>
       <view wx:if="{{index < announcements.length - 1}}" class="divider"></view>
     </block>

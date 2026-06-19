@@ -10,18 +10,14 @@ Page({
   },
 
   openRole(event) {
-    const { name } = event.currentTarget.dataset
-
-    wx.showToast({
-      title: `编辑${name}权限`,
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/permission-detail/index'
     })
   },
 
   addRole() {
-    wx.showToast({
-      title: '新增角色',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/role-edit/index'
     })
   }
 })

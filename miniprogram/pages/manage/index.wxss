@@ -36,12 +36,13 @@
 }
 
 .manage-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
+  flex-wrap: wrap;
   gap: 18rpx;
 }
 
 .manage-card {
+  width: calc((100% - 54rpx) / 4);
   height: 136rpx;
   display: flex;
   flex-direction: column;

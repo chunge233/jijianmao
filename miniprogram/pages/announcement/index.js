@@ -9,18 +9,20 @@ Page({
   },
 
   createAnnouncement() {
-    wx.showToast({
-      title: '新增公告',
-      icon: 'none'
+    wx.navigateTo({
+      url: '/pages/announcement-new/index'
     })
   },
 
   editAnnouncement(event) {
-    const { title } = event.currentTarget.dataset
+    wx.navigateTo({
+      url: '/pages/announcement-new/index'
+    })
+  },
 
-    wx.showToast({
-      title: `编辑 ${title}`,
-      icon: 'none'
+  openAnnouncementDetail() {
+    wx.navigateTo({
+      url: '/pages/announcement-detail/index'
     })
   },
 

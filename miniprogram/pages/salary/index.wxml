@@ -50,7 +50,7 @@
       </view>
       <view class="confirm-divider"></view>
       <view class="confirm-actions">
-        <view class="confirm-button primary" catchtap="openBreakdown">确认无误</view>
+        <view class="confirm-button primary" catchtap="confirmSalary">确认无误</view>
         <view class="confirm-button outline" catchtap="openDispute">提出异议</view>
       </view>
     </view>

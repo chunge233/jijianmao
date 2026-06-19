@@ -30,7 +30,9 @@ Page({
           { label: '工厂信息', icon: '/assets/icons/buildings-blue.svg', path: '/pages/admin/factory-info/index' },
           { label: '权限管理', icon: '/assets/icons/shield-check-cyan.svg', path: '/pages/permission/index' },
           { label: '员工管理', icon: '/assets/icons/users-three-green.svg', path: '/pages/employee/index' },
-          { label: '加入申请', icon: '/assets/icons/users-three-blue.svg', path: '/pages/admin/join-apply/index' }
+          { label: '加入申请', icon: '/assets/icons/users-three-blue.svg', path: '/pages/admin/join-apply/index' },
+          { label: '邀请成员', icon: '/assets/icons/envelope-simple-blue.svg', path: '/pages/invite-member/index' },
+          { label: '班组管理', icon: '/assets/icons/users-three-blue.svg', path: '/pages/team/index' }
         ]
       },
       {
@@ -39,7 +41,9 @@ Page({
           { label: '工序管理', icon: '/assets/icons/tree-structure-purple.svg', path: '/pages/process/index' },
           { label: '产品管理', icon: '/assets/icons/package-pink.svg', path: '/pages/product/index' },
           { label: '工艺路线', icon: '/assets/icons/git-branch-indigo.svg', path: '/pages/route-manage/index' },
-          { label: '批量调价', icon: '/assets/icons/currency-cny-amber.svg', path: '/pages/admin/batch-price/index' }
+          { label: '批量调价', icon: '/assets/icons/currency-cny-amber.svg', path: '/pages/admin/batch-price/index' },
+          { label: '新增工序', icon: '/assets/icons/plus-gray.svg', path: '/pages/process-new/index' },
+          { label: '新增产品', icon: '/assets/icons/package-green.svg', path: '/pages/product-new/index' }
         ]
       },
       {
@@ -55,8 +59,10 @@ Page({
         title: '数据财务',
         items: [
           { label: '数据看板', icon: '/assets/icons/chart-bar-amber.svg', path: '/pages/dashboard/index' },
+          { label: '经营看板', icon: '/assets/icons/chart-bar-amber.svg', path: '/pages/boss-dashboard/index' },
           { label: '工资报表', icon: '/assets/icons/currency-cny-green.svg', path: '/pages/salary-report/index' },
           { label: '工资确认', icon: '/assets/icons/check-green.svg', path: '/pages/admin/salary-confirm/index' },
+          { label: '数据导出', icon: '/assets/icons/export-blue.svg', path: '/pages/data-export/index' },
           { label: '导出记录', icon: '/assets/icons/export-blue.svg', path: '/pages/admin/export-records/index' }
         ]
       },
@@ -66,7 +72,9 @@ Page({
           { label: '操作日志', icon: '/assets/icons/file-text-blue.svg', path: '/pages/admin/audit-log/index' },
           { label: '数据备份', icon: '/assets/icons/cloud-arrow-up-gray.svg', path: '/pages/admin/backup/index' },
           { label: '通知设置', icon: '/assets/icons/bell-gray.svg', path: '/pages/admin/notification/index' },
-          { label: '工厂设置', icon: '/assets/icons/gear-gray.svg', path: '/pages/factory-settings/index' }
+          { label: '套餐订阅', icon: '/assets/icons/coins-amber.svg', path: '/pages/subscription/index' },
+          { label: '工厂设置', icon: '/assets/icons/gear-gray.svg', path: '/pages/factory-settings/index' },
+          { label: '批量导入', icon: '/assets/icons/cloud-arrow-up-gray.svg', path: '/pages/employee-import/index' }
         ]
       }
     ]

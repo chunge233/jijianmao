@@ -51,6 +51,12 @@ Page({
     })
   },
 
+  confirmSalary() {
+    wx.navigateTo({
+      url: '/pages/salary-confirm-success/index'
+    })
+  },
+
   openDispute() {
     wx.navigateTo({
       url: '/pages/dispute/index'

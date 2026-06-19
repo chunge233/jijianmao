@@ -3,7 +3,7 @@
 
 <view class="route-page">
   <view class="search-bar">
-    <view class="mini-add"><image src="/assets/icons/plus-white.svg" mode="aspectFit"></image></view>
+    <view class="mini-add" bindtap="goRouteEdit"><image src="/assets/icons/plus-white.svg" mode="aspectFit"></image></view>
     <view class="search-box">
       <image src="/assets/icons/magnifying-glass-gray.svg" mode="aspectFit"></image>
       <text>搜索产品名称...</text>
@@ -13,15 +13,15 @@
 
   <view class="route-list">
     <block wx:for="{{routes}}" wx:key="name">
-      <view class="route-row">
+      <view class="route-row" bindtap="openRouteDetail">
         <view class="route-top">
           <view class="route-title">
             <text>{{item.name}}</text>
             <text>{{item.count}}</text>
           </view>
           <view class="route-actions">
-            <image src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
-            <image src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+            <image catchtap="goRouteEdit" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+            <image catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
           </view>
         </view>
         <text class="route-steps">{{item.steps}}</text>

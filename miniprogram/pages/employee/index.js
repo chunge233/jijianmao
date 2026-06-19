@@ -9,5 +9,11 @@ Page({
       { name: '刘洋', initial: '刘', role: '工人', phone: '135****9012', tag: '在线', color: '#E11D48' },
       { name: '赵磊', initial: '赵', role: '离职', phone: '133****3456', tag: '离职', color: '#374151' }
     ]
+  },
+
+  openEmployeeDetail() {
+    wx.navigateTo({
+      url: '/pages/employee-detail/index'
+    })
   }
 })

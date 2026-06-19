@@ -10,7 +10,7 @@
   </view>
 
   <view class="filter-row">
-    <view class="month-filter">
+    <view class="month-filter" bindtap="openFilter">
       <text>2026年6月</text>
       <image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
     </view>
