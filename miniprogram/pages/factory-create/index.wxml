@@ -11,14 +11,20 @@
 
     <view class="field">
       <text class="field-label">工厂名称</text>
-      <view class="native-input">请输入工厂名称</view>
+      <input
+        class="native-input form-input"
+        placeholder="请输入工厂名称"
+        placeholder-class="form-placeholder"
+        value="{{factoryName}}"
+        bindinput="onNameInput"
+      />
     </view>
 
     <view class="field">
       <text class="field-label">工厂类型</text>
       <view class="type-grid">
         <block wx:for="{{types}}" wx:key="*this">
-          <view class="type-chip">{{item}}</view>
+          <view class="type-chip {{item === selectedType ? 'is-active' : ''}}" data-type="{{item}}" bindtap="selectType">{{item}}</view>
         </block>
       </view>
     </view>
@@ -49,7 +55,7 @@
   </view>
 
   <view class="bottom-area">
-    <view class="primary-button">创建工厂</view>
+    <view class="primary-button" bindtap="createFactory">创建工厂</view>
     <text>创建后即可开始使用计件猫管理工厂</text>
   </view>
 </view>

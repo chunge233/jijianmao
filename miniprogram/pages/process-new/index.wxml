@@ -1,1 +1,28 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="{{processId ? '编辑工序' : '新增工序'}}" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="form-page">
+  <view class="form-card">
+    <view class="field">
+      <text class="label">工序名称</text>
+      <input class="input" placeholder="例如：裁剪、钻孔、质检" placeholder-class="placeholder" value="{{name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">计件单价</text>
+      <view class="money-row">
+        <text>¥</text>
+        <input class="input money-input" type="digit" placeholder="0.50" placeholder-class="placeholder" value="{{price}}" bindinput="onPriceInput" />
+        <text>/件</text>
+      </view>
+    </view>
+
+    <view class="notice">
+      <text>保存后系统会自动生成工序二维码，员工扫码后可直接进入报工页。</text>
+      <text wx:if="{{qrCode}}">当前二维码：{{qrCode}}</text>
+    </view>
+  </view>
+
+  <view class="bottom-area">
+    <view class="primary-button {{saving ? 'is-disabled' : ''}}" bindtap="saveProcess">{{saving ? '保存中' : '保存工序'}}</view>
+  </view>
+</view>

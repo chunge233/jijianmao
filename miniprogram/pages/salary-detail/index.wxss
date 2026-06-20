@@ -185,3 +185,28 @@
   background: #FFFFFF;
   color: #D97706;
 }
+
+.empty-card {
+  min-height: 180rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  border-radius: 14rpx;
+  background: #F9FAFB;
+  padding: 32rpx 24rpx;
+  text-align: center;
+}
+
+.empty-title {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+}
+
+.empty-desc {
+  color: #6B7280;
+  font-size: 22rpx;
+  line-height: 32rpx;
+}

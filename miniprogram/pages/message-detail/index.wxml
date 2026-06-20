@@ -7,12 +7,12 @@
         <view class="category-icon-box">
           <image src="/assets/icons/file-text-blue.svg" mode="aspectFit"></image>
         </view>
-        <text>公司消息</text>
+        <text>{{category}}</text>
       </view>
-      <text class="message-title">6月生产计划已发布</text>
+      <text class="message-title">{{title}}</text>
       <view class="meta-row">
-        <text>生产部 · 张主管</text>
-        <text>2026-06-15 09:30</text>
+        <text>{{meta}}</text>
+        <text>{{time}}</text>
       </view>
     </view>
 
@@ -24,8 +24,8 @@
 
     <view class="source-card">
       <text class="source-label">消息来源</text>
-      <text class="source-name">计件猫 · 公司通知系统</text>
-      <text class="source-id">消息编号：MSG20260615001</text>
+      <text class="source-name">{{meta}}</text>
+      <text class="source-id">消息编号：{{sourceId}}</text>
     </view>
   </view>
 </view>

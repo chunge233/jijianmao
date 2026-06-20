@@ -117,3 +117,28 @@
   font-weight: 700;
   text-align: right;
 }
+
+.empty-card {
+  min-height: 320rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  border-radius: 14rpx;
+  background: #FFFFFF;
+  padding: 40rpx 24rpx;
+  text-align: center;
+}
+
+.empty-title {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.empty-desc {
+  color: #6B7280;
+  font-size: 23rpx;
+  line-height: 34rpx;
+}

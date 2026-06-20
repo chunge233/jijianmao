@@ -1,3 +1,81 @@
+@import "../../styles/replica.wxss";
+
 page {
   background: #F3F4F6;
+}
+
+.form-page {
+  min-height: 100vh;
+  padding: 28rpx 24rpx calc(136rpx + env(safe-area-inset-bottom));
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+  padding: 28rpx;
+  border-radius: 18rpx;
+  background: #FFFFFF;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.label {
+  color: #374151;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.input {
+  height: 84rpx;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  border-radius: 14rpx;
+  background: #F3F4F6;
+  color: #111827;
+  font-size: 26rpx;
+}
+
+.placeholder {
+  color: #9CA3AF;
+}
+
+.role-row {
+  display: flex;
+  gap: 14rpx;
+}
+
+.role-chip {
+  height: 64rpx;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12rpx;
+  background: #F3F4F6;
+  color: #4B5563;
+  font-size: 24rpx;
+}
+
+.role-chip.is-active {
+  background: #DBEAFE;
+  color: #1A56DB;
+  font-weight: 700;
+}
+
+.bottom-area {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18rpx 24rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: #FFFFFF;
+}
+
+.primary-button.is-disabled {
+  opacity: 0.58;
 }

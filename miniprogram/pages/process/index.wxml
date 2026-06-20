@@ -8,18 +8,18 @@
       <text>搜索工序名称...</text>
     </view>
   </view>
-  <text class="count-text">共 5 道工序</text>
+  <text class="count-text">共 {{processes.length}} 道工序</text>
 
   <view class="plain-list">
     <block wx:for="{{processes}}" wx:key="name">
-      <view class="plain-row" bindtap="openProcessDetail">
+      <view class="plain-row" data-id="{{item.id}}" bindtap="openProcessDetail">
         <view class="row-info">
           <text class="row-title">{{item.name}}</text>
           <text class="row-sub">{{item.category}}</text>
         </view>
         <text class="row-price">{{item.price}}</text>
-        <image class="row-icon" catchtap="goNewProcess" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
-        <image class="row-icon" catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-id="{{item.id}}" catchtap="goNewProcess" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-id="{{item.id}}" catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
       </view>
       <view wx:if="{{index < processes.length - 1}}" class="divider"></view>
     </block>

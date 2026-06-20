@@ -34,6 +34,15 @@
   font-weight: 700;
 }
 
+.avatar-guest {
+  background: #F3F4F6;
+}
+
+.default-avatar-icon {
+  width: 56rpx;
+  height: 56rpx;
+}
+
 .edit-avatar {
   display: flex;
   align-items: center;
@@ -63,6 +72,25 @@
   color: #111827;
 }
 
+.native-input.readonly {
+  color: #6B7280;
+}
+
+.profile-input {
+  box-sizing: border-box;
+  width: 100%;
+  color: #111827;
+}
+
+.profile-placeholder {
+  color: #9CA3AF;
+}
+
 .save-button {
   margin-top: 4rpx;
+}
+
+.save-button.disabled {
+  opacity: 0.55;
+  pointer-events: none;
 }

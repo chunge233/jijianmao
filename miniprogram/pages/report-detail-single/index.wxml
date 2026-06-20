@@ -2,14 +2,20 @@
 
 <view class="detail-page">
   <view class="detail-content">
+    <view wx:if="{{isEmpty}}" class="empty-card">
+      <text class="empty-title">{{emptyTitle}}</text>
+      <text class="empty-desc">{{emptyDesc}}</text>
+    </view>
+
+    <block wx:else>
     <view class="head-card">
       <view class="head-top">
-        <text class="head-title">产品质检</text>
-        <text class="status-tag tag-green">已通过</text>
+        <text class="head-title">{{title}}</text>
+        <text class="status-tag tag-{{statusTone}}">{{statusText}}</text>
       </view>
       <view class="head-meta">
         <text class="type-tag">单工序</text>
-        <text>2026-06-17 14:30</text>
+        <text>{{createdAt}}</text>
       </view>
     </view>
 
@@ -21,10 +27,10 @@
         <text>小计</text>
       </view>
       <view class="single-grid table-row">
-        <text class="strong">产品质检</text>
-        <text>¥0.35</text>
-        <text>30</text>
-        <text class="amber-text strong">¥10.50</text>
+        <text class="strong">{{detail.processName}}</text>
+        <text>{{detail.price}}</text>
+        <text>{{detail.quantity}}</text>
+        <text class="amber-text strong">{{detail.amount}}</text>
       </view>
     </view>
 
@@ -41,7 +47,7 @@
 
     <view class="section-card">
       <text class="section-title">表单备注</text>
-      <text class="paragraph">产品表面无明显划痕，包装完好，符合出厂标准。已完成全部质检流程，提交审核。</text>
+      <text class="paragraph">{{remark}}</text>
     </view>
 
     <view class="section-card">
@@ -49,9 +55,10 @@
       <block wx:for="{{audit}}" wx:key="label">
         <view class="info-row">
           <text>{{item.label}}</text>
-          <text class="{{item.tone === 'green' ? 'green-text strong' : ''}}">{{item.value}}</text>
+          <text class="{{item.tone === 'green' ? 'green-text strong' : ''}} {{item.tone === 'red' ? 'red-text strong' : ''}} {{item.tone === 'amber' ? 'amber-text strong' : ''}}">{{item.value}}</text>
         </view>
       </block>
     </view>
+    </block>
   </view>
 </view>

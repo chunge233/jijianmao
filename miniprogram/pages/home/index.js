@@ -1,24 +1,31 @@
 const { syncTabBar } = require('../../utils/tabbar')
+const api = require('../../utils/api')
+const { ensureFactorySelected } = require('../../utils/session')
 
 Page({
   data: {
+    salaryAmount: '¥0.00',
+    latestMessageText: '请先创建工序、产品和工艺路线，再开始扫码报工。',
+    latestMessageTag: '提醒',
+    latestMessageId: '',
+    reportSectionTitle: '2026年6月17日 3条报工记录',
     showGuide: false,
     guideShownOnce: false,
     guideSteps: [
       {
         title: '先看本月工资',
         desc: '这里是当前月份已累计的计件工资，点进去可以核对明细。',
-        spotStyle: 'top: 150rpx; left: 28rpx; width: 694rpx; height: 196rpx;'
+        spotStyle: 'top: 150rpx; left: 28rpx; width: 694rpx; height: 198rpx;'
       },
       {
         title: '再看审核消息',
         desc: '最新报工审核结果会出现在这里，未通过或有异议时先从这里进入处理。',
-        spotStyle: 'top: 374rpx; left: 28rpx; width: 694rpx; height: 82rpx;'
+        spotStyle: 'top: 376rpx; left: 28rpx; width: 694rpx; height: 82rpx;'
       },
       {
         title: '最后核对报工记录',
         desc: '日历和当天记录能帮你确认有没有漏报，点击记录可查看详情。',
-        spotStyle: 'top: 484rpx; left: 28rpx; width: 694rpx; height: 300rpx;',
+        spotStyle: 'top: 486rpx; left: 28rpx; width: 694rpx; height: 304rpx;',
         panelClass: 'panel-top-pos'
       }
     ],
@@ -31,37 +38,19 @@ Page({
       { week: '二', day: '16' },
       { week: '三', day: '17', active: true, dots: 2, more: '+2' }
     ],
-    reports: [
-      {
-        type: '单工序',
-        typeClass: 'blue',
-        amount: '+¥10.50',
-        title: '产品质检',
-        meta: '30 件 · 今天 14:30',
-        path: '/pages/report-detail-single/index'
-      },
-      {
-        type: '工艺路线',
-        typeClass: 'amber',
-        amount: '+¥15.00',
-        steps: ['切割', '钻孔', '装配'],
-        meta: '50 件 · 今天 10:15',
-        path: '/pages/report-detail-route/index'
-      },
-      {
-        type: '单工序',
-        typeClass: 'blue',
-        amount: '+¥8.00',
-        title: '包装检验',
-        meta: '40 件 · 昨天 16:00',
-        path: '/pages/report-detail-single/index'
-      }
-    ]
+    reports: []
   },
 
   onShow() {
-    syncTabBar(0)
-    this.showGuideIfNeeded()
+    ensureFactorySelected().then((ready) => {
+      if (!ready) {
+        return
+      }
+
+      syncTabBar(0)
+      this.loadDashboard()
+      this.showGuideIfNeeded()
+    })
   },
 
   openSalary() {
@@ -72,7 +61,7 @@ Page({
 
   openMessageDetail() {
     wx.navigateTo({
-      url: '/pages/message-detail/index'
+      url: this.data.latestMessageId ? `/pages/message-detail/index?id=${this.data.latestMessageId}` : '/pages/message/index'
     })
   },
 
@@ -116,5 +105,60 @@ Page({
       showGuide: false,
       guideShownOnce: true
     })
+  },
+
+  loadDashboard() {
+    api.getDashboardOverview().then((overview) => {
+      if (!overview) {
+        return
+      }
+
+      const reports = Array.isArray(overview.recentReports)
+        ? overview.recentReports.map((report) => this.normalizeReport(report))
+        : []
+      const latestMessage = overview.latestMessage || {}
+
+      this.setData({
+        salaryAmount: `¥${(Number(overview.salaryCents || 0) / 100).toFixed(2)}`,
+        latestMessageText: latestMessage.content || latestMessage.title || this.data.latestMessageText,
+        latestMessageTag: latestMessage.type === 'audit' ? '审核' : (latestMessage.type === 'salary' ? '工资' : '消息'),
+        latestMessageId: latestMessage.id || '',
+        reportSectionTitle: `${this.formatMonthDay(new Date())} ${reports.length}条报工记录`,
+        reports
+      })
+    }).catch(() => {})
+  },
+
+  normalizeReport(report) {
+    const type = report.type === 'route' ? '工艺路线' : '单工序'
+    const items = report.items || []
+    const firstItem = items[0] || {}
+
+    return {
+      id: report.id,
+      type,
+      typeClass: report.type === 'route' ? 'amber' : 'blue',
+      amount: `+¥${(Number(report.totalCents || 0) / 100).toFixed(2)}`,
+      title: report.type === 'route' ? '' : (firstItem.processName || '报工记录'),
+      steps: report.type === 'route' ? items.map((item) => item.processName || '工序') : [],
+      meta: `${report.quantity || 0} 件 · ${this.formatTime(report.createdAt)}`,
+      path: report.type === 'route'
+        ? `/pages/report-detail-route/index?id=${report.id}`
+        : `/pages/report-detail-single/index?id=${report.id}`
+    }
+  },
+
+  formatTime(value) {
+    if (!value) {
+      return ''
+    }
+
+    return value.replace('T', ' ').slice(5, 16)
+  },
+
+  formatMonthDay(date) {
+    const month = date.getMonth() + 1
+    const day = date.getDate()
+    return `${date.getFullYear()}年${month}月${day}日`
   }
 })

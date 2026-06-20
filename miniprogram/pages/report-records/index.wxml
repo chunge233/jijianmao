@@ -3,7 +3,7 @@
 <view class="records-page">
   <view class="status-tabs">
     <block wx:for="{{tabs}}" wx:key="label">
-      <view class="tab-item {{item.active ? 'is-active' : ''}}">
+      <view class="tab-item {{item.active ? 'is-active' : ''}}" data-label="{{item.label}}" bindtap="switchTab">
         <text>{{item.label}}</text>
         <text>{{item.count}}</text>
       </view>
@@ -17,13 +17,13 @@
     </view>
     <view class="chip-row">
       <block wx:for="{{chips}}" wx:key="*this">
-        <view class="chip {{index === 0 ? 'is-active' : ''}}">{{item}}</view>
+        <view class="chip {{item === activeType ? 'is-active' : ''}}" data-type="{{item}}" bindtap="switchType">{{item}}</view>
       </block>
     </view>
   </view>
 
   <view class="records-list">
-    <block wx:for="{{records}}" wx:key="title">
+    <block wx:for="{{records}}" wx:key="id">
       <view class="record-card" data-path="{{item.path}}" bindtap="openRecord">
         <view class="record-top">
           <view>
@@ -51,5 +51,6 @@
         <text class="record-time">{{item.time}}</text>
       </view>
     </block>
+    <view wx:if="{{records.length === 0}}" class="empty-state">暂无报工记录</view>
   </view>
 </view>

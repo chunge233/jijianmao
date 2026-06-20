@@ -2,13 +2,12 @@
 
 <view class="audit-page">
   <view class="audit-tabs">
-    <view class="audit-tab active">
-      <text>待审核 5</text>
-      <view class="indicator"></view>
-    </view>
-    <view class="audit-tab">
-      <text>已审核 12</text>
-    </view>
+    <block wx:for="{{tabs}}" wx:key="status">
+      <view class="audit-tab {{item.active ? 'active' : ''}}" data-status="{{item.status}}" bindtap="switchTab">
+        <text>{{item.label}} {{item.count}}</text>
+        <view wx:if="{{item.active}}" class="indicator"></view>
+      </view>
+    </block>
   </view>
 
   <view class="search-wrap">
@@ -20,7 +19,7 @@
 
   <view class="audit-list">
     <block wx:for="{{audits}}" wx:key="code">
-      <view class="audit-card" bindtap="openDetail">
+      <view class="audit-card" data-id="{{item.id}}" bindtap="openDetail">
         <view class="audit-top">
           <view class="avatar" style="background: {{item.color}};">{{item.initial}}</view>
           <view class="audit-info">
@@ -32,12 +31,16 @@
           </view>
           <text class="time">{{item.time}}</text>
         </view>
-        <view class="action-row">
-          <view class="reject">驳回</view>
-          <view class="approve">通过</view>
+        <view wx:if="{{item.status === '待审核'}}" class="action-row">
+          <view class="reject" data-id="{{item.id}}" catchtap="rejectAudit">驳回</view>
+          <view class="approve" data-id="{{item.id}}" catchtap="approveAudit">通过</view>
+        </view>
+        <view wx:else class="reviewed-row">
+          <text class="status-tag tag-{{item.tone}}">{{item.status}}</text>
         </view>
       </view>
       <view wx:if="{{index < audits.length - 1}}" class="divider"></view>
     </block>
+    <view wx:if="{{audits.length === 0}}" class="empty-state">暂无报工</view>
   </view>
 </view>

@@ -1,1 +1,56 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="账单与发票" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="bills-page">
+  <view class="bills-scroll">
+    <view class="overview-card">
+      <view>
+        <text>累计支付</text>
+        <text>{{totalPaid}}</text>
+      </view>
+      <view>
+        <text>待处理发票</text>
+        <text>{{invoicePending}} 张</text>
+      </view>
+      <view class="export-button" bindtap="exportBills">
+        <image src="/assets/icons/export-blue.svg" mode="aspectFit"></image>
+        <text>导出</text>
+      </view>
+    </view>
+
+    <view class="filter-row">
+      <block wx:for="{{filters}}" wx:key="id">
+        <view class="{{activeFilter === item.id ? 'is-active' : ''}}" data-id="{{item.id}}" bindtap="selectFilter">{{item.label}}</view>
+      </block>
+    </view>
+
+    <view class="bill-list">
+      <block wx:if="{{bills.length > 0}}">
+        <block wx:for="{{bills}}" wx:key="id">
+          <view class="bill-card" data-id="{{item.id}}" bindtap="openBill">
+            <view class="bill-top">
+              <view>
+                <text>{{item.title}}</text>
+                <text>{{item.time}}</text>
+              </view>
+              <view class="amount-box">
+                <text>{{item.amount}}</text>
+                <text class="status status-{{item.status}}">{{item.statusText}}</text>
+              </view>
+            </view>
+            <view class="bill-bottom">
+              <text>订单号 {{item.id}}</text>
+              <view data-id="{{item.id}}" catchtap="applyInvoice">
+                <text>{{item.invoiceText}}</text>
+                <image src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+              </view>
+            </view>
+          </view>
+        </block>
+      </block>
+      <view wx:else class="empty-bills">
+        <text>暂无账单</text>
+        <text>开通套餐并完成支付后，这里会显示订单和发票状态。</text>
+      </view>
+    </view>
+  </view>
+</view>

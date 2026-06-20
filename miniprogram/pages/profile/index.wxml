@@ -3,20 +3,21 @@
 <view class="profile-page">
   <view class="profile-content">
     <view class="profile-card" bindtap="openProfileEdit">
-      <view class="avatar">
-        <text>王</text>
-        <view class="avatar-upload">
+      <view class="avatar {{!isLoggedIn ? 'avatar-guest' : ''}}">
+        <image wx:if="{{!isLoggedIn}}" class="default-avatar-icon" src="{{defaultAvatarIcon}}" mode="aspectFit"></image>
+        <text wx:else>{{userInitial}}</text>
+        <view wx:if="{{isLoggedIn}}" class="avatar-upload">
           <image class="avatar-camera" src="/assets/icons/camera-white.svg" mode="aspectFit"></image>
         </view>
       </view>
       <view class="profile-info">
         <view class="name-row">
-          <text class="profile-name">王工</text>
-          <view class="role-badge">员工</view>
+          <text class="profile-name">{{userName}}</text>
+          <view wx:if="{{isLoggedIn}}" class="role-badge">{{userRole}}</view>
         </view>
         <view class="phone-row">
           <image class="phone-icon" src="/assets/icons/phone-gray.svg" mode="aspectFit"></image>
-          <text>135****0000</text>
+          <text>{{userPhone}}</text>
         </view>
       </view>
       <image class="card-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
@@ -26,7 +27,7 @@
       <image class="factory-icon" src="/assets/icons/buildings-gray.svg" mode="aspectFit"></image>
       <view class="factory-info">
         <text class="factory-label">当前工厂</text>
-        <text class="factory-name">兴华五金厂</text>
+        <text class="factory-name">{{factoryName}}</text>
       </view>
       <image class="small-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
     </view>
@@ -37,7 +38,7 @@
           <view class="section-title-bar"></view>
           <text>我的统计</text>
         </view>
-        <view class="more-link">
+        <view wx:if="{{isLoggedIn && hasFactory}}" class="more-link" catchtap="openMoreStats">
           <text>更多</text>
           <image class="more-icon" src="/assets/icons/caret-right-blue.svg" mode="aspectFit"></image>
         </view>
@@ -57,7 +58,7 @@
 
     <view class="menu-card">
       <block wx:for="{{menus}}" wx:key="label">
-        <view class="menu-row" data-path="{{item.path}}" bindtap="openMenu">
+        <view class="menu-row" data-index="{{index}}" data-path="{{item.path}}" bindtap="openMenu">
           <image class="menu-icon" src="{{item.icon}}" mode="aspectFit"></image>
           <text class="menu-label">{{item.label}}</text>
           <image class="menu-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
@@ -66,6 +67,6 @@
       </block>
     </view>
 
-    <view class="logout-button">退出登录</view>
+    <view wx:if="{{isLoggedIn}}" class="logout-button" bindtap="logout">退出登录</view>
   </view>
 </view>

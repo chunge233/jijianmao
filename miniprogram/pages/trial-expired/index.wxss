@@ -1,3 +1,188 @@
 page {
   background: #F3F4F6;
 }
+
+.trial-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.trial-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  padding: 28rpx 28rpx calc(166rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(166rpx + env(safe-area-inset-bottom));
+}
+
+.hero-card {
+  min-height: 310rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16rpx;
+  padding: 36rpx;
+  border-radius: 24rpx;
+  background: #FFFFFF;
+  text-align: center;
+}
+
+.hero-card image {
+  width: 82rpx;
+  height: 82rpx;
+}
+
+.hero-card text:nth-child(2) {
+  color: #111827;
+  font-size: 38rpx;
+  font-weight: 800;
+  line-height: 48rpx;
+}
+
+.hero-card text:nth-child(3) {
+  color: #6B7280;
+  font-size: 24rpx;
+  line-height: 38rpx;
+}
+
+.section,
+.compare-card {
+  border-radius: 22rpx;
+  background: #FFFFFF;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+  padding: 24rpx;
+}
+
+.section-title {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 38rpx;
+}
+
+.keep-row {
+  min-height: 96rpx;
+  display: flex;
+  align-items: center;
+  gap: 18rpx;
+  padding: 18rpx;
+  border-radius: 16rpx;
+  background: #F9FAFB;
+}
+
+.keep-row image {
+  width: 46rpx;
+  height: 46rpx;
+  flex: 0 0 46rpx;
+}
+
+.keep-row view {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.keep-row text:first-child {
+  color: #111827;
+  font-size: 25rpx;
+  font-weight: 700;
+  line-height: 34rpx;
+}
+
+.keep-row text:last-child {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.benefit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.benefit-list view {
+  display: flex;
+  align-items: center;
+  gap: 12rpx;
+  color: #374151;
+  font-size: 24rpx;
+  line-height: 34rpx;
+}
+
+.benefit-list image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.compare-card {
+  min-height: 108rpx;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18rpx;
+  padding: 24rpx;
+}
+
+.compare-card view {
+  display: flex;
+  flex-direction: column;
+  gap: 4rpx;
+}
+
+.compare-card text:first-child {
+  color: #111827;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.compare-card text:last-child {
+  color: #6B7280;
+  font-size: 21rpx;
+}
+
+.compare-card image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.bottom-bar {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: flex;
+  gap: 18rpx;
+  padding: 20rpx 28rpx calc(20rpx + constant(safe-area-inset-bottom));
+  padding: 20rpx 28rpx calc(20rpx + env(safe-area-inset-bottom));
+  background: #FFFFFF;
+}
+
+.secondary-button,
+.primary-button {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 18rpx;
+  font-size: 27rpx;
+  font-weight: 700;
+}
+
+.secondary-button {
+  background: #F3F4F6;
+  color: #374151;
+}
+
+.primary-button {
+  background: #1A56DB;
+  color: #FFFFFF;
+}

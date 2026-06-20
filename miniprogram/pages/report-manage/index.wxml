@@ -16,7 +16,7 @@
     </view>
     <view class="chip-row">
       <block wx:for="{{chips}}" wx:key="*this">
-        <view class="chip {{index === 0 ? 'is-active' : ''}}">{{item}}</view>
+        <view class="chip {{item === activeType ? 'is-active' : ''}}" data-type="{{item}}" bindtap="switchType">{{item}}</view>
       </block>
     </view>
   </view>
@@ -48,5 +48,6 @@
         </view>
       </view>
     </block>
+    <view wx:if="{{records.length === 0}}" class="empty-state">暂无报工记录</view>
   </view>
 </view>

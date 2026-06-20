@@ -5,21 +5,22 @@
     <view class="status-card admin-card">
       <image src="/assets/icons/cloud-arrow-up-gray.svg" mode="aspectFit"></image>
       <view class="row-copy">
-        <text class="row-title">备份正常</text>
-        <text class="row-desc">上次自动备份：今天 23:00 · 保留30天</text>
+        <text class="row-title">{{backupStatusTitle}}</text>
+        <text class="row-desc">{{lastBackupText}}</text>
       </view>
     </view>
     <view class="admin-card">
       <view class="admin-row">
-        <view class="row-copy"><text class="row-title">备份频率</text><text class="row-desc">每天 23:00 自动备份</text></view>
+        <view class="row-copy"><text class="row-title">备份策略</text><text class="row-desc">MVP版本支持手动备份和最近备份恢复</text></view>
       </view>
       <view class="admin-row">
-        <view class="row-copy"><text class="row-title">云端存储</text><text class="row-desc">已使用 128MB / 2GB</text></view>
+        <view class="row-copy"><text class="row-title">备份记录</text><text class="row-desc">{{storageText}}</text></view>
       </view>
     </view>
     <view class="admin-section-title">历史备份</view>
     <view class="admin-card">
-      <block wx:for="{{histories}}" wx:key="date">
+      <view wx:if="{{histories.length === 0}}" class="empty-state">暂无历史备份</view>
+      <block wx:for="{{histories}}" wx:key="id">
         <view class="admin-row">
           <view class="row-copy">
             <text class="row-title">{{item.date}}</text>

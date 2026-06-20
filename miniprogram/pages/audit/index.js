@@ -1,18 +1,129 @@
+const api = require('../../utils/api')
+
 Page({
   data: {
-    audits: [
-      { name: '张伟', initial: '张', color: '#3B82F6', code: 'JK-2023', process: '裁剪工序', count: '200件', time: '14:30' },
-      { name: '李娜', initial: '李', color: '#6366F1', code: 'XS-1002', process: '缝合工序', count: '150件', time: '15:15' },
-      { name: '王强', initial: '王', color: '#60A5FA', code: 'HD-881', process: '包装工序', count: '80件', time: '11:00' },
-      { name: '陈敏', initial: '陈', color: '#3B82F6', code: 'PN-205', process: '质检工序', count: '300件', time: '昨天' },
-      { name: '刘洋', initial: '刘', color: '#60A5FA', code: 'JK-2023', process: '裁剪工序', count: '180件', time: '昨天' },
-      { name: '赵磊', initial: '赵', color: '#60A5FA', code: 'XS-1002', process: '烫熨工序', count: '220件', time: '昨天' }
+    tabs: [],
+    activeStatus: 'pending',
+    allAudits: [],
+    audits: []
+  },
+
+  onLoad() {
+    this.filterAudits('pending')
+    this.loadAudits()
+  },
+
+  onShow() {
+    this.loadAudits()
+  },
+
+  switchTab(event) {
+    const { status } = event.currentTarget.dataset
+    this.filterAudits(status)
+  },
+
+  buildTabs(activeStatus) {
+    const pendingCount = this.data.allAudits.filter((item) => item.status === '待审核').length
+    const reviewedCount = this.data.allAudits.length - pendingCount
+
+    return [
+      { label: '待审核', status: 'pending', count: pendingCount, active: activeStatus === 'pending' },
+      { label: '已审核', status: 'reviewed', count: reviewedCount, active: activeStatus === 'reviewed' }
     ]
   },
 
-  openDetail() {
-    wx.navigateTo({
-      url: '/pages/audit-detail/index'
+  filterAudits(status) {
+    const audits = status === 'pending'
+      ? this.data.allAudits.filter((item) => item.status === '待审核')
+      : this.data.allAudits.filter((item) => item.status !== '待审核')
+
+    this.setData({
+      activeStatus: status,
+      tabs: this.buildTabs(status),
+      audits
     })
+  },
+
+  openDetail(event) {
+    const { id } = event.currentTarget.dataset
+
+    wx.navigateTo({
+      url: `/pages/audit-detail/index${id ? `?id=${id}` : ''}`
+    })
+  },
+
+  approveAudit(event) {
+    const { id } = event.currentTarget.dataset
+
+    api.approveReport(id).then(() => {
+      wx.showToast({ title: '已通过', icon: 'success' })
+      this.loadAudits()
+    }).catch(() => {
+      wx.showToast({ title: '审核接口不可用', icon: 'none' })
+    })
+  },
+
+  rejectAudit(event) {
+    const { id } = event.currentTarget.dataset
+
+    wx.showModal({
+      title: '确认驳回？',
+      content: '驳回后员工需要重新核对报工信息。',
+      confirmText: '驳回',
+      success: (res) => {
+        if (!res.confirm) {
+          return
+        }
+
+        api.rejectReport(id, '数量或工序信息需要核对').then(() => {
+          wx.showToast({ title: '已驳回', icon: 'none' })
+          this.loadAudits()
+        }).catch(() => {
+          wx.showToast({ title: '审核接口不可用', icon: 'none' })
+        })
+      }
+    })
+  },
+
+  loadAudits() {
+    api.getReports().then((reports) => {
+      this.setData({
+        allAudits: Array.isArray(reports) ? reports.map((report, index) => this.normalizeAudit(report, index)) : []
+      })
+      this.filterAudits(this.data.activeStatus)
+    }).catch(() => {})
+  },
+
+  normalizeAudit(report, index) {
+    const statusMap = {
+      pending: { status: '待审核', tone: 'amber' },
+      approved: { status: '已通过', tone: 'green' },
+      rejected: { status: '已驳回', tone: 'red' },
+      withdrawn: { status: '已撤回', tone: 'gray' }
+    }
+    const firstItem = report.items && report.items[0] ? report.items[0] : {}
+    const status = statusMap[report.status] || statusMap.pending
+    const name = report.workerName || report.userName || '未知员工'
+
+    return {
+      id: report.id,
+      name,
+      initial: name.slice(0, 1),
+      color: ['#3B82F6', '#6366F1', '#60A5FA', '#0891B2'][index % 4],
+      code: report.id,
+      process: firstItem.processName || '报工记录',
+      count: `${report.quantity || 0}件`,
+      time: this.formatTime(report.createdAt),
+      status: status.status,
+      tone: status.tone
+    }
+  },
+
+  formatTime(value) {
+    if (!value) {
+      return ''
+    }
+
+    return value.replace('T', ' ').slice(11, 16)
   }
 })

@@ -131,6 +131,11 @@
   gap: 14rpx;
 }
 
+.reviewed-row {
+  display: flex;
+  justify-content: flex-end;
+}
+
 .reject,
 .approve {
   flex: 1;
@@ -156,4 +161,11 @@
 .divider {
   height: 1px;
   background: #F3F4F6;
+}
+
+.empty-state {
+  padding: 80rpx 28rpx;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
 }

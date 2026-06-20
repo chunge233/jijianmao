@@ -127,3 +127,10 @@
   margin-left: 28rpx;
   background: #F3F4F6;
 }
+
+.empty-state {
+  padding: 80rpx 28rpx;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
+}

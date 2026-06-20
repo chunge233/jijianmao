@@ -1,1 +1,30 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="{{routeId ? '编辑路线' : '新增路线'}}" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="form-page">
+  <view class="form-card">
+    <view class="field">
+      <text class="label">路线名称</text>
+      <input class="input" placeholder="例如：零件加工路线" placeholder-class="placeholder" value="{{name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">选择工序</text>
+      <checkbox-group bindchange="onProcessChange">
+        <view class="process-list">
+          <label class="process-row" wx:for="{{processes}}" wx:key="id">
+            <checkbox value="{{item.id}}" checked="{{item.checked}}" color="#1A56DB" />
+            <view class="process-copy">
+              <text>{{item.name}}</text>
+              <text>{{item.priceText}} · {{item.qrCode}}</text>
+            </view>
+          </label>
+        </view>
+      </checkbox-group>
+      <view class="empty" wx:if="{{!processes.length}}">请先在工序管理中新增工序</view>
+    </view>
+  </view>
+
+  <view class="bottom-area">
+    <view class="primary-button {{saving ? 'is-disabled' : ''}}" bindtap="saveRoute">{{saving ? '保存中' : '保存路线'}}</view>
+  </view>
+</view>

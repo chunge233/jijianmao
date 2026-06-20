@@ -2,8 +2,11 @@
 
 <view class="employee-page">
   <view class="top-tabs">
-    <view class="top-tab active">在线 12</view>
-    <view class="top-tab">离职 3</view>
+    <block wx:for="{{topTabs}}" wx:key="status">
+      <view class="top-tab {{item.active ? 'active' : ''}}" data-status="{{item.status}}" bindtap="switchStatus">
+        {{item.label}} {{item.count}}
+      </view>
+    </block>
   </view>
 
   <view class="search-wrap">
@@ -15,13 +18,13 @@
 
   <view class="role-tabs">
     <block wx:for="{{roles}}" wx:key="*this">
-      <text class="{{index === 0 ? 'active' : ''}}">{{item}}</text>
+      <text class="{{item === activeRole ? 'active' : ''}}" data-role="{{item}}" bindtap="switchRole">{{item}}</text>
     </block>
   </view>
 
   <view class="employee-list">
     <block wx:for="{{employees}}" wx:key="phone">
-      <view class="employee-row" bindtap="openEmployeeDetail">
+      <view class="employee-row" data-id="{{item.id}}" bindtap="openEmployeeDetail">
         <view class="avatar" style="background: {{item.color}};">{{item.initial}}</view>
         <view class="employee-info">
           <text class="employee-name">{{item.name}}</text>
@@ -33,5 +36,6 @@
       </view>
       <view wx:if="{{index < employees.length - 1}}" class="divider"></view>
     </block>
+    <view wx:if="{{employees.length === 0}}" class="empty-state">暂无员工</view>
   </view>
 </view>

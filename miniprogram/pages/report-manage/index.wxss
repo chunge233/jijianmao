@@ -189,3 +189,12 @@
   gap: 22rpx;
   color: #6B7280;
 }
+
+.empty-state {
+  padding: 80rpx 28rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
+}

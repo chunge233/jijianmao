@@ -1,1 +1,23 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="{{productId ? '编辑产品' : '新增产品'}}" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="form-page">
+  <view class="form-card">
+    <view class="field">
+      <text class="label">产品名称</text>
+      <input class="input" placeholder="例如：五金零件套装" placeholder-class="placeholder" value="{{name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">产品编号</text>
+      <input class="input" placeholder="不填则自动生成" placeholder-class="placeholder" value="{{code}}" bindinput="onCodeInput" />
+    </view>
+
+    <view class="notice">
+      <text>产品用于归档工艺路线和后续报工统计，第一版不强制绑定库存。</text>
+    </view>
+  </view>
+
+  <view class="bottom-area">
+    <view class="primary-button {{saving ? 'is-disabled' : ''}}" bindtap="saveProduct">{{saving ? '保存中' : '保存产品'}}</view>
+  </view>
+</view>

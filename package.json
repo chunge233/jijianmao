@@ -1,0 +1,14 @@
+{
+  "name": "jijianmao",
+  "private": true,
+  "scripts": {
+    "dev:server": "npm --prefix server run dev",
+    "build:server": "npm --prefix server run build",
+    "check:server": "npm --prefix server run check",
+    "check:server-smoke-coverage": "node scripts/check-server-smoke-coverage.mjs",
+    "check:miniprogram-events": "node scripts/check-miniprogram-events.mjs",
+    "check:miniprogram": "node scripts/check-miniprogram.mjs && node scripts/check-miniprogram-events.mjs",
+    "sync:lan-ip": "node scripts/sync-lan-ip.mjs",
+    "smoke:server": "npm --prefix server run smoke"
+  }
+}

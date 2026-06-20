@@ -54,3 +54,10 @@
   width: 28rpx;
   height: 28rpx;
 }
+
+.empty-state {
+  padding: 60rpx 24rpx;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
+}

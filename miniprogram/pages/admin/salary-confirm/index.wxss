@@ -66,3 +66,15 @@
   color: #FFFFFF;
   font-weight: 700;
 }
+
+.empty-state {
+  padding: 60rpx 24rpx;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
+}
+
+.primary-action.is-disabled {
+  background: #D1D5DB;
+  color: #FFFFFF;
+}

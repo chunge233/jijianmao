@@ -3,10 +3,10 @@
 <view class="admin-page">
   <view class="admin-content">
     <view class="factory-head admin-card">
-      <view class="factory-logo">宏</view>
+      <view class="factory-logo">{{factoryInitial}}</view>
       <view class="factory-copy">
-        <text>宏达服装厂</text>
-        <text>工厂编码 HD202606</text>
+        <text>{{factoryName}}</text>
+        <text>工厂编码 {{factoryCode}}</text>
       </view>
       <text class="status-tag tag-green">正常</text>
     </view>

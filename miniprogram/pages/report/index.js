@@ -1,4 +1,6 @@
 const { syncTabBar } = require('../../utils/tabbar')
+const api = require('../../utils/api')
+const { ensureFactorySelected } = require('../../utils/session')
 
 Page({
   data: {
@@ -6,99 +8,250 @@ Page({
     guideShownOnce: false,
     guideSteps: [
       {
-        title: '选择报工方式',
-        desc: '单工序适合临时报工，工艺路线适合同一产品连续多道工序。',
-        spotStyle: 'top: 150rpx; left: 28rpx; width: 694rpx; height: 166rpx;'
+        title: '选择报工对象',
+        desc: '工序和工艺路线都在当前页面选择，扫码后也会直接回到这里。',
+        spotStyle: 'top: 150rpx; left: 28rpx; width: 694rpx; height: 260rpx;'
       },
       {
-        title: '可一次添加多道工序',
-        desc: '选中的工序会出现在明细表里，数量可以逐项加减，金额会自动合计。',
-        spotStyle: 'top: 340rpx; left: 28rpx; width: 694rpx; height: 280rpx;',
+        title: '核对计件明细',
+        desc: '工序码会选中单道工序，路线码会带出路线下所有工序。',
+        spotStyle: 'top: 430rpx; left: 28rpx; width: 694rpx; height: 280rpx;',
         panelClass: 'panel-top-pos'
       },
       {
         title: '提交前补充凭证',
         desc: '备注和现场图片能减少审核沟通，数量异常时系统会先弹出确认。',
-        spotStyle: 'top: 650rpx; left: 28rpx; width: 694rpx; height: 310rpx;',
+        spotStyle: 'top: 740rpx; left: 28rpx; width: 694rpx; height: 310rpx;',
         panelClass: 'panel-top-pos'
       }
     ],
     showQuantityWarning: false,
-    showProcessPicker: false,
+    showPicker: false,
+    pickerMode: 'process',
     selectedMode: 'process',
-    selectedProcessId: 'quality',
-    selectedProcessName: '产品质检',
-    totalAmount: '¥ 35.50',
-    processOptions: [
-      { id: 'quality', name: '产品质检', priceCents: 35, price: '¥0.35', selected: true },
-      { id: 'assembly', name: '零件装配', priceCents: 30, price: '¥0.30', selected: false },
-      { id: 'drill', name: '钻孔', priceCents: 50, price: '¥0.50', selected: false },
-      { id: 'cutting', name: '切割', priceCents: 40, price: '¥0.40', selected: false },
-      { id: 'package', name: '包装检验', priceCents: 20, price: '¥0.20', selected: false }
-    ],
-    processes: [
-      { id: 'quality', name: '产品质检', priceCents: 35, price: '¥0.35', quantity: 30, subtotal: '¥10.50' },
-      { id: 'assembly', name: '零件装配', priceCents: 30, price: '¥0.30', quantity: 50, subtotal: '¥15.00' },
-      { id: 'drill', name: '钻孔', priceCents: 50, price: '¥0.50', quantity: 20, subtotal: '¥10.00' }
-    ]
+    selectedProcessId: '',
+    selectedProcessName: '已选择 3 道工序',
+    selectedRouteId: '',
+    selectedRouteName: '',
+    selectedSource: 'manual',
+    scanNotice: '',
+    selectionTitle: '请选择计件工序',
+    selectionDesc: '可从底部弹窗添加工序',
+    totalAmount: '¥ 0.00',
+    processCountText: '0 道工序',
+    totalQuantityText: '0 件',
+    remark: '',
+    processOptions: [],
+    routeOptions: [],
+    processes: []
+  },
+
+  onLoad(options) {
+    this.reportOptions = options || {}
+    this.reportOptionsLoaded = false
   },
 
   onShow() {
-    syncTabBar(2, { hidden: true })
-    this.setData({
-      selectedMode: 'process'
+    ensureFactorySelected().then((ready) => {
+      if (!ready) {
+        return
+      }
+
+      syncTabBar(2, { hidden: true })
+
+      const options = this.reportOptionsLoaded ? {} : (this.reportOptions || {})
+      this.reportOptionsLoaded = true
+      this.refreshDerivedData()
+      this.loadReportOptions(options)
+
+      this.showGuideIfNeeded()
     })
-    this.refreshDerivedData()
-    this.showGuideIfNeeded()
   },
 
   selectProcessMode() {
     this.setData({
-      selectedMode: 'process'
+      selectedMode: 'process',
+      pickerMode: 'process',
+      selectedRouteId: '',
+      selectedRouteName: '',
+      selectedSource: 'manual',
+      scanNotice: '',
+      showPicker: true
+    })
+    this.refreshDerivedData()
+  },
+
+  loadReportOptions(options) {
+    Promise.all([
+      api.getProcesses(),
+      api.getRoutes()
+    ]).then(([processes, routes]) => {
+      const processOptions = processes.map((item) => ({
+        id: item.id,
+        name: item.name,
+        priceCents: Number(item.priceCents),
+        price: this.formatAmount(item.priceCents),
+        qrLabel: item.qrCode,
+        defaultQuantity: 1,
+        selected: false
+      }))
+      const routeOptions = routes.map((item) => {
+        const steps = (item.processes || []).filter(Boolean).map((process) => ({
+          id: process.id,
+          name: process.name,
+          priceCents: Number(process.priceCents),
+          price: this.formatAmount(process.priceCents),
+          quantity: 1
+        }))
+
+        return {
+          id: item.id,
+          name: item.name,
+          qrLabel: item.qrCode,
+          desc: steps.map((step) => step.name).join(' -> '),
+          steps,
+          selected: false
+        }
+      })
+
+      this.setData({
+        processOptions,
+        routeOptions
+      })
+      this.applyQrOptions(options || {})
+      this.refreshDerivedData()
+    }).catch(() => {
+      this.refreshDerivedData()
     })
   },
 
   selectRouteMode() {
     this.setData({
-      selectedMode: 'route'
+      selectedMode: 'route',
+      pickerMode: 'route',
+      showPicker: true
     })
-
-    wx.navigateTo({
-      url: '/pages/report-route/index'
-    })
+    this.refreshDerivedData()
   },
 
-  toggleProcessPicker() {
+  openSelectionPicker() {
     this.setData({
-      showProcessPicker: !this.data.showProcessPicker
+      pickerMode: this.data.selectedMode,
+      showPicker: true
     })
   },
 
-  closeProcessPicker() {
+  closePicker() {
     this.setData({
-      showProcessPicker: false
+      showPicker: false
     })
   },
+
+  noop() {},
 
   selectProcess(event) {
     const { id } = event.currentTarget.dataset
-    const option = this.data.processOptions.find((item) => item.id === id)
+    const option = this.getProcessById(id)
 
     if (!option) {
       return
     }
 
-    const processes = this.data.processes.slice()
-    const existedIndex = processes.findIndex((item) => item.id === id)
+    this.applyProcessSelection(option, {
+      replace: !!this.data.selectedRouteId,
+      source: 'manual'
+    })
+  },
+
+  selectRoute(event) {
+    const { id } = event.currentTarget.dataset
+    const route = this.getRouteById(id)
+
+    if (!route) {
+      return
+    }
+
+    this.applyRouteSelection(route, 'manual')
+  },
+
+  applyQrOptions(options) {
+    const qrType = options.qrType || options.type
+
+    if (qrType === 'route') {
+      const route = this.getRouteById(options.routeId || options.routeCode)
+      if (!route && (options.routeId || options.routeCode)) {
+        wx.showToast({ title: '未找到工艺路线', icon: 'none' })
+      }
+      this.applyRouteSelection(route, 'route-qr')
+      return
+    }
+
+    if (qrType === 'process') {
+      const process = this.getProcessById(options.processId || options.processCode)
+      if (!process && (options.processId || options.processCode)) {
+        wx.showToast({ title: '未找到工序', icon: 'none' })
+      }
+      this.applyProcessSelection(process, {
+        replace: true,
+        source: 'process-qr'
+      })
+    }
+  },
+
+  applyProcessSelection(option, config) {
+    if (!option) {
+      return
+    }
+
+    const replace = config && config.replace
+    const source = (config && config.source) || 'manual'
+    const processes = replace ? [] : this.data.processes.slice()
+    const existedIndex = processes.findIndex((item) => item.id === option.id)
 
     if (existedIndex === -1) {
-      processes.push(this.buildProcess(option, 1))
+      processes.push(this.buildProcess(option, option.defaultQuantity || 1))
+    } else if (replace) {
+      processes[0] = this.buildProcess(option, option.defaultQuantity || processes[existedIndex].quantity || 1)
     }
 
     this.setData({
-      selectedProcessId: id,
+      selectedMode: 'process',
+      pickerMode: 'process',
+      selectedProcessId: option.id,
       selectedProcessName: option.name,
-      showProcessPicker: false,
+      selectedRouteId: '',
+      selectedRouteName: '',
+      selectedSource: source,
+      scanNotice: source === 'process-qr' ? `已识别工序二维码 ${option.qrLabel}，自动选中「${option.name}」。` : '',
+      showPicker: false,
+      processes
+    })
+    this.refreshDerivedData()
+  },
+
+  onRemarkInput(event) {
+    this.setData({
+      remark: event.detail.value
+    })
+  },
+
+  applyRouteSelection(route, source) {
+    if (!route) {
+      return
+    }
+
+    const processes = route.steps.map((step) => this.buildProcess(step, step.quantity || 1))
+
+    this.setData({
+      selectedMode: 'route',
+      pickerMode: 'route',
+      selectedProcessId: '',
+      selectedProcessName: route.name,
+      selectedRouteId: route.id,
+      selectedRouteName: route.name,
+      selectedSource: source || 'manual',
+      scanNotice: source === 'route-qr' ? `已识别工艺路线二维码 ${route.qrLabel}，已带出该路线全部工序。` : '',
+      showPicker: false,
       processes
     })
     this.refreshDerivedData()
@@ -154,7 +307,12 @@ Page({
     this.setData({
       processes,
       selectedProcessId,
-      selectedProcessName
+      selectedProcessName,
+      selectedSource: 'manual',
+      scanNotice: '',
+      selectedRouteId: this.data.selectedMode === 'route' ? '' : this.data.selectedRouteId,
+      selectedRouteName: this.data.selectedMode === 'route' ? '' : this.data.selectedRouteName,
+      selectedMode: this.data.selectedMode === 'route' ? 'process' : this.data.selectedMode
     })
     this.refreshDerivedData()
 
@@ -164,16 +322,18 @@ Page({
     })
   },
 
-  goRouteReport() {
-    wx.navigateTo({
-      url: '/pages/report-route/index'
-    })
-  },
-
   goSuccess() {
     if (this.data.processes.length === 0) {
       wx.showToast({
         title: '请先选择工序',
+        icon: 'none'
+      })
+      return
+    }
+
+    if (this.data.selectedMode === 'route' && !this.data.selectedRouteId) {
+      wx.showToast({
+        title: '请先选择工艺路线',
         icon: 'none'
       })
       return
@@ -205,8 +365,31 @@ Page({
   },
 
   submitReport() {
-    wx.navigateTo({
-      url: '/pages/submit-success/index'
+    const processCount = this.data.processes.length
+    const quantity = this.getTotalQuantity()
+    const totalCents = this.getTotalCents()
+    const type = this.data.selectedMode === 'route' ? '工艺路线' : '单工序'
+    const reportType = this.data.selectedMode === 'route' ? 'route' : 'process'
+    const payload = {
+      type: reportType,
+      remark: this.data.remark.trim(),
+      items: this.data.processes.map((item) => ({
+        processId: item.id,
+        quantity: Number(item.quantity),
+        priceCents: Number(item.priceCents),
+        processName: item.name
+      }))
+    }
+
+    api.createReport(payload).then((report) => {
+      wx.navigateTo({
+        url: `/pages/submit-success/index?type=${encodeURIComponent(type)}&processCount=${report.items.length || processCount}&quantity=${report.quantity || quantity}&amount=${((report.totalCents || totalCents) / 100).toFixed(2)}`
+      })
+    }).catch((error) => {
+      wx.showToast({
+        title: error.message || '提交失败，请检查网络',
+        icon: 'none'
+      })
     })
   },
 
@@ -245,24 +428,64 @@ Page({
       priceCents,
       price: process.price || this.formatAmount(priceCents),
       quantity: nextQuantity,
-      subtotal: this.formatAmount(subtotalCents)
+      subtotal: this.formatAmount(subtotalCents),
+      qrLabel: process.qrLabel || '',
+      terminal: !!process.terminal
     }
   },
 
   refreshDerivedData() {
-    const selectedProcessId = this.data.selectedProcessId
+    const processes = this.data.processes
+    const selectedProcessIds = processes.map((item) => item.id)
+    const selectedRouteId = this.data.selectedRouteId
     const processOptions = this.data.processOptions.map((item) => ({
       ...item,
-      selected: item.id === selectedProcessId
+      selected: selectedProcessIds.includes(item.id)
     }))
-    const totalCents = this.data.processes.reduce((sum, item) => {
-      return sum + Number(item.priceCents) * Number(item.quantity)
-    }, 0)
+    const routeOptions = this.data.routeOptions.map((item) => ({
+      ...item,
+      selected: item.id === selectedRouteId
+    }))
+    const totalCents = this.getTotalCents()
+    const totalQuantity = this.getTotalQuantity()
+    const isRoute = this.data.selectedMode === 'route'
+    const selectedRoute = isRoute ? this.getRouteById(selectedRouteId) : null
+    const selectionTitle = isRoute
+      ? (this.data.selectedRouteName || '请选择工艺路线')
+      : (processes.length ? `已选择 ${processes.length} 道工序` : '请选择计件工序')
+    const selectionDesc = isRoute
+      ? (selectedRoute ? `${selectedRoute.desc} · ${selectedRoute.qrLabel}` : '从底部弹窗选择工艺路线')
+      : (this.data.selectedSource === 'process-qr'
+        ? '工序二维码已识别，可继续调整数量'
+        : '可从底部弹窗添加工序')
 
     this.setData({
       processOptions,
-      totalAmount: this.formatAmount(totalCents, true)
+      routeOptions,
+      selectionTitle,
+      selectionDesc,
+      totalAmount: this.formatAmount(totalCents, true),
+      processCountText: `${processes.length} 道工序`,
+      totalQuantityText: `${totalQuantity} 件`
     })
+  },
+
+  getProcessById(id) {
+    return this.data.processOptions.find((item) => item.id === id || item.qrLabel === id)
+  },
+
+  getRouteById(id) {
+    return this.data.routeOptions.find((item) => item.id === id || item.qrLabel === id)
+  },
+
+  getTotalQuantity() {
+    return this.data.processes.reduce((sum, item) => sum + Number(item.quantity), 0)
+  },
+
+  getTotalCents() {
+    return this.data.processes.reduce((sum, item) => {
+      return sum + Number(item.priceCents) * Number(item.quantity)
+    }, 0)
   },
 
   formatAmount(cents, withSpace) {

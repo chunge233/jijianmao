@@ -1,4 +1,15 @@
-const { createPenPage } = require('../../utils/pen-page')
-const screens = require('../../utils/pen-page-presets')
+Page({
+  onLoad(options) {
+    this.redirectToReport(options || {})
+  },
 
-Page(createPenPage(screens.scannedReportForm))
+  redirectToReport(options) {
+    const query = Object.keys(options).filter((key) => options[key]).map((key) => {
+      return `${key}=${encodeURIComponent(options[key])}`
+    }).join('&')
+
+    wx.redirectTo({
+      url: `/pages/report/index${query ? `?${query}` : ''}`
+    })
+  }
+})

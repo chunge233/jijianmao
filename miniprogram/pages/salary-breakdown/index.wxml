@@ -3,8 +3,13 @@
 <view class="breakdown-page">
   <view class="breakdown-content">
     <view class="month-row">
-      <text>2026年6月</text>
-      <text>合计 ¥2,580.00</text>
+      <text>{{month}}</text>
+      <text>合计 {{totalAmount}}</text>
+    </view>
+
+    <view wx:if="{{isEmpty}}" class="empty-card">
+      <text class="empty-title">{{emptyTitle}}</text>
+      <text class="empty-desc">{{emptyDesc}}</text>
     </view>
 
     <block wx:for="{{sections}}" wx:key="name">

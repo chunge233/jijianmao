@@ -191,3 +191,12 @@
   color: #9CA3AF;
   font-size: 20rpx;
 }
+
+.empty-state {
+  padding: 80rpx 28rpx;
+  border-radius: 14rpx;
+  background: #FFFFFF;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
+}

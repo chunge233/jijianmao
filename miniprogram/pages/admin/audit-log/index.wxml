@@ -4,7 +4,7 @@
   <view class="admin-content">
     <view class="chip-row">
       <block wx:for="{{chips}}" wx:key="*this">
-        <view class="chip {{index === 0 ? 'active' : ''}}">{{item}}</view>
+        <view class="chip {{item === activeChip ? 'active' : ''}}" data-chip="{{item}}" bindtap="switchChip">{{item}}</view>
       </block>
     </view>
     <block wx:for="{{logs}}" wx:key="id">
@@ -18,5 +18,6 @@
         <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
       </view>
     </block>
+    <view wx:if="{{logs.length === 0}}" class="empty-state admin-card">暂无日志</view>
   </view>
 </view>

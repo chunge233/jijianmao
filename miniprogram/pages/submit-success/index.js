@@ -9,6 +9,32 @@ Page({
     ]
   },
 
+  onLoad(options) {
+    if (!options || !options.type) {
+      return
+    }
+
+    const type = decodeURIComponent(options.type)
+    const processCount = options.processCount || '1'
+    const quantity = options.quantity || '0'
+    const amount = options.amount ? `¥${Number(options.amount).toFixed(2)}` : '¥0.00'
+
+    this.setData({
+      summary: [
+        { label: '报工类型', value: type },
+        { label: '工序数量', value: `${processCount} 道工序` },
+        { label: '报工件数', value: `${quantity} 件` },
+        { label: '报工日期', value: this.formatToday() },
+        { label: '合计金额', value: amount, tone: 'amount' }
+      ]
+    })
+  },
+
+  formatToday() {
+    const date = new Date()
+    return `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`
+  },
+
   goRecords() {
     wx.navigateTo({
       url: '/pages/report-records/index'

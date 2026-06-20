@@ -9,24 +9,30 @@
       <text>搜索产品名称...</text>
     </view>
   </view>
-  <text class="count-text">共 5 条路线</text>
+  <text class="count-text">共 {{routes.length}} 条路线</text>
 
   <view class="route-list">
-    <block wx:for="{{routes}}" wx:key="name">
-      <view class="route-row" bindtap="openRouteDetail">
+    <block wx:if="{{routes.length > 0}}">
+      <block wx:for="{{routes}}" wx:key="id">
+      <view class="route-row" data-id="{{item.id}}" bindtap="openRouteDetail">
         <view class="route-top">
           <view class="route-title">
             <text>{{item.name}}</text>
             <text>{{item.count}}</text>
           </view>
           <view class="route-actions">
-            <image catchtap="goRouteEdit" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
-            <image catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+            <image data-id="{{item.id}}" catchtap="goRouteEdit" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+            <image data-id="{{item.id}}" catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
           </view>
         </view>
         <text class="route-steps">{{item.steps}}</text>
       </view>
       <view wx:if="{{index < routes.length - 1}}" class="divider"></view>
+      </block>
     </block>
+    <view wx:else class="empty-route">
+      <text>暂无工艺路线</text>
+      <text>点击左上角加号，把已有工序串成一条报工路线。</text>
+    </view>
   </view>
 </view>

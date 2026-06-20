@@ -1,5 +1,5 @@
 {
   "usingComponents": {
-    "pen-screen": "/components/pen-screen/index"
+    "nav-bar": "/components/nav-bar/index"
   }
 }

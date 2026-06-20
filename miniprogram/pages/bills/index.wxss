@@ -1,3 +1,210 @@
 page {
   background: #F3F4F6;
 }
+
+.bills-page {
+  min-height: 100vh;
+  background: #F3F4F6;
+}
+
+.bills-scroll {
+  display: flex;
+  flex-direction: column;
+  gap: 22rpx;
+  padding: 28rpx;
+}
+
+.overview-card,
+.bill-card {
+  border-radius: 22rpx;
+  background: #FFFFFF;
+}
+
+.overview-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr 132rpx;
+  align-items: center;
+  gap: 16rpx;
+  padding: 26rpx;
+}
+
+.overview-card > view:not(.export-button) {
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.overview-card text:first-child {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.overview-card text:last-child {
+  color: #111827;
+  font-size: 31rpx;
+  font-weight: 800;
+  line-height: 40rpx;
+}
+
+.export-button {
+  height: 70rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  border-radius: 14rpx;
+  background: #DBEAFE;
+  color: #1A56DB;
+  font-size: 23rpx;
+  font-weight: 700;
+}
+
+.export-button image {
+  width: 28rpx;
+  height: 28rpx;
+}
+
+.filter-row {
+  display: flex;
+  gap: 14rpx;
+}
+
+.filter-row view {
+  min-width: 118rpx;
+  height: 62rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999rpx;
+  background: #FFFFFF;
+  color: #6B7280;
+  font-size: 23rpx;
+  font-weight: 700;
+}
+
+.filter-row .is-active {
+  background: #1A56DB;
+  color: #FFFFFF;
+}
+
+.bill-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18rpx;
+}
+
+.bill-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20rpx;
+  padding: 24rpx;
+}
+
+.bill-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 18rpx;
+}
+
+.bill-top > view:first-child {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.bill-top > view:first-child text:first-child {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 38rpx;
+}
+
+.bill-top > view:first-child text:last-child,
+.bill-bottom > text {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 30rpx;
+}
+
+.amount-box {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6rpx;
+}
+
+.amount-box > text:first-child {
+  color: #111827;
+  font-size: 30rpx;
+  font-weight: 800;
+  line-height: 40rpx;
+}
+
+.status {
+  padding: 4rpx 12rpx;
+  border-radius: 8rpx;
+  font-size: 19rpx;
+  font-weight: 700;
+}
+
+.status-paid {
+  background: #D1FAE5;
+  color: #059669;
+}
+
+.status-refund {
+  background: #FEF3C7;
+  color: #D97706;
+}
+
+.bill-bottom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16rpx;
+  padding-top: 18rpx;
+  border-top: 1rpx solid #F3F4F6;
+}
+
+.bill-bottom view {
+  flex: 0 0 auto;
+  display: flex;
+  align-items: center;
+  gap: 4rpx;
+  color: #1A56DB;
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+.bill-bottom image {
+  width: 22rpx;
+  height: 22rpx;
+}
+
+.empty-bills {
+  min-height: 260rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12rpx;
+  border-radius: 22rpx;
+  background: #FFFFFF;
+  color: #9CA3AF;
+  text-align: center;
+}
+
+.empty-bills text:first-child {
+  color: #374151;
+  font-size: 28rpx;
+  font-weight: 800;
+}
+
+.empty-bills text:last-child {
+  max-width: 520rpx;
+  font-size: 23rpx;
+  line-height: 34rpx;
+}

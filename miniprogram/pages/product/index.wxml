@@ -8,19 +8,19 @@
       <text>搜索产品名称...</text>
     </view>
   </view>
-  <text class="count-text">共 6 款产品</text>
+  <text class="count-text">共 {{products.length}} 款产品</text>
 
   <view class="product-list">
     <block wx:for="{{products}}" wx:key="code">
-      <view class="product-row" bindtap="openProductDetail">
+      <view class="product-row" data-id="{{item.id}}" bindtap="openProductDetail">
         <view class="thumb">{{item.initial}}</view>
         <view class="product-info">
           <text class="product-name">{{item.name}}</text>
           <text class="product-meta">{{item.code}} · {{item.category}}</text>
         </view>
         <text class="price">{{item.price}}</text>
-        <image class="row-icon" catchtap="goNewProduct" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
-        <image class="row-icon" catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-id="{{item.id}}" catchtap="goNewProduct" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+        <image class="row-icon" data-id="{{item.id}}" catchtap="openDeleteConfirm" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
       </view>
       <view wx:if="{{index < products.length - 1}}" class="divider"></view>
     </block>

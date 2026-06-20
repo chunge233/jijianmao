@@ -52,3 +52,11 @@
   border-radius: 8rpx;
   background: #1A56DB;
 }
+
+.empty-state {
+  padding: 48rpx 24rpx;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  line-height: 34rpx;
+  text-align: center;
+}

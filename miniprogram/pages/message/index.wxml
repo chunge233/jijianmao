@@ -2,25 +2,31 @@
 
 <view class="message-page">
   <view class="message-content">
-    <view class="read-all">
+    <view class="read-all" bindtap="readAll">
       <image class="read-icon" src="/assets/icons/checks-gray.svg" mode="aspectFit"></image>
       <text>全部已读</text>
     </view>
 
-    <block wx:for="{{messages}}" wx:key="title">
-      <view class="message-card" data-path="{{item.path}}" bindtap="openDetail">
-        <view class="message-icon-box message-icon-{{item.tone}}">
-          <image class="message-icon" src="{{item.icon}}" mode="aspectFit"></image>
+    <block wx:if="{{messages.length > 0}}">
+      <block wx:for="{{messages}}" wx:key="id">
+        <view class="message-card" data-path="{{item.path}}" bindtap="openDetail">
+          <view class="message-icon-box message-icon-{{item.tone}}">
+            <image class="message-icon" src="{{item.icon}}" mode="aspectFit"></image>
+          </view>
+          <view class="message-copy">
+            <text class="message-title">{{item.title}}</text>
+            <text class="message-preview">{{item.preview}}</text>
+          </view>
+          <view class="message-right">
+            <view wx:if="{{item.unread}}" class="unread-dot"></view>
+            <image class="message-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+          </view>
         </view>
-        <view class="message-copy">
-          <text class="message-title">{{item.title}}</text>
-          <text class="message-preview">{{item.preview}}</text>
-        </view>
-        <view class="message-right">
-          <view class="unread-dot"></view>
-          <image class="message-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
-        </view>
-      </view>
+      </block>
     </block>
+    <view wx:else class="empty-message">
+      <text>暂无消息</text>
+      <text>报工审核、工资确认和套餐变更通知会显示在这里。</text>
+    </view>
   </view>
 </view>

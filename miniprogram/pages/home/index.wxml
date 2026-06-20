@@ -6,7 +6,7 @@
     <view class="salary-card" bindtap="openSalary">
       <view class="salary-copy">
         <text class="salary-label">本月工资</text>
-        <text class="salary-value">¥2,580.00</text>
+        <text class="salary-value">{{salaryAmount}}</text>
       </view>
       <image class="salary-arrow" src="/assets/icons/caret-right-white.svg" mode="aspectFit"></image>
       <view class="salary-bubble salary-bubble-large"></view>
@@ -16,8 +16,8 @@
     <view class="review-card" bindtap="openMessageDetail">
       <view class="review-left">
         <image class="review-icon" src="/assets/icons/bell-ringing-blue.svg" mode="aspectFit"></image>
-        <text class="review-text">产品质检 30件 已通过</text>
-        <view class="review-tag">通过</view>
+        <text class="review-text">{{latestMessageText}}</text>
+        <view class="review-tag">{{latestMessageTag}}</view>
       </view>
       <view class="more-link">
         <text>更多</text>
@@ -62,11 +62,11 @@
       <view class="section-title-row report-title-row">
         <view class="section-title-left">
           <view class="section-title-bar"></view>
-          <text class="section-title">2026年6月17日 3条报工记录</text>
+          <text class="section-title">{{reportSectionTitle}}</text>
         </view>
       </view>
 
-      <block wx:for="{{reports}}" wx:key="amount">
+      <block wx:for="{{reports}}" wx:key="id">
         <view class="report-card" data-path="{{item.path}}" bindtap="openReport">
           <view class="report-top">
             <view class="report-tag report-tag-{{item.typeClass}}">{{item.type}}</view>
@@ -82,6 +82,11 @@
           <text class="report-meta">{{item.meta}}</text>
         </view>
       </block>
+      <view wx:if="{{!reports.length}}" class="empty-report">
+        <image class="empty-report-icon" src="/assets/icons/clipboard-gray.svg" mode="aspectFit"></image>
+        <text class="empty-report-title">暂无报工记录</text>
+        <text class="empty-report-desc">完成第一次扫码或手动报工后，这里会显示最近记录。</text>
+      </view>
     </view>
   </view>
 </view>

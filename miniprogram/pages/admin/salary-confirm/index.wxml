@@ -3,18 +3,18 @@
 <view class="admin-page">
   <view class="admin-content">
     <view class="progress-card admin-card">
-      <text class="month">2026年6月</text>
+      <text class="month">{{monthText}}</text>
       <view class="progress-head">
         <text>确认进度</text>
-        <text>68%</text>
+        <text>{{progress}}%</text>
       </view>
-      <view class="progress-track"><view class="progress-fill"></view></view>
-      <text class="row-desc">21人中 14 人已确认，2 人异议中</text>
+      <view class="progress-track"><view class="progress-fill" style="width: {{progress}}%;"></view></view>
+      <text class="row-desc">{{progressText}}</text>
     </view>
 
     <view class="tabs">
       <block wx:for="{{tabs}}" wx:key="label">
-        <view class="tab {{item.active ? 'active' : ''}}">{{item.label}}</view>
+        <view class="tab {{item.active ? 'active' : ''}}" data-status="{{item.label}}" bindtap="switchTab">{{item.label}}</view>
       </block>
     </view>
 
@@ -28,8 +28,9 @@
           <text class="status-tag tag-{{item.tone}}">{{item.status}}</text>
         </view>
       </block>
+      <view wx:if="{{employees.length === 0}}" class="empty-state">暂无员工</view>
     </view>
 
-    <view class="primary-action" bindtap="remind">一键催确认</view>
+    <view class="primary-action {{canRemind ? '' : 'is-disabled'}}" bindtap="remind">一键催确认</view>
   </view>
 </view>

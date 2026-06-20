@@ -29,7 +29,6 @@
     "pages/admin/audit-log-detail/index",
     "pages/admin/backup/index",
     "pages/admin/notification/index",
-    "pages/report-route/index",
     "pages/submit-success/index",
     "pages/report-records/index",
     "pages/report-detail-single/index",

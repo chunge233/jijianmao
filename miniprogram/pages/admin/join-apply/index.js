@@ -1,32 +1,85 @@
+const api = require('../../../utils/api')
+
 Page({
   data: {
-    applies: [
-      { id: 'A001', initial: '周', name: '周玲', role: '工人', team: '一组', time: '今天 09:30', status: '待处理' },
-      { id: 'A002', initial: '孙', name: '孙强', role: '组长', team: '二组', time: '昨天 18:20', status: '待处理' },
-      { id: 'A003', initial: '何', name: '何敏', role: '财务', team: '财务组', time: '6月15日', status: '待处理' }
-    ]
+    applies: []
+  },
+
+  onLoad() {
+    this.loadApplications()
+  },
+
+  onShow() {
+    this.loadApplications()
   },
 
   approve(event) {
-    this.updateStatus(event.currentTarget.dataset.id, '已通过')
+    const { id } = event.currentTarget.dataset
+
+    api.approveJoinApplication(id).then(() => {
+      wx.showToast({ title: '已通过', icon: 'success' })
+      this.loadApplications()
+    }).catch(() => {
+      wx.showToast({ title: '操作失败', icon: 'none' })
+    })
   },
 
   reject(event) {
-    this.updateStatus(event.currentTarget.dataset.id, '已拒绝')
+    const { id } = event.currentTarget.dataset
+
+    api.rejectJoinApplication(id).then(() => {
+      wx.showToast({ title: '已拒绝', icon: 'none' })
+      this.loadApplications()
+    }).catch(() => {
+      wx.showToast({ title: '操作失败', icon: 'none' })
+    })
   },
 
-  updateStatus(id, status) {
-    const applies = this.data.applies.map((item) => {
-      if (item.id !== id) {
-        return item
-      }
-
-      return {
-        ...item,
-        status
-      }
+  loadApplications() {
+    api.getJoinApplications().then((applications) => {
+      this.setData({
+        applies: (Array.isArray(applications) ? applications : []).map((item) => this.normalizeApplication(item))
+      })
+    }).catch(() => {
+      this.setData({ applies: [] })
     })
+  },
 
-    this.setData({ applies })
+  normalizeApplication(item) {
+    const name = item.name || item.nickname || item.phone || '待加入成员'
+    const statusMap = {
+      pending: '待处理',
+      approved: '已通过',
+      rejected: '已拒绝'
+    }
+
+    return {
+      id: item.id,
+      initial: name.slice(0, 1),
+      name,
+      role: this.getRoleText(item.role),
+      team: item.phone || '未填写手机号',
+      time: this.formatTime(item.createdAt),
+      status: statusMap[item.status] || '待处理'
+    }
+  },
+
+  getRoleText(role) {
+    const map = {
+      boss: '老板',
+      manager: '管理员',
+      finance: '财务',
+      employee: '工人'
+    }
+
+    return map[role] || '工人'
+  },
+
+  formatTime(value) {
+    if (!value) {
+      return ''
+    }
+
+    return value.replace('T', ' ').slice(0, 16)
   }
 })

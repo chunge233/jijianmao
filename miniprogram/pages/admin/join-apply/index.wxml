@@ -3,6 +3,7 @@
 <view class="admin-page">
   <view class="admin-content">
     <view class="admin-section-title">待处理申请</view>
+    <view wx:if="{{applies.length === 0}}" class="empty-state admin-card">暂无加入申请</view>
     <block wx:for="{{applies}}" wx:key="id">
       <view class="apply-card admin-card">
         <view class="apply-top">

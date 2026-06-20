@@ -3,28 +3,39 @@
 <view class="profile-edit-page">
   <view class="profile-edit-content">
     <view class="avatar-section">
-      <view class="avatar">张</view>
-      <view class="edit-avatar">
+      <view class="avatar {{!isLoggedIn ? 'avatar-guest' : ''}}">
+        <image wx:if="{{!isLoggedIn}}" class="default-avatar-icon" src="{{defaultAvatarIcon}}" mode="aspectFit"></image>
+        <text wx:else>{{avatarText}}</text>
+      </view>
+      <view wx:if="{{isLoggedIn}}" class="edit-avatar">
         <image src="/assets/icons/camera-blue.svg" mode="aspectFit"></image>
-        <text>更换头像</text>
+        <text>头像由姓名生成</text>
       </view>
     </view>
 
     <view class="field">
       <text class="field-label">姓名</text>
-      <view class="native-input value">张伟</view>
+      <input
+        class="native-input profile-input"
+        value="{{nickname}}"
+        placeholder="请输入姓名"
+        placeholder-class="profile-placeholder"
+        bindinput="onNicknameInput"
+      />
     </view>
 
     <view class="field">
       <text class="field-label">手机号</text>
-      <view class="native-input value">138****6789</view>
+      <view class="native-input value readonly">{{maskedPhone}}</view>
     </view>
 
     <view class="field">
       <text class="field-label">所属工厂</text>
-      <view class="native-input value">宏达服装厂</view>
+      <view class="native-input value readonly">{{factoryName}}</view>
     </view>
 
-    <view class="primary-button save-button">保存</view>
+    <view class="primary-button save-button {{saving ? 'disabled' : ''}}" bindtap="saveProfile">
+      {{saving ? '保存中...' : '保存'}}
+    </view>
   </view>
 </view>

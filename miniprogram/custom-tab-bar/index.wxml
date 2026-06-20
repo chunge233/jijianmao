@@ -1,4 +1,36 @@
 <view wx:if="{{!hidden}}" class="tabbar-shell">
+  <view wx:if="{{showReportChooser}}" class="report-choice-mask" bindtap="closeReportChooser">
+    <view class="report-choice-sheet" catchtap="noop">
+      <view class="choice-handle"></view>
+      <view class="choice-header">
+        <text class="choice-title">立即报工</text>
+        <text class="choice-desc">选择扫码识别，或手动选择工序/工艺路线</text>
+      </view>
+      <view class="choice-actions">
+        <view class="choice-card" bindtap="openScanReport">
+          <view class="choice-icon">
+            <image class="choice-icon-img" src="/assets/icons/camera-blue.svg" mode="aspectFit"></image>
+          </view>
+          <view class="choice-copy">
+            <text class="choice-card-title">扫码报工</text>
+            <text class="choice-card-desc">识别工序二维码或工艺路线二维码</text>
+          </view>
+          <image class="choice-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+        <view class="choice-card" bindtap="openManualReport">
+          <view class="choice-icon">
+            <image class="choice-icon-img" src="/assets/icons/clipboard-blue.svg" mode="aspectFit"></image>
+          </view>
+          <view class="choice-copy">
+            <text class="choice-card-title">手动报工</text>
+            <text class="choice-card-desc">手动选择工序或工艺路线</text>
+          </view>
+          <image class="choice-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+  </view>
+
   <view class="tabbar-panel">
     <block wx:for="{{list}}" wx:key="pagePath">
       <view

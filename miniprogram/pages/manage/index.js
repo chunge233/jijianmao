@@ -1,4 +1,5 @@
 const { syncTabBar } = require('../../utils/tabbar')
+const { ensureFactorySelected } = require('../../utils/session')
 
 Page({
   data: {
@@ -6,83 +7,68 @@ Page({
     guideShownOnce: false,
     guideSteps: [
       {
-        title: '先完成基础配置',
-        desc: '工厂信息、权限、员工和加入申请决定谁能进入工厂、能做什么。',
-        spotStyle: 'top: 160rpx; left: 28rpx; width: 694rpx; height: 220rpx;'
+        title: '先配置人员和计件资料',
+        desc: '员工、权限、工序、产品和工艺路线是报工与工资计算的基础。',
+        spotStyle: 'top: 160rpx; left: 28rpx; width: 694rpx; height: 300rpx;'
       },
       {
-        title: '再配置计件资料',
-        desc: '工序、产品、路线和批量调价会影响报工金额，建议先配置再开放报工。',
-        spotStyle: 'top: 410rpx; left: 28rpx; width: 694rpx; height: 220rpx;',
+        title: '日常只处理报工和工资',
+        desc: '第一版主线是报工审核、记录管理、工资核算与确认。',
+        spotStyle: 'top: 490rpx; left: 28rpx; width: 694rpx; height: 300rpx;',
         panelClass: 'panel-top-pos'
       },
       {
-        title: '最后处理日常业务',
-        desc: '报工审核、异议处理、工资确认和导出记录是管理员每天重点关注的区域。',
-        spotStyle: 'top: 660rpx; left: 28rpx; width: 694rpx; height: 430rpx;',
+        title: '收费入口直接可见',
+        desc: '套餐订阅和账单发票直接放在管理页，减少第一版路径复杂度。',
+        spotStyle: 'top: 820rpx; left: 28rpx; width: 694rpx; height: 220rpx;',
         panelClass: 'panel-top-pos'
       }
     ],
     sections: [
       {
-        title: '基础配置',
+        title: '人员与权限',
         items: [
-          { label: '工厂信息', icon: '/assets/icons/buildings-blue.svg', path: '/pages/admin/factory-info/index' },
-          { label: '权限管理', icon: '/assets/icons/shield-check-cyan.svg', path: '/pages/permission/index' },
           { label: '员工管理', icon: '/assets/icons/users-three-green.svg', path: '/pages/employee/index' },
-          { label: '加入申请', icon: '/assets/icons/users-three-blue.svg', path: '/pages/admin/join-apply/index' },
-          { label: '邀请成员', icon: '/assets/icons/envelope-simple-blue.svg', path: '/pages/invite-member/index' },
-          { label: '班组管理', icon: '/assets/icons/users-three-blue.svg', path: '/pages/team/index' }
+          { label: '权限管理', icon: '/assets/icons/shield-check-cyan.svg', path: '/pages/permission/index' }
         ]
       },
       {
-        title: '计件配置',
+        title: '计件资料',
         items: [
           { label: '工序管理', icon: '/assets/icons/tree-structure-purple.svg', path: '/pages/process/index' },
           { label: '产品管理', icon: '/assets/icons/package-pink.svg', path: '/pages/product/index' },
-          { label: '工艺路线', icon: '/assets/icons/git-branch-indigo.svg', path: '/pages/route-manage/index' },
-          { label: '批量调价', icon: '/assets/icons/currency-cny-amber.svg', path: '/pages/admin/batch-price/index' },
-          { label: '新增工序', icon: '/assets/icons/plus-gray.svg', path: '/pages/process-new/index' },
-          { label: '新增产品', icon: '/assets/icons/package-green.svg', path: '/pages/product-new/index' }
+          { label: '工艺路线', icon: '/assets/icons/git-branch-indigo.svg', path: '/pages/route-manage/index' }
         ]
       },
       {
-        title: '业务处理',
+        title: '报工与工资',
         items: [
           { label: '报工审核', icon: '/assets/icons/clipboard-text-blue.svg', path: '/pages/audit/index' },
           { label: '报工管理', icon: '/assets/icons/clipboard-text-green.svg', path: '/pages/report-manage/index' },
-          { label: '异议处理', icon: '/assets/icons/clock-amber.svg', path: '/pages/dispute-list/index' },
-          { label: '公告管理', icon: '/assets/icons/megaphone-red.svg', path: '/pages/announcement/index' }
-        ]
-      },
-      {
-        title: '数据财务',
-        items: [
-          { label: '数据看板', icon: '/assets/icons/chart-bar-amber.svg', path: '/pages/dashboard/index' },
-          { label: '经营看板', icon: '/assets/icons/chart-bar-amber.svg', path: '/pages/boss-dashboard/index' },
           { label: '工资报表', icon: '/assets/icons/currency-cny-green.svg', path: '/pages/salary-report/index' },
-          { label: '工资确认', icon: '/assets/icons/check-green.svg', path: '/pages/admin/salary-confirm/index' },
-          { label: '数据导出', icon: '/assets/icons/export-blue.svg', path: '/pages/data-export/index' },
-          { label: '导出记录', icon: '/assets/icons/export-blue.svg', path: '/pages/admin/export-records/index' }
+          { label: '工资确认', icon: '/assets/icons/check-green.svg', path: '/pages/admin/salary-confirm/index' }
         ]
       },
       {
-        title: '系统与安全',
+        title: '收费与设置',
         items: [
-          { label: '操作日志', icon: '/assets/icons/file-text-blue.svg', path: '/pages/admin/audit-log/index' },
-          { label: '数据备份', icon: '/assets/icons/cloud-arrow-up-gray.svg', path: '/pages/admin/backup/index' },
-          { label: '通知设置', icon: '/assets/icons/bell-gray.svg', path: '/pages/admin/notification/index' },
-          { label: '套餐订阅', icon: '/assets/icons/coins-amber.svg', path: '/pages/subscription/index' },
-          { label: '工厂设置', icon: '/assets/icons/gear-gray.svg', path: '/pages/factory-settings/index' },
-          { label: '批量导入', icon: '/assets/icons/cloud-arrow-up-gray.svg', path: '/pages/employee-import/index' }
+          { label: '套餐订阅', icon: '/assets/icons/package-green.svg', path: '/pages/subscription/index' },
+          { label: '账单发票', icon: '/assets/icons/file-text-blue.svg', path: '/pages/bills/index' },
+          { label: '工厂设置', icon: '/assets/icons/gear-gray.svg', path: '/pages/factory-settings/index' }
         ]
       }
     ]
   },
 
   onShow() {
-    syncTabBar(3)
-    this.showGuideIfNeeded()
+    ensureFactorySelected().then((ready) => {
+      if (!ready) {
+        return
+      }
+
+      syncTabBar(3)
+      this.showGuideIfNeeded()
+    })
   },
 
   openItem(event) {

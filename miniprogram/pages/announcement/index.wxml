@@ -14,19 +14,25 @@
   <text class="count-text">共 {{announcements.length}} 条公告</text>
 
   <view class="announcement-list">
-    <block wx:for="{{announcements}}" wx:key="id">
-      <view class="announcement-row" bindtap="openAnnouncementDetail">
-        <view class="icon-box">
-          <image src="/assets/icons/megaphone-red.svg" mode="aspectFit"></image>
+    <block wx:if="{{announcements.length > 0}}">
+      <block wx:for="{{announcements}}" wx:key="id">
+        <view class="announcement-row" data-id="{{item.id}}" bindtap="openAnnouncementDetail">
+          <view class="icon-box">
+            <image src="/assets/icons/megaphone-red.svg" mode="aspectFit"></image>
+          </view>
+          <view class="announcement-info">
+            <text class="announcement-title">{{item.title}}</text>
+            <text class="announcement-date">{{item.date}}</text>
+          </view>
+          <image class="row-icon" data-id="{{item.id}}" data-title="{{item.title}}" catchtap="editAnnouncement" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
+          <image class="row-icon" data-id="{{item.id}}" catchtap="deleteAnnouncement" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
         </view>
-        <view class="announcement-info">
-          <text class="announcement-title">{{item.title}}</text>
-          <text class="announcement-date">{{item.date}}</text>
-        </view>
-        <image class="row-icon" data-title="{{item.title}}" catchtap="editAnnouncement" src="/assets/icons/pencil-gray.svg" mode="aspectFit"></image>
-        <image class="row-icon" data-id="{{item.id}}" catchtap="deleteAnnouncement" src="/assets/icons/trash-gray.svg" mode="aspectFit"></image>
-      </view>
-      <view wx:if="{{index < announcements.length - 1}}" class="divider"></view>
+        <view wx:if="{{index < announcements.length - 1}}" class="divider"></view>
+      </block>
     </block>
+    <view wx:else class="empty-announcement">
+      <text>暂无公告</text>
+      <text>点击左上角加号发布第一条工厂公告。</text>
+    </view>
   </view>
 </view>

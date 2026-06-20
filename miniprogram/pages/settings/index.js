@@ -1,13 +1,16 @@
 Page({
   data: {
+    isLoggedIn: false,
     firstRows: [
-      { icon: '/assets/icons/shield-check-gray.svg', title: '账号安全', desc: '修改密码、绑定手机', path: '/pages/account-security/index' },
-      { icon: '/assets/icons/bell-gray.svg', title: '消息通知', desc: '推送、提醒、工资变动', path: '/pages/notification-preference/index' }
+      { icon: '/assets/icons/shield-check-gray.svg', title: '账号安全', desc: '修改密码、绑定手机', path: '/pages/account-security/index' }
     ],
-    secondRows: [
-      { icon: '/assets/icons/trash-simple-gray.svg', title: '清除缓存', desc: '清除本地临时数据', value: '12.5MB', path: '/pages/clear-cache/index' },
-      { icon: '/assets/icons/info-gray.svg', title: '关于我们', desc: '版本号 1.0.0', path: '/pages/about/index' }
-    ]
+    secondRows: []
+  },
+
+  onShow() {
+    this.setData({
+      isLoggedIn: !!wx.getStorageSync('auth_token')
+    })
   },
 
   openRow(event) {
@@ -19,6 +22,26 @@ Page({
 
     wx.navigateTo({
       url: path
+    })
+  },
+
+  logout() {
+    wx.showModal({
+      title: '退出登录？',
+      content: '退出后将返回登录页。',
+      confirmText: '退出',
+      success: (res) => {
+        if (!res.confirm) {
+          return
+        }
+
+        wx.redirectTo({
+          url: '/pages/login/index'
+        })
+        wx.removeStorageSync('auth_token')
+        wx.removeStorageSync('current_user')
+        wx.removeStorageSync('current_factory')
+      }
     })
   }
 })

@@ -5,14 +5,14 @@
   <view class="salary-content">
     <view class="month-selector">
       <image class="month-arrow" src="/assets/icons/caret-left-gray.svg" mode="aspectFit"></image>
-      <text>2026年6月</text>
+      <text>{{currentMonth}}</text>
       <image class="month-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
     </view>
 
     <view class="salary-card" bindtap="openDetail">
       <view class="salary-copy">
         <text class="salary-label">本月工资</text>
-        <text class="salary-value">¥2,580.00</text>
+        <text class="salary-value">{{currentAmount}}</text>
       </view>
       <image class="salary-arrow" src="/assets/icons/caret-right-white.svg" mode="aspectFit"></image>
       <view class="salary-bubble salary-bubble-large"></view>
@@ -38,15 +38,15 @@
 
     <view class="confirm-card">
       <view class="confirm-top" bindtap="openDetail">
-        <text class="confirm-month">2026年6月</text>
+        <text class="confirm-month">{{currentMonth}}</text>
         <view class="confirm-amount-row">
-          <text>¥2,580.00</text>
+          <text>{{currentAmount}}</text>
           <image class="confirm-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
         </view>
       </view>
-      <view class="confirm-status">
-        <view class="status-dot status-amber"></view>
-        <text>待确认 · 请核对工资后确认</text>
+      <view class="confirm-status status-text-{{confirmTone}}">
+        <view class="status-dot status-{{confirmTone}}"></view>
+        <text>{{confirmStatus}}</text>
       </view>
       <view class="confirm-divider"></view>
       <view class="confirm-actions">
@@ -70,5 +70,10 @@
         </view>
       </view>
     </block>
+
+    <view wx:if="{{history.length === 0}}" class="history-empty">
+      <text>暂无历史工资单</text>
+      <text>完成报工并通过审核后，历史月份会在这里展示。</text>
+    </view>
   </view>
 </view>

@@ -1,5 +1,14 @@
 @import "../../styles/replica.wxss";
 
+.form-input {
+  box-sizing: border-box;
+  color: #111827;
+}
+
+.form-placeholder {
+  color: #9CA3AF;
+}
+
 .factory-create-page {
   min-height: 100vh;
   display: flex;
@@ -67,6 +76,12 @@
   background: #F3F4F6;
   color: #6B7280;
   font-size: 21rpx;
+}
+
+.type-chip.is-active {
+  background: #DBEAFE;
+  color: #1A56DB;
+  font-weight: 700;
 }
 
 .area-row {

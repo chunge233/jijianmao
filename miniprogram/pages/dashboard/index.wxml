@@ -32,6 +32,7 @@
           <text class="rank-quantity">{{item.quantity}}</text>
         </view>
       </block>
+      <view wx:if="{{ranks.length === 0}}" class="empty-state">暂无产出排名</view>
     </view>
 
     <view class="panel">
@@ -47,6 +48,7 @@
           </view>
         </view>
       </block>
+      <view wx:if="{{bars.length === 0}}" class="empty-state">暂无工序统计</view>
     </view>
   </view>
 </view>

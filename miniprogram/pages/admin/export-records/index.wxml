@@ -4,7 +4,8 @@
   <view class="admin-content">
     <text class="row-desc">近30天导出记录</text>
     <view class="admin-card">
-      <block wx:for="{{records}}" wx:key="name">
+      <view wx:if="{{records.length === 0}}" class="empty-state">暂无导出记录</view>
+      <block wx:for="{{records}}" wx:key="id">
         <view class="admin-row">
           <image class="file-icon" src="/assets/icons/export-blue.svg" mode="aspectFit"></image>
           <view class="row-copy">

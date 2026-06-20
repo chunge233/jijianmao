@@ -1,3 +1,5 @@
+const api = require('../../utils/api')
+
 Page({
   data: {
     showGuide: false,
@@ -20,17 +22,33 @@ Page({
         panelClass: 'panel-top-pos'
       }
     ],
-    routes: [
-      { name: '衬衫-A款', count: '4道工序', steps: '裁剪 → 缝合 → 质检 → 包装' },
-      { name: '西裤-B款', count: '5道工序', steps: '裁剪 → 缝合 → 烫熨 → 质检 → 包装' },
-      { name: '连衣裙-C款', count: '4道工序', steps: '裁剪 → 缝合 → 质检 → 包装' },
-      { name: '夹克-D款', count: '5道工序', steps: '裁剪 → 缝合 → 烫熨 → 质检 → 包装' },
-      { name: 'T恤-E款', count: '3道工序', steps: '裁剪 → 缝合 → 质检' }
-    ]
+    routes: []
   },
 
   onShow() {
+    this.loadRoutes()
     this.showGuideIfNeeded()
+  },
+
+  onLoad() {
+    this.loadRoutes()
+  },
+
+  loadRoutes() {
+    api.getRoutes().then((routes) => {
+      this.setData({
+        routes: (Array.isArray(routes) ? routes : []).map((route) => {
+          const processes = (route.processes || []).filter(Boolean)
+
+          return {
+            id: route.id,
+            name: route.name,
+            count: `${processes.length}道工序`,
+            steps: processes.map((item) => item.name).join(' → ') || route.qrCode
+          }
+        })
+      })
+    }).catch(() => {})
   },
 
   showGuideIfNeeded() {
@@ -57,21 +75,40 @@ Page({
     })
   },
 
-  goRouteEdit() {
+  goRouteEdit(event) {
+    const id = event && event.currentTarget && event.currentTarget.dataset.id
     wx.navigateTo({
-      url: '/pages/route-edit/index'
+      url: `/pages/route-edit/index${id ? `?id=${id}` : ''}`
     })
   },
 
-  openRouteDetail() {
+  openRouteDetail(event) {
+    const { id } = event.currentTarget.dataset
+
     wx.navigateTo({
-      url: '/pages/route-detail/index'
+      url: `/pages/route-detail/index${id ? `?id=${id}` : ''}`
     })
   },
 
-  openDeleteConfirm() {
-    wx.navigateTo({
-      url: '/pages/delete-confirm/index'
+  openDeleteConfirm(event) {
+    const { id } = event.currentTarget.dataset
+
+    wx.showModal({
+      title: '停用路线？',
+      content: '停用后扫码路线将不再用于新报工。',
+      confirmText: '停用',
+      success: (res) => {
+        if (!res.confirm || !id) {
+          return
+        }
+
+        api.deleteRoute(id).then(() => {
+          wx.showToast({ title: '已停用', icon: 'none' })
+          this.loadRoutes()
+        }).catch(() => {
+          wx.showToast({ title: '停用失败', icon: 'none' })
+        })
+      }
     })
   }
 })

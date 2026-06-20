@@ -1,33 +1,47 @@
-<nav-bar title="立即报工-单工序" show-back="{{true}}"></nav-bar>
+<nav-bar title="立即报工" show-back="{{true}}"></nav-bar>
 <guide-tour visible="{{showGuide}}" steps="{{guideSteps}}" storage-key="guide_report_v1" bind:close="closeGuide" bind:never="neverGuide"></guide-tour>
 
 <view class="report-page">
   <view class="report-scroll">
     <view class="select-card">
       <view class="mode-row">
-        <view class="mode-item" bindtap="selectProcessMode">
+        <view class="mode-item {{selectedMode === 'process' ? 'is-active' : ''}}" bindtap="selectProcessMode">
           <image class="mode-icon" src="{{selectedMode === 'process' ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
-          <text class="{{selectedMode === 'process' ? 'mode-active' : ''}}">选择工序</text>
+          <text>选择工序</text>
         </view>
-        <view class="mode-item" bindtap="selectRouteMode">
+        <view class="mode-item {{selectedMode === 'route' ? 'is-active' : ''}}" bindtap="selectRouteMode">
           <image class="mode-icon" src="{{selectedMode === 'route' ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
-          <text class="{{selectedMode === 'route' ? 'mode-active' : ''}}">选择工艺路线</text>
+          <text>工艺路线</text>
         </view>
       </view>
-      <view class="select-trigger {{showProcessPicker ? 'is-open' : ''}}" bindtap="toggleProcessPicker">
-        <text class="{{selectedProcessId ? 'selected-text' : ''}}">{{selectedProcessName}}</text>
-        <image class="trigger-icon {{showProcessPicker ? 'is-open' : ''}}" src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+
+      <view class="select-trigger" bindtap="openSelectionPicker">
+        <view class="select-copy">
+          <text class="{{processes.length ? 'selected-text' : ''}}">{{selectionTitle}}</text>
+          <text>{{selectionDesc}}</text>
+        </view>
+        <image class="trigger-icon" src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
       </view>
-      <view wx:if="{{showProcessPicker}}" class="process-picker">
-        <block wx:for="{{processOptions}}" wx:key="id">
-          <view class="picker-option {{item.selected ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectProcess">
-            <view class="option-left">
-              <image class="option-radio" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
-              <text>{{item.name}}</text>
-            </view>
-            <text class="option-price">{{item.price}}</text>
-          </view>
-        </block>
+
+      <view wx:if="{{scanNotice}}" class="scan-notice">
+        <image src="/assets/icons/check-green.svg" mode="aspectFit"></image>
+        <text>{{scanNotice}}</text>
+      </view>
+
+    </view>
+
+    <view class="summary-strip">
+      <view>
+        <text>工序数</text>
+        <text>{{processCountText}}</text>
+      </view>
+      <view>
+        <text>报工件数</text>
+        <text>{{totalQuantityText}}</text>
+      </view>
+      <view>
+        <text>合计金额</text>
+        <text>{{totalAmount}}</text>
       </view>
     </view>
 
@@ -41,7 +55,10 @@
       <block wx:if="{{processes.length > 0}}">
         <block wx:for="{{processes}}" wx:key="id">
           <view class="process-row process-grid">
-            <text class="process-name">{{item.name}}</text>
+            <view class="process-name-wrap">
+              <text class="process-name">{{item.name}}</text>
+              <text wx:if="{{item.terminal}}" class="terminal-tag">末端</text>
+            </view>
             <text class="process-price">{{item.price}}</text>
             <view class="stepper">
               <view class="stepper-btn minus {{item.quantity <= 1 ? 'is-disabled' : ''}}" data-index="{{index}}" catchtap="decreaseQuantity">−</view>
@@ -56,15 +73,20 @@
       </block>
       <view wx:else class="empty-process">
         <text>暂无工序</text>
-        <text>点击上方选择计件工序添加</text>
+        <text>点击上方选择计件工序或扫描二维码添加</text>
       </view>
     </view>
 
     <view class="form-card">
       <text class="form-label">表单备注</text>
-      <view class="remark-box">
-        <text>请输入备注信息（选填）</text>
-      </view>
+      <textarea
+        class="remark-box remark-input"
+        value="{{remark}}"
+        placeholder="请输入备注信息（选填）"
+        placeholder-class="remark-placeholder"
+        maxlength="200"
+        bindinput="onRemarkInput"
+      />
     </view>
 
     <view class="form-card">
@@ -81,11 +103,72 @@
 
   <view class="submit-bar">
     <view class="submit-button" bindtap="goSuccess">
-      <text class="submit-amount">{{totalAmount}}</text>
+      <view class="submit-total">
+        <text class="submit-amount">{{totalAmount}}</text>
+        <text>{{processCountText}} · {{totalQuantityText}}</text>
+      </view>
       <view class="submit-action">
         <image class="submit-icon" src="/assets/icons/paper-plane-white.svg" mode="aspectFit"></image>
         <text>提交报工</text>
       </view>
+    </view>
+  </view>
+
+  <view wx:if="{{showPicker}}" class="picker-mask" bindtap="closePicker">
+    <view class="picker-sheet" catchtap="noop">
+      <view class="sheet-header">
+        <view>
+          <text>{{pickerMode === 'route' ? '选择工艺路线' : '选择工序'}}</text>
+          <text>{{pickerMode === 'route' ? '选择后自动带出路线下所有工序' : '选择后加入当前报工明细'}}</text>
+        </view>
+        <image bindtap="closePicker" src="/assets/icons/x-circle-red.svg" mode="aspectFit"></image>
+      </view>
+
+      <block wx:if="{{pickerMode === 'process'}}">
+        <view class="sheet-list">
+          <block wx:if="{{processOptions.length > 0}}">
+            <block wx:for="{{processOptions}}" wx:key="id">
+              <view class="picker-option {{item.selected ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectProcess">
+                <view class="option-left">
+                  <image class="option-radio" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+                  <view>
+                    <text>{{item.name}}</text>
+                    <text>工序码 {{item.qrLabel}}</text>
+                  </view>
+                </view>
+                <text class="option-price">{{item.price}}</text>
+              </view>
+            </block>
+          </block>
+          <view wx:else class="picker-empty">
+            <text>暂无工序</text>
+            <text>先到管理页创建工序，再回来报工。</text>
+          </view>
+        </view>
+      </block>
+
+      <block wx:else>
+        <view class="sheet-list">
+          <block wx:if="{{routeOptions.length > 0}}">
+            <block wx:for="{{routeOptions}}" wx:key="id">
+              <view class="route-option {{item.selected ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectRoute">
+                <view class="route-option-head">
+                  <view>
+                    <text>{{item.name}}</text>
+                    <text>路线码 {{item.qrLabel}}</text>
+                  </view>
+                  <image class="option-radio" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+                </view>
+                <text>{{item.desc}}</text>
+              </view>
+            </block>
+          </block>
+          <view wx:else class="picker-empty">
+            <text>暂无工艺路线</text>
+            <text>先在管理页把工序串成工艺路线，再回来报工。</text>
+          </view>
+        </view>
+      </block>
     </view>
   </view>
 

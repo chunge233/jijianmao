@@ -4,14 +4,14 @@
   <view class="salary-content">
     <view class="month-selector">
       <image class="month-arrow" src="/assets/icons/caret-left-gray.svg" mode="aspectFit"></image>
-      <text>2026年6月 · 全厂</text>
+      <text>{{currentMonth}}</text>
       <image class="month-arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
     </view>
 
     <view class="salary-card">
       <view class="salary-copy">
         <text class="salary-label">本月全厂工资</text>
-        <text class="salary-value">¥28,560.00</text>
+        <text class="salary-value">{{totalSalary}}</text>
       </view>
       <view class="salary-bubble salary-bubble-large"></view>
       <view class="salary-bubble salary-bubble-small"></view>
@@ -36,20 +36,20 @@
 
     <view class="current-record">
       <view class="record-top">
-        <text class="record-month">2026年6月</text>
+        <text class="record-month">{{currentMonth}}</text>
         <view class="record-amount">
-          <text>¥28,560.00</text>
+          <text>{{totalSalary}}</text>
           <image src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
         </view>
       </view>
-      <view class="record-status">
-        <view class="dot amber"></view>
-        <text>待确认 · 请核对工资后确认</text>
+      <view class="record-status record-status-{{confirmTone}}">
+        <view class="dot {{confirmTone}}"></view>
+        <text>{{confirmStatus}}</text>
       </view>
       <view class="record-divider"></view>
       <view class="action-row">
-        <view class="action primary">确认无误</view>
-        <view class="action outline">提出异议</view>
+        <view class="action primary" bindtap="confirmSalary">确认无误</view>
+        <view class="action outline" bindtap="openDispute">提出异议</view>
       </view>
     </view>
 
@@ -68,5 +68,10 @@
         </view>
       </view>
     </block>
+
+    <view wx:if="{{history.length === 0}}" class="history-empty">
+      <text>暂无历史工资报表</text>
+      <text>完成更多月份报工后，历史工资会在这里展示。</text>
+    </view>
   </view>
 </view>

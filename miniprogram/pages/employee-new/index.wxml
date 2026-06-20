@@ -1,1 +1,28 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="{{employeeId ? '编辑员工' : '新增员工'}}" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="form-page">
+  <view class="form-card">
+    <view class="field">
+      <text class="label">员工姓名</text>
+      <input class="input" placeholder="请输入员工姓名" placeholder-class="placeholder" value="{{name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">手机号</text>
+      <input class="input" type="number" maxlength="11" placeholder="用于登录或联系，可选" placeholder-class="placeholder" value="{{phone}}" bindinput="onPhoneInput" />
+    </view>
+
+    <view class="field">
+      <text class="label">角色</text>
+      <view class="role-row">
+        <block wx:for="{{roles}}" wx:key="value">
+          <view class="role-chip {{role === item.value ? 'is-active' : ''}}" data-role="{{item.value}}" bindtap="selectRole">{{item.label}}</view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-area">
+    <view class="primary-button {{saving ? 'is-disabled' : ''}}" bindtap="saveEmployee">{{saving ? '保存中' : '保存员工'}}</view>
+  </view>
+</view>

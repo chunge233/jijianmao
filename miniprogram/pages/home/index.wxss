@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
   gap: 28rpx;
-  padding: 28rpx 28rpx calc(220rpx + constant(safe-area-inset-bottom));
-  padding: 28rpx 28rpx calc(220rpx + env(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(188rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(188rpx + env(safe-area-inset-bottom));
 }
 
 .salary-card {
@@ -333,4 +333,36 @@
   color: #6B7280;
   font-size: 21rpx;
   line-height: 30rpx;
+}
+
+.empty-report {
+  min-height: 190rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10rpx;
+  padding: 28rpx;
+  border-radius: 14rpx;
+  background: #FFFFFF;
+  text-align: center;
+}
+
+.empty-report-icon {
+  width: 42rpx;
+  height: 42rpx;
+  opacity: 0.65;
+}
+
+.empty-report-title {
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 600;
+  line-height: 35rpx;
+}
+
+.empty-report-desc {
+  color: #6B7280;
+  font-size: 21rpx;
+  line-height: 32rpx;
 }

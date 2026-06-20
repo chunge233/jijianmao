@@ -3,10 +3,10 @@
 <view class="audit-detail-page">
   <view class="detail-content">
     <view class="worker-card">
-      <view class="avatar">张</view>
+      <view class="avatar">{{workerInitial}}</view>
       <view class="worker-info">
-        <text class="worker-name">张伟</text>
-        <text class="worker-role">裁剪组</text>
+        <text class="worker-name">{{workerName}}</text>
+        <text class="worker-role">{{workerRole}}</text>
       </view>
     </view>
 
@@ -20,9 +20,9 @@
       </block>
     </view>
 
-    <view class="action-row">
-      <view class="reject">驳回</view>
-      <view class="approve">通过</view>
+    <view wx:if="{{status === 'pending'}}" class="action-row">
+      <view class="reject" bindtap="rejectReport">驳回</view>
+      <view class="approve" bindtap="approveReport">通过</view>
     </view>
   </view>
 </view>

@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
   gap: 17rpx;
-  padding: 21rpx 21rpx calc(220rpx + constant(safe-area-inset-bottom));
-  padding: 21rpx 21rpx calc(220rpx + env(safe-area-inset-bottom));
+  padding: 21rpx 21rpx calc(188rpx + constant(safe-area-inset-bottom));
+  padding: 21rpx 21rpx calc(188rpx + env(safe-area-inset-bottom));
 }
 
 .month-selector {
@@ -208,6 +208,18 @@
   font-size: 23rpx;
 }
 
+.status-text-green {
+  color: #059669;
+}
+
+.status-text-amber {
+  color: #D97706;
+}
+
+.status-text-gray {
+  color: #6B7280;
+}
+
 .status-dot {
   width: 10rpx;
   height: 10rpx;
@@ -225,6 +237,10 @@
 
 .status-red {
   background: #DC2626;
+}
+
+.status-gray {
+  background: #9CA3AF;
 }
 
 .confirm-divider {
@@ -306,4 +322,27 @@
 .history-arrow {
   width: 24rpx;
   height: 24rpx;
+}
+
+.history-empty {
+  min-height: 150rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  border-radius: 17rpx;
+  background: #FFFFFF;
+  color: #111827;
+  font-size: 24rpx;
+  font-weight: 600;
+  text-align: center;
+}
+
+.history-empty text:last-child {
+  max-width: 520rpx;
+  color: #6B7280;
+  font-size: 21rpx;
+  font-weight: 400;
+  line-height: 32rpx;
 }

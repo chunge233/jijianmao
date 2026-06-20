@@ -5,29 +5,35 @@
     <view class="invite-icon">
       <image src="/assets/icons/envelope-simple-blue.svg" mode="aspectFit"></image>
     </view>
-    <text class="invite-title">您收到一个工厂邀请</text>
+    <text class="invite-title">加入工厂</text>
 
     <view class="factory-info-card">
       <view class="factory-row">
-        <view class="factory-avatar">宏</view>
+        <view class="factory-avatar">码</view>
         <view class="factory-copy">
-          <text class="factory-name">宏达服装厂</text>
-          <text class="factory-address">广东省广州市番禺区</text>
+          <text class="factory-name">输入管理员发给你的邀请码</text>
+          <text class="factory-address">加入后即可切换到对应工厂</text>
         </view>
       </view>
-      <text class="staff-count">已有 12 位同事加入</text>
+      <input
+        class="invite-input"
+        placeholder="请输入工厂邀请码"
+        placeholder-class="invite-placeholder"
+        value="{{inviteCode}}"
+        bindinput="onInviteInput"
+      />
       <view class="avatar-row">
         <block wx:for="{{avatars}}" wx:key="*this">
           <view class="small-avatar avatar-{{index}}">{{item}}</view>
         </block>
       </view>
       <view class="invite-meta">
-        <text>邀请人：张主管</text>
-        <text class="role-tag">管理员</text>
+        <text>由工厂管理员审核或邀请加入</text>
+        <text class="role-tag">计件猫</text>
       </view>
     </view>
 
     <text class="join-hint">加入后即可查看工厂计件数据和报工</text>
-    <view class="join-button">立即加入</view>
+    <view class="join-button" bindtap="joinFactory">立即加入</view>
   </view>
 </view>

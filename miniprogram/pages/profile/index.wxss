@@ -7,8 +7,8 @@
   display: flex;
   flex-direction: column;
   gap: 21rpx;
-  padding: 28rpx 28rpx calc(220rpx + constant(safe-area-inset-bottom));
-  padding: 28rpx 28rpx calc(220rpx + env(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(188rpx + constant(safe-area-inset-bottom));
+  padding: 28rpx 28rpx calc(188rpx + env(safe-area-inset-bottom));
 }
 
 .profile-card,
@@ -41,6 +41,15 @@
   color: #FFFFFF;
   font-size: 38rpx;
   font-weight: 700;
+}
+
+.avatar-guest {
+  background: #F3F4F6;
+}
+
+.default-avatar-icon {
+  width: 52rpx;
+  height: 52rpx;
 }
 
 .avatar-upload {

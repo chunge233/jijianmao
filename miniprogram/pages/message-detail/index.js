@@ -1,15 +1,72 @@
+const api = require('../../utils/api')
+
 Page({
   data: {
+    messageId: '',
+    category: '消息详情',
+    title: '暂无消息',
+    meta: '计件猫 · 消息中心',
+    time: '',
+    sourceId: '',
     paragraphs: [
-      '各位员工：',
-      '根据公司生产计划安排，6月份生产任务已正式发布。本月重点产品为 A-200 系列零部件，预计总产量 15,000 件。',
-      '请各位员工在6月20日前完成排班确认，如有特殊情况需调整班次，请提前联系主管。',
-      '生产线安排如下：',
-      '· A线：负责切割、钻孔工序，目标产量 5,000 件',
-      '· B线：负责装配、质检工序，目标产量 5,500 件',
-      '· C线：负责包装工序，目标产量 4,500 件',
-      '请各线组长做好人员调配，确保产能达标。质量把控方面，本月的产品合格率目标为 98% 以上。',
-      '特此通知。'
+      '请选择一条消息查看详情。'
     ]
+  },
+
+  onLoad(options) {
+    this.setData({
+      messageId: (options && options.id) || ''
+    })
+    this.loadMessage()
+  },
+
+  loadMessage() {
+    if (!this.data.messageId) {
+      return
+    }
+
+    api.getMessage(this.data.messageId).then((message) => {
+      if (!message) {
+        this.showEmptyMessage()
+        return
+      }
+
+      const categoryMap = {
+        audit: '审核消息',
+        salary: '工资消息',
+        subscription: '套餐消息',
+        system: '系统推送'
+      }
+
+      this.setData({
+        category: categoryMap[message.type] || '系统消息',
+        title: message.title,
+        meta: '计件猫 · 消息中心',
+        time: this.formatTime(message.createdAt),
+        sourceId: message.id,
+        paragraphs: String(message.content || message.title || '').split('\n').filter(Boolean)
+      })
+    }).catch(() => {
+      this.showEmptyMessage()
+    })
+  },
+
+  showEmptyMessage() {
+    this.setData({
+      category: '消息详情',
+      title: '消息不存在',
+      meta: '计件猫 · 消息中心',
+      time: '',
+      sourceId: this.data.messageId || '',
+      paragraphs: ['这条消息可能已被删除或暂时无法读取。']
+    })
+  },
+
+  formatTime(value) {
+    if (!value) {
+      return ''
+    }
+
+    return value.replace('T', ' ').slice(0, 16)
   }
 })

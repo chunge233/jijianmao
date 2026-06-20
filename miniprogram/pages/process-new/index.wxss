@@ -1,3 +1,80 @@
+@import "../../styles/replica.wxss";
+
 page {
   background: #F3F4F6;
+}
+
+.form-page {
+  min-height: 100vh;
+  padding: 28rpx 24rpx calc(136rpx + env(safe-area-inset-bottom));
+}
+
+.form-card {
+  display: flex;
+  flex-direction: column;
+  gap: 28rpx;
+  padding: 28rpx;
+  border-radius: 18rpx;
+  background: #FFFFFF;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+}
+
+.label {
+  color: #374151;
+  font-size: 24rpx;
+  font-weight: 600;
+}
+
+.input,
+.money-row {
+  height: 84rpx;
+  box-sizing: border-box;
+  padding: 0 24rpx;
+  border-radius: 14rpx;
+  background: #F3F4F6;
+  color: #111827;
+  font-size: 26rpx;
+}
+
+.placeholder {
+  color: #9CA3AF;
+}
+
+.money-row {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.money-input {
+  flex: 1;
+  padding: 0;
+  background: transparent;
+}
+
+.notice {
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+  color: #6B7280;
+  font-size: 22rpx;
+  line-height: 32rpx;
+}
+
+.bottom-area {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 18rpx 24rpx calc(18rpx + env(safe-area-inset-bottom));
+  background: #FFFFFF;
+}
+
+.primary-button.is-disabled {
+  opacity: 0.58;
 }

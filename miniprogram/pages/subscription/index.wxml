@@ -1,1 +1,91 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="套餐与订阅" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="subscription-page">
+  <view class="subscription-scroll">
+    <view class="current-card">
+      <view class="current-top">
+        <view>
+          <text class="eyebrow">当前套餐</text>
+          <text class="current-title">{{currentPlan.name}}</text>
+          <text class="current-desc">剩余 {{currentPlan.daysLeft}} 天 · {{currentPlan.expireDate}} 到期</text>
+        </view>
+        <text class="status-pill">{{currentPlan.status}}</text>
+      </view>
+      <view class="usage-row">
+        <view>
+          <text>员工额度</text>
+          <text>{{currentPlan.employees}} 人</text>
+        </view>
+        <view>
+          <text>本次选择</text>
+          <text>{{orderAmount}}</text>
+        </view>
+        <view>
+          <text>账单</text>
+          <text bindtap="openBills">查看</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="cycle-card">
+      <view class="cycle-segment">
+        <view class="{{cycle === 'monthly' ? 'is-active' : ''}}" data-cycle="monthly" bindtap="switchCycle">月付</view>
+        <view class="{{cycle === 'yearly' ? 'is-active' : ''}}" data-cycle="yearly" bindtap="switchCycle">年付</view>
+      </view>
+      <text>{{savingText}}</text>
+    </view>
+
+    <view class="section">
+      <view class="section-title">
+        <text>选择套餐</text>
+      </view>
+      <view class="plan-list">
+        <block wx:for="{{plans}}" wx:key="id">
+          <view class="plan-card {{item.selected ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectPlan">
+            <view class="plan-head">
+              <view>
+                <view class="plan-name-row">
+                  <text>{{item.name}}</text>
+                  <text class="plan-badge">{{item.badge}}</text>
+                </view>
+                <text class="plan-desc">{{item.desc}}</text>
+              </view>
+              <image src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+            </view>
+            <view class="price-row">
+              <text>{{item.price}}</text>
+              <text wx:if="{{!item.contact}}">{{item.unit}}</text>
+              <text wx:if="{{item.originPrice}}" class="origin-price">{{item.originPrice}}</text>
+            </view>
+            <view class="feature-row">
+              <block wx:for="{{item.features}}" wx:for-item="feature" wx:key="*this">
+                <text>{{feature}}</text>
+              </block>
+            </view>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="section">
+      <view class="section-title">
+        <text>员工额度</text>
+      </view>
+      <view class="seat-row">
+        <block wx:for="{{seats}}" wx:key="id">
+          <view class="seat-chip {{selectedSeatId === item.id ? 'is-active' : ''}}" data-id="{{item.id}}" bindtap="selectSeat">
+            <text>{{item.label}}</text>
+            <text wx:if="{{item.extra > 0}}">+¥{{item.extra}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="pay-button" bindtap="openPay">
+      <text>去确认订单</text>
+      <text>{{orderAmount}}</text>
+    </view>
+  </view>
+</view>

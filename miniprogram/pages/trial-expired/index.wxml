@@ -1,1 +1,49 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="试用即将到期" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="trial-page">
+  <view class="trial-scroll">
+    <view class="hero-card">
+      <image src="/assets/icons/warning-circle-amber.svg" mode="aspectFit"></image>
+      <text>试用剩余 {{daysLeft}} 天</text>
+      <text>开通专业版后，当前工厂数据和所有业务流程会继续保留。</text>
+    </view>
+
+    <view class="section">
+      <text class="section-title">升级后保留</text>
+      <block wx:for="{{keepItems}}" wx:key="title">
+        <view class="keep-row">
+          <image src="{{item.icon}}" mode="aspectFit"></image>
+          <view>
+            <text>{{item.title}}</text>
+            <text>{{item.desc}}</text>
+          </view>
+        </view>
+      </block>
+    </view>
+
+    <view class="section">
+      <text class="section-title">专业版能力</text>
+      <view class="benefit-list">
+        <block wx:for="{{benefits}}" wx:key="*this">
+          <view>
+            <image src="/assets/icons/check-green.svg" mode="aspectFit"></image>
+            <text>{{item}}</text>
+          </view>
+        </block>
+      </view>
+    </view>
+
+    <view class="compare-card" bindtap="openSubscription">
+      <view>
+        <text>查看完整套餐</text>
+        <text>对比基础版、专业版、旗舰版权益</text>
+      </view>
+      <image src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="secondary-button" bindtap="delayUpgrade">暂不升级</view>
+    <view class="primary-button" bindtap="openPay">立即开通</view>
+  </view>
+</view>

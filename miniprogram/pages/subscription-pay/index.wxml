@@ -1,1 +1,67 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="确认订单" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="pay-page">
+  <view class="pay-scroll">
+    <view class="order-card">
+      <view class="order-head">
+        <text>{{planName}}</text>
+        <text>{{amountText}}</text>
+      </view>
+      <view class="summary-grid">
+        <view>
+          <text>套餐周期</text>
+          <text>{{cycleText}}</text>
+        </view>
+        <view>
+          <text>员工额度</text>
+          <text>{{employees}} 人</text>
+        </view>
+        <view>
+          <text>生效时间</text>
+          <text>支付后立即生效</text>
+        </view>
+        <view>
+          <text>到期续费</text>
+          <text>到期前提醒</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section">
+      <text class="section-title">支付方式</text>
+      <block wx:for="{{paymentMethods}}" wx:key="id">
+        <view class="pay-method {{selectedPaymentId === item.id ? 'is-selected' : ''}}" data-id="{{item.id}}" bindtap="selectPayment">
+          <image class="method-icon" src="{{item.icon}}" mode="aspectFit"></image>
+          <view>
+            <text>{{item.title}}</text>
+            <text>{{item.desc}}</text>
+          </view>
+          <image class="radio" src="{{selectedPaymentId === item.id ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+        </view>
+      </block>
+    </view>
+
+    <view class="section">
+      <view class="toggle-row" bindtap="toggleInvoice">
+        <view>
+          <text>需要发票</text>
+          <text>支付成功后可在账单页补充抬头信息</text>
+        </view>
+        <view class="switch {{needInvoice ? 'is-on' : ''}}">
+          <view></view>
+        </view>
+      </view>
+      <view class="agreement-row" bindtap="toggleAgreement">
+        <image src="{{agreed ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
+        <text>我已阅读并同意《服务订购协议》</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-bar">
+    <view class="pay-button {{submitting ? 'is-disabled' : ''}}" bindtap="submitPay">
+      <text>确认支付</text>
+      <text>{{amountText}}</text>
+    </view>
+  </view>
+</view>

@@ -2,18 +2,20 @@
 
 <view class="settings-page">
   <view class="settings-content">
-    <block wx:for="{{firstRows}}" wx:key="title">
-      <view class="settings-row" data-path="{{item.path}}" bindtap="openRow">
-        <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
-        <view class="row-copy">
-          <text>{{item.title}}</text>
-          <text>{{item.desc}}</text>
+    <block wx:if="{{isLoggedIn}}">
+      <block wx:for="{{firstRows}}" wx:key="title">
+        <view class="settings-row" data-path="{{item.path}}" bindtap="openRow">
+          <image class="row-icon" src="{{item.icon}}" mode="aspectFit"></image>
+          <view class="row-copy">
+            <text>{{item.title}}</text>
+            <text>{{item.desc}}</text>
+          </view>
+          <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
         </view>
-        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
-      </view>
+      </block>
     </block>
 
-    <view class="section-gap"></view>
+    <view wx:if="{{secondRows.length}}" class="section-gap"></view>
 
     <block wx:for="{{secondRows}}" wx:key="title">
       <view class="settings-row" data-path="{{item.path}}" bindtap="openRow">
@@ -27,6 +29,6 @@
       </view>
     </block>
 
-    <view class="logout-row">退出登录</view>
+    <view wx:if="{{isLoggedIn}}" class="logout-row" bindtap="logout">退出登录</view>
   </view>
 </view>

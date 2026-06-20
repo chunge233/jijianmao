@@ -35,5 +35,6 @@
       </view>
       <view wx:if="{{index < disputes.length - 1}}" class="divider"></view>
     </block>
+    <view wx:if="{{disputes.length === 0}}" class="empty-state">暂无异议</view>
   </view>
 </view>

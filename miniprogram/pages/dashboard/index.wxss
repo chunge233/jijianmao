@@ -187,3 +187,10 @@
   height: 10rpx;
   border-radius: 5rpx;
 }
+
+.empty-state {
+  padding: 34rpx 0;
+  color: #9CA3AF;
+  font-size: 24rpx;
+  text-align: center;
+}

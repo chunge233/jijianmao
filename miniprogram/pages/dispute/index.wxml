@@ -7,20 +7,20 @@
         <image src="/assets/icons/warning-circle-white.svg" mode="aspectFit"></image>
       </view>
       <view class="status-copy">
-        <text>异议处理中</text>
-        <text>管理员将于3个工作日内核实</text>
+        <text>{{statusTitle}}</text>
+        <text>{{statusDesc}}</text>
       </view>
     </view>
 
     <view class="salary-card">
       <view class="salary-line">
         <text>异议工资</text>
-        <text>2026年6月</text>
+        <text>{{monthText}}</text>
       </view>
       <view class="divider"></view>
       <view class="salary-line">
         <text>应发工资</text>
-        <text class="salary-amount">¥8,560</text>
+        <text class="salary-amount">{{salaryAmount}}</text>
       </view>
     </view>
 
@@ -39,6 +39,10 @@
         <text>已选 {{selectedReportCount}} 条</text>
       </view>
       <text class="related-hint">可同时关联多条报工，便于管理员一起核对。</text>
+      <view wx:if="{{relatedReports.length === 0}}" class="related-empty">
+        <text>暂无可关联报工</text>
+        <text>当前月份还没有已通过的报工记录。</text>
+      </view>
       <block wx:for="{{relatedReports}}" wx:key="id">
         <view class="related-row" data-id="{{item.id}}" bindtap="toggleReport">
           <image class="check-icon" src="{{item.selected ? '/assets/icons/circle-fill-blue.svg' : '/assets/icons/circle-gray.svg'}}" mode="aspectFit"></image>
@@ -56,7 +60,7 @@
         <image src="/assets/icons/chat-circle-text-gray.svg" mode="aspectFit"></image>
         <text>问题描述</text>
       </view>
-      <text class="reason-text">6月15日工序XJ-2026-001的计件数量与系统记录不符，实际完成200件，系统记录180件，请核实。</text>
+      <textarea class="reason-input" value="{{reasonText}}" bindinput="onReasonInput" maxlength="200" placeholder="请描述需要核对的数量、单价或漏算情况"></textarea>
     </view>
 
     <view class="timeline-card">

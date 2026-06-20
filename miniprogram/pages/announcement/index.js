@@ -1,11 +1,16 @@
+const api = require('../../utils/api')
+
 Page({
   data: {
-    announcements: [
-      { id: 'A001', title: '关于端午节放假安排的通知', date: '2026-06-15' },
-      { id: 'A002', title: '6月工价调整公告', date: '2026-06-10' },
-      { id: 'A003', title: '新员工入职培训通知', date: '2026-06-05' },
-      { id: 'A004', title: '工厂安全生产规范更新', date: '2026-06-01' }
-    ]
+    announcements: []
+  },
+
+  onLoad() {
+    this.loadAnnouncements()
+  },
+
+  onShow() {
+    this.loadAnnouncements()
   },
 
   createAnnouncement() {
@@ -15,21 +20,51 @@ Page({
   },
 
   editAnnouncement(event) {
+    const { id } = event.currentTarget.dataset
+
     wx.navigateTo({
-      url: '/pages/announcement-new/index'
+      url: `/pages/announcement-new/index${id ? `?id=${id}` : ''}`
     })
   },
 
-  openAnnouncementDetail() {
+  openAnnouncementDetail(event) {
+    const { id } = event.currentTarget.dataset
+
     wx.navigateTo({
-      url: '/pages/announcement-detail/index'
+      url: `/pages/announcement-detail/index${id ? `?id=${id}` : ''}`
     })
   },
 
   deleteAnnouncement(event) {
     const { id } = event.currentTarget.dataset
-    const announcements = this.data.announcements.filter((item) => item.id !== id)
 
-    this.setData({ announcements })
+    api.deleteAnnouncement(id).then(() => {
+      wx.showToast({ title: '已删除', icon: 'none' })
+      this.loadAnnouncements()
+    }).catch(() => {
+      wx.showToast({ title: '删除失败', icon: 'none' })
+    })
+  },
+
+  loadAnnouncements() {
+    api.getAnnouncements().then((announcements) => {
+      this.setData({
+        announcements: (Array.isArray(announcements) ? announcements : []).map((item) => ({
+          id: item.id,
+          title: item.title,
+          date: this.formatDate(item.createdAt)
+        }))
+      })
+    }).catch(() => {
+      this.setData({ announcements: [] })
+    })
+  },
+
+  formatDate(value) {
+    if (!value) {
+      return ''
+    }
+
+    return value.slice(0, 10)
   }
 })

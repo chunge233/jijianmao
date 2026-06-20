@@ -1,0 +1,207 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+enum MemberRole {
+  boss
+  admin
+  employee
+}
+
+enum ReportStatus {
+  draft
+  pending
+  approved
+  rejected
+  withdrawn
+}
+
+enum PaymentStatus {
+  pending
+  paid
+  closed
+  refunded
+}
+
+model User {
+  id        String   @id @default(cuid())
+  openid    String   @unique
+  phone     String?
+  nickname  String?
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  memberships FactoryMember[]
+  reports     Report[]
+}
+
+model Factory {
+  id        String   @id @default(cuid())
+  name      String
+  ownerId   String
+  inviteCode String @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  members       FactoryMember[]
+  employees     Employee[]
+  processes     Process[]
+  products      Product[]
+  routes        ProcessRoute[]
+  reports       Report[]
+  subscriptions Subscription[]
+}
+
+model FactoryMember {
+  id        String     @id @default(cuid())
+  factoryId String
+  userId    String
+  role      MemberRole @default(employee)
+  status    String     @default("active")
+  createdAt DateTime   @default(now())
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+
+  @@unique([factoryId, userId])
+}
+
+model Employee {
+  id        String   @id @default(cuid())
+  factoryId String
+  name      String
+  phone     String?
+  role      MemberRole @default(employee)
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+}
+
+model Process {
+  id         String   @id @default(cuid())
+  factoryId  String
+  name       String
+  priceCents Int
+  qrCode     String   @unique
+  status     String   @default("active")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+  routeSteps RouteStep[]
+}
+
+model Product {
+  id        String   @id @default(cuid())
+  factoryId String
+  name      String
+  code      String?
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+}
+
+model ProcessRoute {
+  id        String   @id @default(cuid())
+  factoryId String
+  name      String
+  qrCode    String   @unique
+  status    String   @default("active")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+  steps   RouteStep[]
+}
+
+model RouteStep {
+  id        String @id @default(cuid())
+  routeId   String
+  processId String
+  sort      Int
+
+  route   ProcessRoute @relation(fields: [routeId], references: [id])
+  process Process      @relation(fields: [processId], references: [id])
+}
+
+model Report {
+  id        String       @id @default(cuid())
+  factoryId String
+  userId    String
+  type      String
+  status    ReportStatus @default(pending)
+  remark    String?
+  totalCents Int
+  quantity  Int
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+  user    User    @relation(fields: [userId], references: [id])
+  items   ReportItem[]
+  audits  ReportAudit[]
+}
+
+model ReportItem {
+  id         String @id @default(cuid())
+  reportId   String
+  processId  String
+  processName String
+  priceCents Int
+  quantity   Int
+  subtotalCents Int
+
+  report Report @relation(fields: [reportId], references: [id])
+}
+
+model ReportAudit {
+  id        String   @id @default(cuid())
+  reportId  String
+  action    String
+  reason    String?
+  createdAt DateTime @default(now())
+
+  report Report @relation(fields: [reportId], references: [id])
+}
+
+model SalaryMonth {
+  id        String   @id @default(cuid())
+  factoryId String
+  month     String
+  totalCents Int
+  status    String   @default("pending")
+  createdAt DateTime @default(now())
+}
+
+model Subscription {
+  id        String   @id @default(cuid())
+  factoryId String
+  planId    String
+  planName  String
+  status    String   @default("trial")
+  expireAt  DateTime?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  factory Factory @relation(fields: [factoryId], references: [id])
+}
+
+model PaymentOrder {
+  id        String        @id @default(cuid())
+  factoryId String
+  planId    String
+  amountCents Int
+  status    PaymentStatus @default(pending)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+}

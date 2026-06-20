@@ -13,13 +13,13 @@
 
   <view class="role-filters">
     <block wx:for="{{filters}}" wx:key="*this">
-      <text class="{{index === 0 ? 'active' : ''}}">{{item}}</text>
+      <text class="{{item === activeFilter ? 'active' : ''}}" data-filter="{{item}}" bindtap="switchFilter">{{item}}</text>
     </block>
   </view>
 
   <view class="role-list">
     <block wx:for="{{roles}}" wx:key="name">
-      <view class="role-row" data-name="{{item.name}}" bindtap="openRole">
+      <view class="role-row" data-id="{{item.id}}" data-name="{{item.name}}" bindtap="openRole">
         <view class="indicator" style="background: {{item.color}};"></view>
         <view class="role-info">
           <view class="role-name-row">
@@ -32,5 +32,6 @@
       </view>
       <view wx:if="{{index < roles.length - 1}}" class="divider"></view>
     </block>
+    <view wx:if="{{roles.length === 0}}" class="empty-state">暂无角色</view>
   </view>
 </view>

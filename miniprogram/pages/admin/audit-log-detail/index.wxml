@@ -3,9 +3,9 @@
 <view class="admin-page">
   <view class="admin-content">
     <view class="admin-card detail-head">
-      <text>调整工序单价</text>
-      <text>陈经理 · 今天 11:20</text>
-      <text>来源：批量调价</text>
+      <text>{{title}}</text>
+      <text>{{subtitle}}</text>
+      <text>{{source}}</text>
     </view>
     <view class="admin-section-title">变更前后</view>
     <view class="admin-card">

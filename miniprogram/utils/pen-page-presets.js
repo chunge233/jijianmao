@@ -77,9 +77,9 @@ const productFields = [
 ]
 
 const employeeRows = [
-  { title: '张伟', desc: '裁剪组 · 员工 · 135****0001', tag: '在岗', tagTone: 'green', short: '张', tone: 'blue', path: '/pages/employee-detail/index' },
-  { title: '李娜', desc: '缝合组 · 组长 · 135****0002', tag: '在岗', tagTone: 'green', short: '李', tone: 'purple', path: '/pages/employee-detail/index' },
-  { title: '陈敏', desc: '质检组 · 员工 · 135****0003', tag: '待确认', tagTone: 'amber', short: '陈', tone: 'amber', path: '/pages/employee-detail/index' }
+  { title: '员工A', desc: '生产组 · 员工 · 已绑定手机', tag: '在岗', tagTone: 'green', short: '员', tone: 'blue', path: '/pages/employee-detail/index' },
+  { title: '员工B', desc: '生产组 · 组长 · 已绑定手机', tag: '在岗', tagTone: 'green', short: '员', tone: 'purple', path: '/pages/employee-detail/index' },
+  { title: '员工C', desc: '质检组 · 员工 · 待确认', tag: '待确认', tagTone: 'amber', short: '员', tone: 'amber', path: '/pages/employee-detail/index' }
 ]
 
 const reportCards = [
@@ -90,7 +90,7 @@ const reportCards = [
     tagTone: 'amber',
     meta: [
       { label: '预估工资', value: '¥10.50' },
-      { label: '提交人', value: '王工' }
+      { label: '提交人', value: '当前员工' }
     ]
   },
   {
@@ -100,7 +100,7 @@ const reportCards = [
     tagTone: 'green',
     meta: [
       { label: '预估工资', value: '¥86.00' },
-      { label: '审核人', value: '李主管' }
+      { label: '审核人', value: '管理员' }
     ]
   }
 ]
@@ -168,9 +168,9 @@ const screens = {
         type: 'steps',
         title: '工序流程',
         items: [
-          { title: '裁剪', desc: '¥0.50/件 · 张伟负责' },
-          { title: '缝合', desc: '¥0.80/件 · 李娜负责' },
-          { title: '质检', desc: '¥0.30/件 · 陈敏负责' },
+          { title: '裁剪', desc: '¥0.50/件 · 负责人' },
+          { title: '缝合', desc: '¥0.80/件 · 负责人' },
+          { title: '质检', desc: '¥0.30/件 · 负责人' },
           { title: '包装', desc: '¥0.25/件 · 包装组负责' }
         ]
       },
@@ -212,8 +212,8 @@ const screens = {
     title: '新增员工',
     sections: [
       formSection('员工信息', [
-        { label: '姓名', value: '赵强' },
-        { label: '手机号', value: '136****8800' },
+        { label: '姓名', value: '员工姓名' },
+        { label: '手机号', value: '已绑定手机' },
         { label: '所属班组', value: '裁剪组' },
         { label: '角色权限', value: '员工' },
         { label: '备注', placeholder: '可填写岗位、入职时间或证件信息', multiline: true }
@@ -224,7 +224,7 @@ const screens = {
 
   employeeDetail: {
     title: '员工详情',
-    hero: { kicker: '裁剪组 · 员工', title: '张伟', desc: '135****0001 · 在岗', badge: '正常' },
+    hero: { kicker: '生产组 · 员工', title: '员工姓名', desc: '已绑定手机 · 在岗', badge: '正常' },
     sections: [
       {
         id: 'stats',
@@ -437,7 +437,7 @@ const screens = {
     title: '扫码报工',
     theme: 'dark',
     sections: [
-      { id: 'scan', type: 'empty', icon: icon.camera, title: '对准工单二维码', desc: '扫码后自动识别产品、工序和工艺路线。' }
+      { id: 'scan', type: 'empty', icon: icon.camera, title: '对准工序或工艺路线二维码', desc: '工序码会直接选中单个工序，路线码会带出该路线的全部工序。' }
     ],
     bottomActions: [{ title: '手动选择报工', path: '/pages/report/index' }]
   },
@@ -506,7 +506,7 @@ const screens = {
     theme: 'white',
     sections: [
       listSection('安全设置', [
-        { title: '登录手机号', desc: '135****0000', value: '已绑定', icon: icon.phone },
+        { title: '登录手机号', desc: '已绑定手机', value: '已绑定', icon: icon.phone },
         { title: '登录密码', desc: '建议定期更新密码', value: '去修改', path: '/pages/forgot-password/index', icon: icon.shield },
         { title: '注销账号', desc: '清除账号及相关授权', value: '谨慎操作', path: '/pages/cancel-account/index', icon: icon.x }
       ])
@@ -544,7 +544,7 @@ const screens = {
     theme: 'white',
     sections: [
       formSection('重置密码', [
-        { label: '手机号', value: '135****0000' },
+        { label: '手机号', value: '已绑定手机' },
         { label: '验证码', placeholder: '请输入短信验证码' },
         { label: '新密码', placeholder: '请输入 8-20 位新密码' }
       ])
@@ -607,7 +607,7 @@ const screens = {
     sections: [
       formSection('反馈内容', [
         { label: '问题类型', value: '功能建议' },
-        { label: '联系方式', value: '135****0000' },
+        { label: '联系方式', value: '已绑定手机' },
         { label: '问题描述', placeholder: '请描述遇到的问题或建议', multiline: true }
       ]),
       { id: 'upload', type: 'notice', tone: 'blue', icon: icon.image, heading: '上传截图', desc: '最多 3 张，有助于更快定位问题。' }
@@ -619,8 +619,8 @@ const screens = {
     title: '切换工厂',
     sections: [
       listSection('我的工厂', [
-        { title: '兴华五金厂', desc: '管理员 · 当前使用', tag: '当前', tagTone: 'blue', icon: icon.buildings },
-        { title: '宏达服饰厂', desc: '员工 · 已加入', value: '切换', icon: icon.buildings },
+        { title: '当前工厂', desc: '管理员 · 当前使用', tag: '当前', tagTone: 'blue', icon: icon.buildings },
+        { title: '已加入工厂', desc: '员工 · 已加入', value: '切换', icon: icon.buildings, action: 'switchFactory' },
         { title: '加入新工厂', desc: '通过邀请码或搜索工厂加入', path: '/pages/factory-join/index', icon: icon.users }
       ])
     ]
@@ -629,7 +629,7 @@ const screens = {
   factoryExit: {
     title: '退出工厂',
     sections: [
-      { id: 'warning', type: 'notice', tone: 'amber', icon: icon.warning, heading: '退出兴华五金厂', desc: '退出后将无法查看该工厂的报工、工资和消息。' },
+      { id: 'warning', type: 'notice', tone: 'amber', icon: icon.warning, heading: '退出当前工厂', desc: '退出后将无法查看该工厂的报工、工资和消息。' },
       formSection('确认信息', [
         { label: '当前身份', value: '员工' },
         { label: '退出原因', placeholder: '请填写退出原因', multiline: true }
@@ -641,7 +641,7 @@ const screens = {
   inviteMember: {
     title: '邀请成员',
     sections: [
-      { id: 'code', type: 'notice', tone: 'blue', icon: icon.users, heading: '邀请码 JJM-6288', desc: '成员可通过邀请码加入工厂，管理员审核后生效。' },
+      { id: 'code', type: 'notice', tone: 'blue', icon: icon.users, heading: '邀请码', desc: '成员可通过邀请码加入工厂，管理员审核后生效。' },
       listSection('邀请设置', [
         { title: '默认角色', value: '员工' },
         { title: '有效期', value: '7天' },
@@ -656,8 +656,8 @@ const screens = {
     sections: [
       cardSection('申请列表', [
         {
-          title: '赵强 申请加入',
-          desc: '手机号 136****8800 · 申请角色：员工',
+          title: '新成员申请加入',
+          desc: '已绑定手机 · 申请角色：员工',
           tag: '待审批',
           tagTone: 'amber',
           meta: [
@@ -736,9 +736,9 @@ const screens = {
     title: '班组管理',
     sections: [
       listSection('班组列表', [
-        { title: '裁剪组', desc: '8名员工 · 组长 张伟', value: '220件', icon: icon.users },
-        { title: '缝合组', desc: '12名员工 · 组长 李娜', value: '180件', icon: icon.users },
-        { title: '质检组', desc: '5名员工 · 组长 陈敏', value: '165件', icon: icon.users }
+        { title: '生产一组', desc: '8名员工 · 已设组长', value: '220件', icon: icon.users },
+        { title: '生产二组', desc: '12名员工 · 已设组长', value: '180件', icon: icon.users },
+        { title: '质检组', desc: '5名员工 · 已设组长', value: '165件', icon: icon.users }
       ])
     ],
     bottomActions: [{ title: '新增班组', path: '/pages/team-new/index' }]
@@ -749,7 +749,7 @@ const screens = {
     sections: [
       formSection('班组信息', [
         { label: '班组名称', value: '包装组' },
-        { label: '班组长', value: '刘洋' },
+        { label: '班组长', value: '待选择' },
         { label: '班组成员', value: '5人' },
         { label: '备注', placeholder: '填写班组职责或排班说明', multiline: true }
       ])
@@ -872,7 +872,7 @@ const screens = {
   employeeDisableConfirm: {
     title: '员工停用确认',
     sections: [
-      cardSection('员工信息', [{ title: '张伟', desc: '裁剪组 · 员工 · 135****0001', tag: '在岗', tagTone: 'green' }])
+      cardSection('员工信息', [{ title: '员工姓名', desc: '生产组 · 员工 · 已绑定手机', tag: '在岗', tagTone: 'green' }])
     ],
     modal: {
       tone: 'amber',

@@ -1,7 +1,10 @@
+const { hideTabBar } = require('../utils/tabbar')
+
 Component({
   data: {
     selected: 0,
     hidden: false,
+    showReportChooser: false,
     list: [
       {
         pagePath: 'pages/home/index',
@@ -48,9 +51,29 @@ Component({
       }
 
       if (nextItem && nextItem.center) {
-        wx.navigateTo({
-          url: `/${path}`
+        if (!wx.getStorageSync('auth_token')) {
+          this.hideAndNavigate('/pages/login/index')
+          return
+        }
+
+        if (!wx.getStorageSync('current_factory')) {
+          this.hideAndNavigate('/pages/factory-select/index')
+          return
+        }
+
+        this.setData({
+          showReportChooser: true
         })
+        return
+      }
+
+      if (!wx.getStorageSync('auth_token') && nextItem && nextItem.pagePath !== 'pages/profile/index') {
+        this.hideAndNavigate('/pages/login/index')
+        return
+      }
+
+      if (wx.getStorageSync('auth_token') && !wx.getStorageSync('current_factory') && nextItem && nextItem.pagePath !== 'pages/profile/index') {
+        this.hideAndNavigate('/pages/factory-select/index')
         return
       }
 
@@ -61,6 +84,32 @@ Component({
       wx.switchTab({
         url: `/${path}`
       })
+    },
+
+    closeReportChooser() {
+      this.setData({
+        showReportChooser: false
+      })
+    },
+
+    noop() {},
+
+    hideAndNavigate(url) {
+      this.setData({
+        hidden: true,
+        showReportChooser: false
+      })
+      hideTabBar()
+
+      wx.navigateTo({ url })
+    },
+
+    openScanReport() {
+      this.hideAndNavigate('/pages/scan-report/index')
+    },
+
+    openManualReport() {
+      this.hideAndNavigate('/pages/report/index')
     }
   }
 })

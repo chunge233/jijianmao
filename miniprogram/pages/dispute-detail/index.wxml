@@ -7,20 +7,20 @@
         <image src="/assets/icons/warning-circle-white.svg" mode="aspectFit"></image>
       </view>
       <view class="status-copy">
-        <text>异议处理中</text>
-        <text>管理员将于3个工作日内核实</text>
+        <text>{{statusTitle}}</text>
+        <text>{{statusDesc}}</text>
       </view>
     </view>
 
     <view class="salary-card">
       <view class="salary-line">
         <text>异议工资</text>
-        <text>2026年6月</text>
+        <text>{{monthText}}</text>
       </view>
       <view class="divider"></view>
       <view class="salary-line">
         <text>应发工资</text>
-        <text class="salary-amount">¥8,560</text>
+        <text class="salary-amount">{{salaryAmount}}</text>
       </view>
     </view>
 
@@ -29,7 +29,7 @@
         <image src="/assets/icons/chat-circle-text-gray.svg" mode="aspectFit"></image>
         <text>异议说明</text>
       </view>
-      <text class="reason-text">6月15日工序XJ-2026-001的计件数量与系统记录不符，实际完成200件，系统记录180件，请核实。</text>
+      <text class="reason-text">{{reasonText}}</text>
     </view>
 
     <view class="timeline-card">
