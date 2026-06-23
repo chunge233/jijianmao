@@ -1,0 +1,77 @@
+name: jijianmao
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: server/Dockerfile
+    environment:
+      NODE_ENV: production
+      HOST: 0.0.0.0
+      PORT: 3000
+      JWT_SECRET: ${JWT_SECRET}
+      DATABASE_URL: postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}?schema=public
+      STORE_FILE: /app/server/data/store.json
+      SMS_DEV_MODE: ${SMS_DEV_MODE:-true}
+      SMS_CODE_EXPIRE_SECONDS: ${SMS_CODE_EXPIRE_SECONDS:-300}
+      SMS_CODE_LENGTH: ${SMS_CODE_LENGTH:-6}
+      SMS_SEND_INTERVAL_SECONDS: ${SMS_SEND_INTERVAL_SECONDS:-60}
+      SMS_IP_HOURLY_LIMIT: ${SMS_IP_HOURLY_LIMIT:-10}
+      SMS_IP_DAILY_LIMIT: ${SMS_IP_DAILY_LIMIT:-20}
+      SMS_PHONE_DAILY_LIMIT: ${SMS_PHONE_DAILY_LIMIT:-10}
+      SMS_MAX_VERIFY_ERRORS: ${SMS_MAX_VERIFY_ERRORS:-5}
+      SMS_VERIFY_LOCK_SECONDS: ${SMS_VERIFY_LOCK_SECONDS:-1800}
+      ALIYUN_SMS_ACCESS_KEY_ID: ${ALIYUN_SMS_ACCESS_KEY_ID:-}
+      ALIYUN_SMS_ACCESS_KEY_SECRET: ${ALIYUN_SMS_ACCESS_KEY_SECRET:-}
+      ALIYUN_SMS_SIGN_NAME: ${ALIYUN_SMS_SIGN_NAME:-}
+      ALIYUN_SMS_TEMPLATE_CODE: ${ALIYUN_SMS_TEMPLATE_CODE:-}
+      WECHAT_APPID: ${WECHAT_APPID:-}
+      WECHAT_SECRET: ${WECHAT_SECRET:-}
+      WECHAT_PAY_MCH_ID: ${WECHAT_PAY_MCH_ID:-}
+      WECHAT_PAY_SERIAL_NO: ${WECHAT_PAY_SERIAL_NO:-}
+      WECHAT_PAY_API_V3_KEY: ${WECHAT_PAY_API_V3_KEY:-}
+      WECHAT_PAY_NOTIFY_URL: ${WECHAT_PAY_NOTIFY_URL:-}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    ports:
+      - "${API_HOST_BIND:-127.0.0.1}:${API_HOST_PORT:-3310}:3000"
+    restart: unless-stopped
+    volumes:
+      - api_data:/app/server/data
+
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  caddy:
+    image: caddy:2-alpine
+    profiles:
+      - caddy
+    depends_on:
+      - api
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  api_data:
+  postgres_data:
+  caddy_data:
+  caddy_config:

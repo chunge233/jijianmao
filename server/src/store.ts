@@ -2,6 +2,8 @@ import { randomUUID } from 'node:crypto'
 import { mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { PrismaClient } from '@prisma/client'
+import type { Prisma } from '@prisma/client'
 import type {
   Announcement,
   Bill,
@@ -26,7 +28,11 @@ const moduleDir = dirname(fileURLToPath(import.meta.url))
 const storeFilePath = process.env.STORE_FILE
   ? resolve(process.env.STORE_FILE)
   : resolve(moduleDir, '../data/store.json')
+const databaseStoreId = 'default'
+const databaseUrl = process.env.DATABASE_URL || ''
+const useDatabaseStore = /^postgres(?:ql)?:\/\//.test(databaseUrl) && process.env.STORE_DRIVER !== 'file'
 let saveQueue = Promise.resolve()
+let prisma: PrismaClient | undefined
 
 const userId = 'user_demo'
 const factoryId = 'factory_demo'
@@ -216,28 +222,89 @@ export const store = {
 export type StoreState = typeof store
 
 export async function loadStore() {
+  if (useDatabaseStore) {
+    await loadStoreFromDatabase()
+    return
+  }
+
+  await loadStoreFromFile()
+}
+
+async function loadStoreFromFile() {
   try {
     const raw = await readFile(storeFilePath, 'utf8')
-    const persisted = JSON.parse(raw) as Partial<StoreState>
-    Object.assign(store, persisted)
+    return applyPersistedStore(JSON.parse(raw))
   } catch (error) {
     const code = (error as NodeJS.ErrnoException).code
 
     if (code !== 'ENOENT') {
       throw error
     }
+
+    return false
   }
 }
 
 export async function saveStore() {
   saveQueue = saveQueue.catch(() => undefined).then(async () => {
-    await mkdir(dirname(storeFilePath), { recursive: true })
-    const temporaryPath = `${storeFilePath}.${process.pid}.${Date.now()}.${randomUUID().slice(0, 8)}.tmp`
-    await writeFile(temporaryPath, `${JSON.stringify(store, null, 2)}\n`, 'utf8')
-    await replaceStoreFile(temporaryPath)
+    if (useDatabaseStore) {
+      await saveStoreToDatabase()
+      return
+    }
+
+    await saveStoreToFile()
   })
 
   return saveQueue
+}
+
+async function loadStoreFromDatabase() {
+  const state = await getPrisma().appState.findUnique({
+    where: { id: databaseStoreId }
+  })
+
+  if (state && applyPersistedStore(state.data)) {
+    return
+  }
+
+  await loadStoreFromFile()
+  await saveStore()
+}
+
+async function saveStoreToDatabase() {
+  const data = JSON.parse(JSON.stringify(store)) as Prisma.InputJsonValue
+
+  await getPrisma().appState.upsert({
+    where: { id: databaseStoreId },
+    create: {
+      id: databaseStoreId,
+      data
+    },
+    update: {
+      data
+    }
+  })
+}
+
+async function saveStoreToFile() {
+  await mkdir(dirname(storeFilePath), { recursive: true })
+  const temporaryPath = `${storeFilePath}.${process.pid}.${Date.now()}.${randomUUID().slice(0, 8)}.tmp`
+  await writeFile(temporaryPath, `${JSON.stringify(store, null, 2)}\n`, 'utf8')
+  await replaceStoreFile(temporaryPath)
+}
+
+function applyPersistedStore(value: unknown) {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return false
+  }
+
+  Object.assign(store, value as Partial<StoreState>)
+  return true
+}
+
+function getPrisma() {
+  prisma ||= new PrismaClient()
+  return prisma
 }
 
 async function replaceStoreFile(temporaryPath: string) {

@@ -3,8 +3,15 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
+}
+
+model AppState {
+  id        String   @id
+  data      Json
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 enum MemberRole {

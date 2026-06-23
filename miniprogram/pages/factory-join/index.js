@@ -4,6 +4,7 @@ const { hideTabBar } = require('../../utils/tabbar')
 Page({
   data: {
     inviteCode: '',
+    hasInviteCode: false,
     avatars: ['计', '件', '猫', '+']
   },
 
@@ -12,15 +13,20 @@ Page({
   },
 
   onLoad(options) {
-    const inviteCode = (options && options.inviteCode) || ''
+    const inviteCode = String((options && options.inviteCode) || '').toUpperCase()
     if (inviteCode) {
-      this.setData({ inviteCode })
+      this.setData({
+        inviteCode,
+        hasInviteCode: true
+      })
     }
   },
 
   onInviteInput(event) {
+    const inviteCode = String(event.detail.value || '').toUpperCase()
     this.setData({
-      inviteCode: String(event.detail.value || '').toUpperCase()
+      inviteCode,
+      hasInviteCode: Boolean(inviteCode.trim())
     })
   },
 

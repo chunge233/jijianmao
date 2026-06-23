@@ -1,0 +1,10 @@
+jjm.vividai.cc {
+  encode zstd gzip
+  reverse_proxy api:3000
+}
+
+http://38.162.115.222 {
+  encode zstd gzip
+  reverse_proxy api:3000
+}
+

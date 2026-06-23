@@ -24,7 +24,7 @@
       />
       <view class="avatar-row">
         <block wx:for="{{avatars}}" wx:key="*this">
-          <view class="small-avatar avatar-{{index}}">{{item}}</view>
+          <view wx:if="{{index !== 3 || hasInviteCode}}" class="small-avatar avatar-{{index}}">{{item}}</view>
         </block>
       </view>
       <view class="invite-meta">
