@@ -772,14 +772,23 @@
 .pen-dialog-button {
   flex: 1;
   height: 88rpx;
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
   border-radius: 16rpx;
   background: #1A56DB;
   color: #FFFFFF;
   font-size: 27rpx;
   font-weight: 700;
+  line-height: 88rpx;
+}
+
+button.pen-button::after {
+  border: 0;
 }
 
 .pen-button.is-secondary,

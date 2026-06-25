@@ -1,8 +1,13 @@
 @import "../../styles/replica.wxss";
 
 .form-input {
+  width: 100%;
+  min-width: 0;
+  height: 84rpx;
+  display: block;
   box-sizing: border-box;
   color: #111827;
+  line-height: 84rpx;
 }
 
 .form-placeholder {
@@ -10,27 +15,31 @@
 }
 
 .factory-create-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 176rpx);
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   background: #FFFFFF;
 }
 
 .factory-create-content {
-  flex: 1;
+  flex: 0 0 auto;
   display: flex;
   flex-direction: column;
-  gap: 24rpx;
-  padding: 24rpx 20rpx 0;
+  gap: 16rpx;
+  padding: 18rpx 24rpx calc(170rpx + constant(safe-area-inset-bottom));
+  padding: 18rpx 24rpx calc(170rpx + env(safe-area-inset-bottom));
+  box-sizing: border-box;
 }
 
 .logo-section {
   display: flex;
   justify-content: center;
-  padding: 4rpx 0 10rpx;
+  padding: 0 0 2rpx;
 }
 
 .factory-logo {
+  position: relative;
   width: 112rpx;
   height: 112rpx;
   display: flex;
@@ -40,35 +49,70 @@
   gap: 6rpx;
   border: 2rpx solid #1A56DB;
   border-radius: 56rpx;
+  background: #EFF6FF;
   color: #1A56DB;
   font-size: 17rpx;
 }
 
-.factory-logo image {
-  width: 34rpx;
-  height: 34rpx;
+.upload-camera {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.factory-logo.has-logo {
+  border-color: #E5E7EB;
+  background: #F9FAFB;
+}
+
+.factory-logo .logo-preview {
+  width: 100%;
+  height: 100%;
+  border-radius: 56rpx;
+}
+
+.logo-edit-badge {
+  position: absolute;
+  right: -2rpx;
+  bottom: -2rpx;
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 4rpx solid #FFFFFF;
+  border-radius: 22rpx;
+  background: #1A56DB;
+  box-sizing: border-box;
+}
+
+.logo-edit-badge image {
+  width: 22rpx;
+  height: 22rpx;
 }
 
 .field {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
+  gap: 8rpx;
+  box-sizing: border-box;
 }
 
 .field-label {
   color: #111827;
   font-size: 24rpx;
   font-weight: 600;
+  line-height: 34rpx;
 }
 
 .type-grid {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: 12rpx;
+  gap: 10rpx 12rpx;
 }
 
 .type-chip {
-  height: 50rpx;
+  height: 54rpx;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -82,6 +126,11 @@
   background: #DBEAFE;
   color: #1A56DB;
   font-weight: 700;
+}
+
+.area-picker {
+  display: block;
+  width: 100%;
 }
 
 .area-row {
@@ -102,18 +151,46 @@
   font-size: 23rpx;
 }
 
+.area-select.has-value {
+  background: #F9FAFB;
+  color: #111827;
+}
+
+.area-select text {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .area-select image {
   width: 24rpx;
   height: 24rpx;
+  flex: 0 0 24rpx;
 }
 
 .bottom-area {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
-  padding: 20rpx 20rpx calc(72rpx + constant(safe-area-inset-bottom));
-  padding: 20rpx 20rpx calc(72rpx + env(safe-area-inset-bottom));
+  gap: 12rpx;
+  padding: 18rpx 24rpx calc(38rpx + constant(safe-area-inset-bottom));
+  padding: 18rpx 24rpx calc(38rpx + env(safe-area-inset-bottom));
+  border-top: 1rpx solid #F3F4F6;
+  background: #FFFFFF;
+  box-sizing: border-box;
   color: #6B7280;
   font-size: 20rpx;
+  line-height: 30rpx;
   text-align: center;
+}
+
+.bottom-area .primary-button {
+  height: 88rpx;
+  border-radius: 14rpx;
+  font-size: 28rpx;
 }

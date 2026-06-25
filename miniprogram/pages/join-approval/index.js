@@ -49,7 +49,7 @@ Page({
             id: 'empty',
             type: 'empty',
             title: '暂无加入申请',
-            desc: '成员通过邀请码申请加入后，会在这里等待审批。'
+            desc: '新的加入申请会在这里等待审批。'
           }
         ]
         screen.bottomActions = []
@@ -74,7 +74,7 @@ Page({
             tagTone: item.status === 'pending' ? 'amber' : (item.status === 'approved' ? 'green' : 'red'),
             meta: [
               { label: '申请时间', value: this.formatTime(item.createdAt) },
-              { label: '来源', value: '邀请码' }
+              { label: '来源', value: '邀请' }
             ]
           }))
         }

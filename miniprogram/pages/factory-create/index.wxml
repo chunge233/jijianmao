@@ -3,9 +3,15 @@
 <view class="factory-create-page">
   <view class="factory-create-content">
     <view class="logo-section">
-      <view class="factory-logo">
-        <image src="/assets/icons/camera-blue.svg" mode="aspectFit"></image>
-        <text>上传Logo</text>
+      <view class="factory-logo {{factoryLogo ? 'has-logo' : ''}}" bindtap="chooseLogo">
+        <image wx:if="{{factoryLogo}}" class="logo-preview" src="{{factoryLogo}}" mode="aspectFill"></image>
+        <block wx:else>
+          <image class="upload-camera" src="/assets/icons/camera-blue.svg" mode="aspectFit"></image>
+          <text>上传Logo</text>
+        </block>
+        <view wx:if="{{factoryLogo}}" class="logo-edit-badge">
+          <image src="/assets/icons/camera-white.svg" mode="aspectFit"></image>
+        </view>
       </view>
     </view>
 
@@ -31,26 +37,57 @@
 
     <view class="field">
       <text class="field-label">所在地区</text>
-      <view class="area-row">
-        <view class="area-select">省<image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image></view>
-        <view class="area-select">市<image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image></view>
-        <view class="area-select">区<image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image></view>
-      </view>
+      <picker class="area-picker" mode="region" value="{{region}}" bindchange="onRegionChange">
+        <view class="area-row">
+          <view class="area-select {{hasRegion ? 'has-value' : ''}}">
+            <text>{{regionLabels[0]}}</text>
+            <image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+          </view>
+          <view class="area-select {{hasRegion ? 'has-value' : ''}}">
+            <text>{{regionLabels[1]}}</text>
+            <image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+          </view>
+          <view class="area-select {{hasRegion ? 'has-value' : ''}}">
+            <text>{{regionLabels[2]}}</text>
+            <image src="/assets/icons/caret-down-gray.svg" mode="aspectFit"></image>
+          </view>
+        </view>
+      </picker>
     </view>
 
     <view class="field">
       <text class="field-label">详情地址</text>
-      <view class="native-input">请输入详细地址，如xx路xx号</view>
+      <input
+        class="native-input form-input"
+        placeholder="请输入详细地址，如xx路xx号"
+        placeholder-class="form-placeholder"
+        value="{{detailAddress}}"
+        bindinput="onAddressInput"
+      />
     </view>
 
     <view class="field">
       <text class="field-label">联系人</text>
-      <view class="native-input">请输入联系人姓名</view>
+      <input
+        class="native-input form-input"
+        placeholder="请输入联系人姓名"
+        placeholder-class="form-placeholder"
+        value="{{contactName}}"
+        bindinput="onContactNameInput"
+      />
     </view>
 
     <view class="field">
       <text class="field-label">联系电话</text>
-      <view class="native-input">请输入联系电话</view>
+      <input
+        class="native-input form-input"
+        type="number"
+        maxlength="11"
+        placeholder="请输入联系电话"
+        placeholder-class="form-placeholder"
+        value="{{contactPhone}}"
+        bindinput="onContactPhoneInput"
+      />
     </view>
   </view>
 

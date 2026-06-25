@@ -1,32 +1,39 @@
 @import "../../styles/replica.wxss";
 
 .factory-select-page {
-  min-height: 100vh;
+  min-height: calc(100vh - 176rpx);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   background: #FFFFFF;
 }
 
 .factory-select-content {
+  width: 100%;
+  min-height: 0;
+  flex: 1;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 28rpx;
-  padding: 72rpx 24rpx calc(72rpx + constant(safe-area-inset-bottom));
-  padding: 72rpx 24rpx calc(72rpx + env(safe-area-inset-bottom));
+  padding: 0 24rpx calc(96rpx + constant(safe-area-inset-bottom));
+  padding: 0 24rpx calc(96rpx + env(safe-area-inset-bottom));
 }
 
-.hero-icon {
-  width: 120rpx;
-  height: 120rpx;
+.hero-illustration {
+  width: 100%;
+  height: 300rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  border-radius: 60rpx;
-  background: #E8F0FE;
+  overflow: hidden;
 }
 
-.hero-icon image {
-  width: 56rpx;
-  height: 56rpx;
+.hero-image {
+  width: 500rpx;
+  height: 300rpx;
 }
 
 .title {
@@ -58,16 +65,29 @@
   gap: 22rpx;
   padding: 0 28rpx;
   border-radius: 21rpx;
-}
-
-.option-card.join {
-  background: #F9FAFB;
-  opacity: 0.75;
+  box-sizing: border-box;
 }
 
 .option-card.create {
   background: #1A56DB;
   color: #FFFFFF;
+}
+
+.option-card.join {
+  background: #EEF6FF;
+  border: 2rpx dashed #93C5FD;
+}
+
+.option-card.is-disabled {
+  color: #64748B;
+}
+
+.option-card.is-disabled .option-title {
+  color: #334155;
+}
+
+.option-card.is-disabled .option-desc {
+  color: #64748B;
 }
 
 .option-icon {
@@ -81,7 +101,7 @@
 }
 
 .option-icon.muted {
-  background: #E8F0FE;
+  background: #DBEAFE;
 }
 
 .option-icon.white {

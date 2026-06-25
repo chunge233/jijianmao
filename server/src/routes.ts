@@ -176,6 +176,18 @@ function ensureEmployeeForMember(factoryIdValue: string, userIdValue: string, ro
   })
 }
 
+function serializeFactoryInvite(factory: typeof store.factories[number]) {
+  return {
+    id: factory.id,
+    name: factory.name,
+    memberCount: store.members.filter((item) => item.factoryId === factory.id && item.status === 'active').length,
+    employeeCount: store.employees.filter((item) => item.factoryId === factory.id && item.status === 'active').length,
+    processCount: store.processes.filter((item) => item.factoryId === factory.id && item.status === 'active').length,
+    productCount: store.products.filter((item) => item.factoryId === factory.id && item.status === 'active').length,
+    routeCount: store.routes.filter((item) => item.factoryId === factory.id && item.status === 'active').length
+  }
+}
+
 function trialExpireAt() {
   const date = new Date()
   date.setDate(date.getDate() + 14)
@@ -402,8 +414,10 @@ export async function registerRoutes(app: FastifyInstance) {
   app.get('/api/dashboard/overview', async (request) => {
     const claims = await requireAuth(request)
     const reports = store.reports.filter((item) => item.factoryId === claims.factoryId)
-    const myReports = reports.filter((item) => item.userId === claims.userId)
-    const approvedReports = reports.filter((item) => item.status === 'approved' && item.userId === claims.userId)
+    const myReports = reports
+      .filter((item) => item.userId === claims.userId)
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+    const approvedReports = myReports.filter((item) => item.status === 'approved')
     const totalCents = approvedReports.reduce((sum, item) => sum + item.totalCents, 0)
     const totalQuantity = approvedReports.reduce((sum, item) => sum + item.quantity, 0)
     const latestMessage = store.messages.find((item) => item.factoryId === claims.factoryId && (!item.userId || item.userId === claims.userId))
@@ -416,7 +430,11 @@ export async function registerRoutes(app: FastifyInstance) {
       totalQuantity,
       pendingCount: reports.filter((item) => item.status === 'pending').length,
       latestMessage,
-      recentReports: myReports.slice(0, 5).map(serializeReport)
+      recentReports: myReports.slice(0, 5).map(serializeReport),
+      reportCalendar: myReports.map((report) => ({
+        id: report.id,
+        createdAt: report.createdAt
+      }))
     }
   })
 
@@ -519,6 +537,21 @@ export async function registerRoutes(app: FastifyInstance) {
     return { ok: true, token, factory, role: 'boss' }
   })
 
+  app.get('/api/factories/invite/:inviteCode', async (request, reply) => {
+    const { inviteCode: rawInviteCode } = paramsOf<{ inviteCode: string }>(request)
+    const inviteCode = stringValue(rawInviteCode).toUpperCase()
+    const factory = store.factories.find((item) => item.inviteCode.toUpperCase() === inviteCode)
+
+    if (!factory) {
+      return reply.code(404).send({ ok: false, message: '邀请链接无效' })
+    }
+
+    return {
+      ok: true,
+      factory: serializeFactoryInvite(factory)
+    }
+  })
+
   app.post('/api/factories/join', async (request) => {
     const claims = await requireAuth(request)
     const body = bodyOf<{ inviteCode: string }>(request)
@@ -526,7 +559,7 @@ export async function registerRoutes(app: FastifyInstance) {
     const factory = store.factories.find((item) => item.inviteCode.toUpperCase() === inviteCode)
 
     if (!factory) {
-      return { ok: false, message: '邀请码不存在' }
+      return { ok: false, message: '邀请已失效' }
     }
 
     let member = store.members.find((item) => item.factoryId === factory.id && item.userId === claims.userId)
@@ -924,12 +957,15 @@ export async function registerRoutes(app: FastifyInstance) {
   app.get('/api/reports', async (request) => {
     const claims = await requireAuth(request)
     const query = queryOf<{ status: string; mine: string }>(request)
-    return store.reports.filter((report) => {
-      if (report.factoryId !== claims.factoryId) return false
-      if (query.mine === 'true' && report.userId !== claims.userId) return false
-      if (query.status && report.status !== query.status) return false
-      return true
-    }).map(serializeReport)
+    return store.reports
+      .filter((report) => {
+        if (report.factoryId !== claims.factoryId) return false
+        if (query.mine === 'true' && report.userId !== claims.userId) return false
+        if (query.status && report.status !== query.status) return false
+        return true
+      })
+      .sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
+      .map(serializeReport)
   })
 
   app.get('/api/reports/:id', async (request) => {

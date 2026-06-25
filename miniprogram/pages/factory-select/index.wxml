@@ -2,22 +2,21 @@
 
 <view class="factory-select-page">
   <view class="factory-select-content">
-    <view class="hero-icon">
-      <image src="/assets/icons/buildings-blue.svg" mode="aspectFit"></image>
+    <view class="hero-illustration">
+      <image class="hero-image" src="/assets/illustrations/iconscout-teamwork-brainstorming.png" mode="aspectFit"></image>
     </view>
     <text class="title">欢迎使用计件猫</text>
-    <text class="subtitle">请选择加入已有工厂或创建新工厂</text>
+    <text class="subtitle">创建工厂，开始管理计件工资</text>
 
     <view class="option-list">
-      <view class="option-card join" bindtap="goJoin">
+      <view class="option-card join is-disabled">
         <view class="option-icon muted">
           <image src="/assets/icons/users-three-blue.svg" mode="aspectFit"></image>
         </view>
         <view class="option-copy">
           <text class="option-title">加入工厂</text>
-          <text class="option-desc">通过邀请码加入管理员创建的工厂</text>
+          <text class="option-desc">通过转发邀请进入，提交后等待审核</text>
         </view>
-        <image class="arrow" src="/assets/icons/caret-right-gray.svg" mode="aspectFit"></image>
       </view>
 
       <view class="option-card create" bindtap="goCreate">
@@ -32,6 +31,5 @@
       </view>
     </view>
 
-    <text class="footer-hint">已有工厂？请联系管理员获取邀请码</text>
   </view>
 </view>

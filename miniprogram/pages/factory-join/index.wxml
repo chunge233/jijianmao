@@ -5,35 +5,50 @@
     <view class="invite-icon">
       <image src="/assets/icons/envelope-simple-blue.svg" mode="aspectFit"></image>
     </view>
-    <text class="invite-title">加入工厂</text>
+    <text class="invite-title">工厂邀请</text>
 
-    <view class="factory-info-card">
+    <view wx:if="{{loading}}" class="factory-info-card state-card">
+      <view class="state-icon">...</view>
+      <text class="state-title">正在加载</text>
+      <text class="state-desc">请稍候</text>
+    </view>
+
+    <view wx:elif="{{factory}}" class="factory-info-card">
       <view class="factory-row">
-        <view class="factory-avatar">码</view>
+        <view class="factory-avatar">{{factoryInitial}}</view>
         <view class="factory-copy">
-          <text class="factory-name">输入管理员发给你的邀请码</text>
-          <text class="factory-address">加入后即可切换到对应工厂</text>
+          <text class="factory-name">{{factory.name}}</text>
+          <text class="factory-address">待加入工厂</text>
         </view>
       </view>
-      <input
-        class="invite-input"
-        placeholder="请输入工厂邀请码"
-        placeholder-class="invite-placeholder"
-        value="{{inviteCode}}"
-        bindinput="onInviteInput"
-      />
+
+      <view class="factory-stats">
+        <block wx:for="{{stats}}" wx:key="label">
+          <view class="factory-stat">
+            <text class="factory-stat-value">{{item.value}}</text>
+            <text class="factory-stat-label">{{item.label}}</text>
+          </view>
+        </block>
+      </view>
+
       <view class="avatar-row">
         <block wx:for="{{avatars}}" wx:key="*this">
-          <view wx:if="{{index !== 3 || hasInviteCode}}" class="small-avatar avatar-{{index}}">{{item}}</view>
+          <view class="small-avatar avatar-{{index}}">{{item}}</view>
         </block>
       </view>
       <view class="invite-meta">
-        <text>由工厂管理员审核或邀请加入</text>
+        <text>确认后进入工厂工作台</text>
         <text class="role-tag">计件猫</text>
       </view>
     </view>
 
-    <text class="join-hint">加入后即可查看工厂计件数据和报工</text>
-    <view class="join-button" bindtap="joinFactory">立即加入</view>
+    <view wx:else class="factory-info-card state-card">
+      <view class="state-icon">!</view>
+      <text class="state-title">邀请已失效</text>
+      <text class="state-desc">暂时无法加入该工厂</text>
+    </view>
+
+    <text class="join-hint">{{joinHint}}</text>
+    <view class="join-button {{canJoin ? '' : 'is-disabled'}}" bindtap="joinFactory">{{joinButtonText}}</view>
   </view>
 </view>

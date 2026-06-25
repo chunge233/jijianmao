@@ -1,1 +1,92 @@
-<pen-screen screen="{{screen}}" bind:action="handleAction"></pen-screen>
+<nav-bar title="员工详情" show-back="{{true}}" back-text="" back-icon="/assets/icons/caret-left-black.svg" back-color="#111827"></nav-bar>
+
+<view class="detail-page">
+  <view wx:if="{{loading}}" class="state-card">
+    <image class="state-icon" src="/assets/icons/users-three-blue.svg" mode="aspectFit"></image>
+    <text class="state-title">正在加载员工信息</text>
+  </view>
+
+  <view wx:elif="{{emptyState}}" class="state-card">
+    <image class="state-icon" src="/assets/icons/users-three-blue.svg" mode="aspectFit"></image>
+    <text class="state-title">{{emptyState.title}}</text>
+    <text class="state-desc">{{emptyState.desc}}</text>
+    <view class="state-action" bindtap="backToList">返回员工管理</view>
+  </view>
+
+  <block wx:else>
+    <view class="profile-card {{employee.statusClass}}">
+      <view class="profile-head">
+        <view class="profile-avatar">{{employee.initial}}</view>
+        <view class="profile-copy">
+          <text class="profile-kicker">{{employee.roleText}}</text>
+          <text class="profile-name">{{employee.name}}</text>
+          <text class="profile-desc">{{employee.maskedPhone}} · {{employee.statusText}}</text>
+        </view>
+        <view class="profile-status">{{employee.statusText}}</view>
+      </view>
+    </view>
+
+    <view class="metric-grid">
+      <view class="metric-card">
+        <view class="metric-icon metric-blue">
+          <image src="/assets/icons/clipboard-blue.svg" mode="aspectFit"></image>
+        </view>
+        <view class="metric-copy">
+          <text class="metric-label">本月报工</text>
+          <text class="metric-value">--</text>
+        </view>
+      </view>
+      <view class="metric-card">
+        <view class="metric-icon metric-green">
+          <image src="/assets/icons/currency-cny-green.svg" mode="aspectFit"></image>
+        </view>
+        <view class="metric-copy">
+          <text class="metric-label">计件工资</text>
+          <text class="metric-value">--</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="section-block">
+      <view class="section-title-row">
+        <view class="section-title-bar"></view>
+        <text class="section-title">基础信息</text>
+      </view>
+      <view class="info-card">
+        <view class="info-row">
+          <view class="row-icon">
+            <image src="/assets/icons/phone-blue.svg" mode="aspectFit"></image>
+          </view>
+          <view class="row-copy">
+            <text class="row-label">手机号</text>
+            <text class="row-value">{{employee.phoneValue}}</text>
+          </view>
+        </view>
+        <view class="info-row">
+          <view class="row-icon">
+            <image src="/assets/icons/shield-check-cyan.svg" mode="aspectFit"></image>
+          </view>
+          <view class="row-copy">
+            <text class="row-label">角色权限</text>
+            <text class="row-value">{{employee.roleText}}</text>
+          </view>
+          <view class="row-tag {{employee.statusClass}}">{{employee.statusText}}</view>
+        </view>
+        <view class="info-row is-last">
+          <view class="row-icon">
+            <image src="/assets/icons/users-three-blue.svg" mode="aspectFit"></image>
+          </view>
+          <view class="row-copy">
+            <text class="row-label">员工编号</text>
+            <text class="row-value code">{{employee.id}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{employee && !loading}}" class="detail-bottom">
+  <view class="bottom-button is-secondary {{employee.statusClass}}" bindtap="disableEmployee">{{employee.disableTitle}}</view>
+  <view class="bottom-button" bindtap="openEdit">编辑资料</view>
+</view>

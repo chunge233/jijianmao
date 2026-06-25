@@ -8,7 +8,7 @@ Page({
     latestMessageText: '请先创建工序、产品和工艺路线，再开始扫码报工。',
     latestMessageTag: '提醒',
     latestMessageId: '',
-    reportSectionTitle: '2026年6月17日 3条报工记录',
+    reportSectionTitle: '暂无报工记录',
     showGuide: false,
     guideShownOnce: false,
     guideSteps: [
@@ -29,16 +29,14 @@ Page({
         panelClass: 'panel-top-pos'
       }
     ],
-    calendarDays: [
-      { week: '四', day: '11', dots: 2, more: '+1' },
-      { week: '五', day: '12' },
-      { week: '六', day: '13' },
-      { week: '日', day: '14', dots: 1 },
-      { week: '一', day: '15', dots: 2, more: '+3' },
-      { week: '二', day: '16' },
-      { week: '三', day: '17', active: true, dots: 2, more: '+2' }
-    ],
+    calendarDays: [],
     reports: []
+  },
+
+  onLoad() {
+    this.setData({
+      calendarDays: this.buildCalendarDays([], new Date())
+    })
   },
 
   onShow() {
@@ -113,17 +111,21 @@ Page({
         return
       }
 
-      const reports = Array.isArray(overview.recentReports)
-        ? overview.recentReports.map((report) => this.normalizeReport(report))
+      const sourceReports = Array.isArray(overview.recentReports) ? overview.recentReports : []
+      const calendarReports = Array.isArray(overview.reportCalendar) ? overview.reportCalendar : sourceReports
+      const reports = sourceReports.length
+        ? sourceReports.map((report) => this.normalizeReport(report))
         : []
       const latestMessage = overview.latestMessage || {}
+      const calendarAnchor = this.resolveCalendarAnchor(calendarReports)
 
       this.setData({
         salaryAmount: `¥${(Number(overview.salaryCents || 0) / 100).toFixed(2)}`,
         latestMessageText: latestMessage.content || latestMessage.title || this.data.latestMessageText,
         latestMessageTag: latestMessage.type === 'audit' ? '审核' : (latestMessage.type === 'salary' ? '工资' : '消息'),
         latestMessageId: latestMessage.id || '',
-        reportSectionTitle: `${this.formatMonthDay(new Date())} ${reports.length}条报工记录`,
+        reportSectionTitle: reports.length ? `最近 ${reports.length} 条报工记录` : '暂无报工记录',
+        calendarDays: this.buildCalendarDays(calendarReports, calendarAnchor),
         reports
       })
     }).catch(() => {})
@@ -142,10 +144,83 @@ Page({
       title: report.type === 'route' ? '' : (firstItem.processName || '报工记录'),
       steps: report.type === 'route' ? items.map((item) => item.processName || '工序') : [],
       meta: `${report.quantity || 0} 件 · ${this.formatTime(report.createdAt)}`,
+      createdAt: report.createdAt || '',
       path: report.type === 'route'
         ? `/pages/report-detail-route/index?id=${report.id}`
         : `/pages/report-detail-single/index?id=${report.id}`
     }
+  },
+
+  buildCalendarDays(reports, anchorDate) {
+    const anchor = this.parseDate(anchorDate) || new Date()
+    const counts = this.countReportsByDate(reports)
+    const activeKey = this.dateKey(anchor)
+    const start = new Date(anchor)
+    const weeks = ['日', '一', '二', '三', '四', '五', '六']
+
+    start.setHours(0, 0, 0, 0)
+    start.setDate(start.getDate() - 6)
+
+    return Array.from({ length: 7 }).map((_, index) => {
+      const date = new Date(start)
+      date.setDate(start.getDate() + index)
+      const key = this.dateKey(date)
+      const count = counts[key] || 0
+
+      return {
+        week: weeks[date.getDay()],
+        day: String(date.getDate()),
+        active: key === activeKey,
+        dots: count > 0 ? Math.min(count, 2) : 0,
+        more: count > 2 ? `+${count - 2}` : ''
+      }
+    })
+  },
+
+  countReportsByDate(reports) {
+    return (Array.isArray(reports) ? reports : []).reduce((counts, report) => {
+      const date = this.parseDate(report && report.createdAt)
+      if (!date) {
+        return counts
+      }
+
+      const key = this.dateKey(date)
+      counts[key] = (counts[key] || 0) + 1
+      return counts
+    }, {})
+  },
+
+  resolveCalendarAnchor(reports) {
+    const dates = (Array.isArray(reports) ? reports : [])
+      .map((report) => this.parseDate(report && report.createdAt))
+      .filter(Boolean)
+
+    if (!dates.length) {
+      return new Date()
+    }
+
+    return dates.sort((a, b) => b.getTime() - a.getTime())[0]
+  },
+
+  parseDate(value) {
+    if (value instanceof Date) {
+      return Number.isNaN(value.getTime()) ? null : value
+    }
+
+    if (!value) {
+      return null
+    }
+
+    const date = new Date(value)
+    return Number.isNaN(date.getTime()) ? null : date
+  },
+
+  dateKey(date) {
+    const value = this.parseDate(date) || new Date()
+    const month = String(value.getMonth() + 1).padStart(2, '0')
+    const day = String(value.getDate()).padStart(2, '0')
+
+    return `${value.getFullYear()}-${month}-${day}`
   },
 
   formatTime(value) {
@@ -154,11 +229,5 @@ Page({
     }
 
     return value.replace('T', ' ').slice(5, 16)
-  },
-
-  formatMonthDay(date) {
-    const month = date.getMonth() + 1
-    const day = date.getDate()
-    return `${date.getFullYear()}年${month}月${day}日`
   }
 })

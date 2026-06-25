@@ -3,11 +3,11 @@ const api = require('../../../utils/api')
 Page({
   data: {
     factoryName: '未命名工厂',
-    factoryCode: '-',
+    factoryStatus: '计件制造 · 正常',
     factoryInitial: '工',
     rows: [
       { label: '工厂名称', value: '未命名工厂' },
-      { label: '工厂编码', value: '-' },
+      { label: '工厂状态', value: '正常' },
       { label: '所属行业', value: '计件制造' },
       { label: '所在地区', value: '未填写' },
       { label: '联系人', value: '管理员' }
@@ -39,11 +39,11 @@ Page({
 
       this.setData({
         factoryName: factory.name || this.data.factoryName,
-        factoryCode: factory.inviteCode || factory.id,
+        factoryStatus: '计件制造 · 正常',
         factoryInitial: (factory.name || '工').slice(0, 1),
         rows: [
           { label: '工厂名称', value: factory.name || '未命名工厂' },
-          { label: '工厂编码', value: factory.inviteCode || factory.id },
+          { label: '工厂状态', value: '正常' },
           { label: '所属行业', value: '计件制造' },
           { label: '所在地区', value: '未填写' },
           { label: '联系人', value: '管理员' }

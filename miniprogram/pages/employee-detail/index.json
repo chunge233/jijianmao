@@ -1,5 +1,4 @@
 {
-  "usingComponents": {
-    "pen-screen": "/components/pen-screen/index"
-  }
+  "navigationStyle": "custom",
+  "disableScroll": false
 }

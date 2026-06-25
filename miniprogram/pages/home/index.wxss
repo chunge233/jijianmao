@@ -1,9 +1,12 @@
 .home-page {
+  box-sizing: border-box;
   min-height: 100vh;
   background: #F3F4F6;
 }
 
 .home-content {
+  box-sizing: border-box;
+  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 28rpx;

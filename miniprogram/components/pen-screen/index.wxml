@@ -194,7 +194,17 @@
     <text wx:if="{{viewScreen.bottomHint}}" class="pen-bottom-hint">{{viewScreen.bottomHint}}</text>
     <view class="pen-bottom-actions">
       <block wx:for="{{viewScreen.bottomActions}}" wx:key="title">
+        <button
+          wx:if="{{item.openType}}"
+          class="pen-button {{item.type == 'secondary' ? 'is-secondary' : ''}} {{item.type == 'danger' ? 'is-danger' : ''}}"
+          open-type="{{item.openType}}"
+          data-path="{{item.path}}"
+          data-action="{{item.action}}"
+          data-title="{{item.title}}"
+          bindtap="emitAction"
+        >{{item.title}}</button>
         <view
+          wx:else
           class="pen-button {{item.type == 'secondary' ? 'is-secondary' : ''}} {{item.type == 'danger' ? 'is-danger' : ''}}"
           data-path="{{item.path}}"
           data-action="{{item.action}}"

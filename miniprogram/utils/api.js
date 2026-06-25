@@ -72,6 +72,10 @@ const api = {
     return request({ url: '/api/factories', method: 'POST', data })
   },
 
+  getFactoryInvite(inviteCode) {
+    return request({ url: `/api/factories/invite/${encodeURIComponent(inviteCode)}` })
+  },
+
   joinFactory(inviteCode) {
     return request({ url: '/api/factories/join', method: 'POST', data: { inviteCode } })
   },

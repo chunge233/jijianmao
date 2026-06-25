@@ -592,7 +592,7 @@ const screens = {
     title: '帮助与反馈',
     sections: [
       listSection('常见问题', [
-        { title: '如何加入工厂？', desc: '通过邀请码或搜索工厂提交加入申请。' },
+        { title: '如何加入工厂？', desc: '由管理员发起成员邀请。' },
         { title: '报工被驳回怎么办？', desc: '查看驳回原因，修改后重新提交。' },
         { title: '工资金额有误怎么办？', desc: '在工资详情中提出异议。' }
       ]),
@@ -620,8 +620,7 @@ const screens = {
     sections: [
       listSection('我的工厂', [
         { title: '当前工厂', desc: '管理员 · 当前使用', tag: '当前', tagTone: 'blue', icon: icon.buildings },
-        { title: '已加入工厂', desc: '员工 · 已加入', value: '切换', icon: icon.buildings, action: 'switchFactory' },
-        { title: '加入新工厂', desc: '通过邀请码或搜索工厂加入', path: '/pages/factory-join/index', icon: icon.users }
+        { title: '已加入工厂', desc: '员工 · 已加入', value: '切换', icon: icon.buildings, action: 'switchFactory' }
       ])
     ]
   },
@@ -641,14 +640,14 @@ const screens = {
   inviteMember: {
     title: '邀请成员',
     sections: [
-      { id: 'code', type: 'notice', tone: 'blue', icon: icon.users, heading: '邀请码', desc: '成员可通过邀请码加入工厂，管理员审核后生效。' },
+      { id: 'code', type: 'notice', tone: 'blue', icon: icon.users, heading: '成员邀请', desc: '把工厂邀请发送给同事，便于快速加入团队。' },
       listSection('邀请设置', [
         { title: '默认角色', value: '员工' },
         { title: '有效期', value: '7天' },
         { title: '是否需要审核', tag: '需要', tagTone: 'green' }
       ])
     ],
-    bottomActions: [{ title: '复制邀请码', action: 'copyInvite' }]
+    bottomActions: [{ title: '发送邀请', action: 'shareInvite', openType: 'share' }]
   },
 
   joinApproval: {
@@ -662,7 +661,7 @@ const screens = {
           tagTone: 'amber',
           meta: [
             { label: '申请时间', value: '今天 10:30' },
-            { label: '来源', value: '邀请码' }
+            { label: '来源', value: '邀请' }
           ]
         }
       ])

@@ -6,7 +6,7 @@
       <view class="factory-logo">{{factoryInitial}}</view>
       <view class="factory-copy">
         <text>{{factoryName}}</text>
-        <text>工厂编码 {{factoryCode}}</text>
+        <text>{{factoryStatus}}</text>
       </view>
       <text class="status-tag tag-green">正常</text>
     </view>

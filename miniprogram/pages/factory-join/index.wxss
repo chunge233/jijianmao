@@ -70,15 +70,20 @@
 }
 
 .factory-copy {
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 6rpx;
 }
 
 .factory-name {
+  overflow: hidden;
   color: #111827;
   font-size: 27rpx;
   font-weight: 700;
+  line-height: 38rpx;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .factory-address,
@@ -88,20 +93,34 @@
   font-size: 22rpx;
 }
 
-.invite-input {
-  height: 84rpx;
-  box-sizing: border-box;
-  padding: 0 24rpx;
-  border-radius: 14rpx;
-  background: #FFFFFF;
-  color: #111827;
-  font-size: 26rpx;
-  font-weight: 600;
+.factory-stats {
+  display: flex;
+  gap: 14rpx;
 }
 
-.invite-placeholder {
-  color: #9CA3AF;
-  font-weight: 400;
+.factory-stat {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+  padding: 18rpx 10rpx;
+  border-radius: 14rpx;
+  background: #FFFFFF;
+}
+
+.factory-stat-value {
+  color: #111827;
+  font-size: 26rpx;
+  font-weight: 700;
+  line-height: 34rpx;
+}
+
+.factory-stat-label {
+  color: #6B7280;
+  font-size: 20rpx;
+  line-height: 28rpx;
 }
 
 .avatar-row {
@@ -172,4 +191,41 @@
   color: #FFFFFF;
   font-size: 28rpx;
   font-weight: 600;
+}
+
+.join-button.is-disabled {
+  background: #CBD5E1;
+}
+
+.state-card {
+  align-items: center;
+  padding-top: 44rpx;
+  padding-bottom: 44rpx;
+}
+
+.state-icon {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 36rpx;
+  background: #DBEAFE;
+  color: #1A56DB;
+  font-size: 28rpx;
+  font-weight: 700;
+}
+
+.state-title {
+  color: #111827;
+  font-size: 28rpx;
+  font-weight: 700;
+  line-height: 38rpx;
+}
+
+.state-desc {
+  color: #6B7280;
+  font-size: 22rpx;
+  line-height: 32rpx;
+  text-align: center;
 }

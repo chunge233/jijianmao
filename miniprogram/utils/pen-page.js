@@ -118,7 +118,7 @@ function createPenPage(screen) {
     copyInviteCode() {
       const factory = wx.getStorageSync('current_factory') || {}
       if (factory.inviteCode) {
-        this.copyText(factory.inviteCode, '邀请码已复制')
+        this.copyText(factory.inviteCode, '邀请已复制')
         return
       }
 
@@ -127,9 +127,9 @@ function createPenPage(screen) {
         phone: '',
         role: 'employee'
       }).then((res) => {
-        this.copyText((res && res.inviteCode) || '', '邀请码已复制')
+        this.copyText((res && res.inviteCode) || '', '邀请已复制')
       }).catch(() => {
-        wx.showToast({ title: '邀请码获取失败', icon: 'none' })
+        wx.showToast({ title: '邀请获取失败', icon: 'none' })
       })
     },
 
